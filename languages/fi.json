@@ -1,0 +1,19 @@
+{
+  "translation": {
+    "email": "Sähköposti",
+    "password": "Salasana",
+    "username": "Käyttjätunnus",
+    "name": "Koko nimi",
+    "birthday": "Syntymäpäivä",
+    "school": "Koulu",
+    "register": "Rekisteröidy",
+    "gotologin": "Onko sinulla jo tunnus? Kirjaudu",
+    "register_form_success": "Rekisteröinti onnistui! Voit nyt kirjautua.",
+    "register_form_error": "We encountered unexpected issues when handling your request",
+    "email_validation": "Sähköposti ei voi olla tyhjä",
+    "password_validation": "Salasana ei voi olla tyhjä",
+    "register_email_validation": "Antamasi sähköposti ei ole oikea sähköpostiosoite",
+    "register_password_validation_short": "Salasanan täytyy olla vähintään 8 kirjainta pitkä",
+    "register_password_validation_long": "Salasanan täytyy olla alle 256 kirjainta pitkä"
+  }
+}

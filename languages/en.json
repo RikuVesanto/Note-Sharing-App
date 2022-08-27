@@ -1,0 +1,19 @@
+{
+  "translation": {
+    "email": "Email",
+    "password": "Password",
+    "username": "Username",
+    "name": "Full name",
+    "birthday": "Birthday",
+    "school": "School",
+    "register": "Register",
+    "gotologin": "Already have an account? Login",
+    "register_form_success": "Registration successful! You can now login.",
+    "register_form_error": "We encountered unexpected issues when handling your request",
+    "email_validation": "Email can't be empty",
+    "password_validation": "Password can't be empty",
+    "register_email_validation": "The email you provided isn't a valid email address",
+    "register_password_validation_short": "Password must have at least 8 characters",
+    "register_password_validation_long": "Password must have less than 256 characters"
+  }
+}
