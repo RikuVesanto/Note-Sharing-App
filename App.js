@@ -1,20 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, ImageBackground } from 'react-native'
+import Register from './src/features/register/Register'
+import ChangeLanguage from './src/features/language-select/ChangeLanguage'
+import styles from './src/utils/styles'
+import background from './assets/school_background.jpg'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text></Text>
-      <StatusBar style="auto" />
+    <View style={styles.appContainer}>
+      <ImageBackground
+        source={background}
+        resizeMode="cover"
+        style={styles.imageBackground}
+      >
+        <Register />
+        <ChangeLanguage />
+      </ImageBackground>
     </View>
-  );
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
