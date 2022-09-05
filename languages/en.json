@@ -14,6 +14,12 @@
     "password_validation": "Password can't be empty",
     "register_email_validation": "The email you provided isn't a valid email address",
     "register_password_validation_short": "Password must have at least 8 characters",
-    "register_password_validation_long": "Password must have less than 256 characters"
+    "register_password_validation_long": "Password must have less than 256 characters",
+    "login": "Login",
+    "gotoregister": "Don't have an account? Register",
+    "language": "Language",
+    "username_validation": "Username can't be empty",
+    "register_username_validation_validation_short": "Username must have at least 4 characters",
+    "register_username_validation_validation_long": "Username must have at most 32 characters"
   }
 }

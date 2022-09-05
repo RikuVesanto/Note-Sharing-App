@@ -27,15 +27,13 @@ async function executeRequestCallbacks(request, callbacks) {
 }
 
 /**
- * Register new user with given data.
+ * Post given data and execute the given callback based on the result.
  * @param {*} data Object that includes user data for registration.
- * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion
+ * @param {*} requestUrl The specific route that the request is made to.
+ * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
-async function register(data, callbacks) {
-  await executeRequestCallbacks(
-    axios.post(`${url}/users/register`, data),
-    callbacks
-  )
+async function postData(data, requestUrl, callbacks) {
+  await executeRequestCallbacks(axios.post(url + requestUrl, data), callbacks)
 }
 
-export { register }
+export { postData }
