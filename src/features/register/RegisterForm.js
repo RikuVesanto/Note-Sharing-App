@@ -10,16 +10,13 @@ import React, { useState } from 'react'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { RegisterValidationSchema } from '../../utils/validation-schemas'
-import { register } from '../../utils/http-requests'
+import { postData } from '../../utils/http-requests'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
-import '../language-select/i18n'
-import { useTranslation } from 'react-i18next'
+import i18n from '../language-select/i18n'
 import styles from '../../utils/styles'
 
 export default function RegisterForm() {
-  const { t } = useTranslation()
-
   const [hidden, setHidden] = useState(true)
   var source = hidden
     ? require('../../../assets/eye-off-fill.png')
@@ -46,7 +43,7 @@ export default function RegisterForm() {
     if (values.name != '') data.name = values.name
     if (values.school != '') data.school = values.school
     if (stateBirthday) data.birthday = stateBirthday.toISOString()
-    await register(data, {
+    await postData(data, '/users/register', {
       onSuccess: async (response) => {
         console.log(response)
       },
@@ -54,7 +51,7 @@ export default function RegisterForm() {
         console.log(error)
         let message = ''
         if (error.response.status === 500) {
-          message = t('register_form_error')
+          message = i18n.t('register_form_error')
         } else {
           message = error.response.data
         }
@@ -94,7 +91,7 @@ export default function RegisterForm() {
                 styles.input,
                 touched.email && errors.email && styles.inputError,
               ]}
-              placeholder={t('email')}
+              placeholder={i18n.t('email')}
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
               value={values.email}
@@ -110,7 +107,7 @@ export default function RegisterForm() {
                 styles.input,
                 touched.username && errors.username && styles.inputError,
               ]}
-              placeholder={t('username')}
+              placeholder={i18n.t('username')}
               onChangeText={handleChange('username')}
               onBlur={handleBlur('username')}
               value={values.username}
@@ -138,7 +135,7 @@ export default function RegisterForm() {
                 styles.input,
                 touched.password && errors.password && styles.inputError,
               ]}
-              placeholder={t('password')}
+              placeholder={i18n.t('password')}
               onChangeText={handleChange('password')}
               secureTextEntry={hidden}
               onBlur={handleBlur('password')}
@@ -153,7 +150,7 @@ export default function RegisterForm() {
                 styles.input,
                 touched.name && errors.name && styles.inputError,
               ]}
-              placeholder={t('name')}
+              placeholder={i18n.t('name')}
               onChangeText={handleChange('name')}
               onBlur={handleBlur('name')}
               value={values.name}
@@ -177,7 +174,7 @@ export default function RegisterForm() {
             </View>
             <TextInput
               style={styles.input}
-              placeholder={t('birthday')}
+              placeholder={i18n.t('birthday')}
               value={
                 stateBirthday ? moment(stateBirthday).format('DD.MM.Y') : ''
               }
@@ -197,7 +194,7 @@ export default function RegisterForm() {
                 styles.input,
                 touched.school && errors.school && styles.inputError,
               ]}
-              placeholder={t('school')}
+              placeholder={i18n.t('school')}
               onChangeText={handleChange('school')}
               onBlur={handleBlur('school')}
               value={values.school}
@@ -208,7 +205,7 @@ export default function RegisterForm() {
           </View>
           <View style={styles.buttonStyle}>
             <Button
-              title={t('register')}
+              title={i18n.t('register')}
               onPress={handleSubmit}
               disabled={!isValid}
             />

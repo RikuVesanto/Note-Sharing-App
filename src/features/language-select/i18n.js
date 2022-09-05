@@ -1,7 +1,7 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import en from '../../../languages/en.json'
-import fi from '../../../languages/fi.json'
+import english from '../../../languages/en.json'
+import finnish from '../../../languages/fi.json'
 import AppStorage from '../../utils/secure-store'
 
 AppStorage.getValueFor('language').then((language) =>
@@ -10,8 +10,8 @@ AppStorage.getValueFor('language').then((language) =>
     lng: language,
     fallbackLng: 'en',
     resources: {
-      en: en,
-      fi: fi,
+      en: english,
+      fi: finnish,
     },
     interpolation: {
       escapeValue: false, // react already safes from xss

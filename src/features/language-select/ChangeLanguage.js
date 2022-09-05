@@ -1,15 +1,12 @@
 import { TouchableOpacity, Text, View, ImageBackground } from 'react-native'
-import './i18n'
-import { useTranslation } from 'react-i18next'
-import i18n from 'i18next'
+import i18n from './i18n'
+import i18next from 'i18next'
 import AppStorage from '../../utils/secure-store'
 import styles from '../../utils/styles'
 
-function ChangeLanguage(props) {
-  const { t } = useTranslation()
-
+export default function ChangeLanguage(props) {
   const changeLanguage = async (value) => {
-    i18n
+    i18next
       .changeLanguage(value)
       .then(() => AppStorage.save('language', value))
       .catch((err) => console.log(err))
@@ -17,7 +14,7 @@ function ChangeLanguage(props) {
 
   return (
     <View>
-      <Text style={styles.languageSelectTitle}>{t('language')}</Text>
+      <Text style={styles.languageSelectTitle}>{i18n.t('language')}</Text>
       <View style={styles.languageButtonContainer}>
         <TouchableOpacity title="FI" onPress={() => changeLanguage('fi')}>
           <ImageBackground
@@ -38,5 +35,3 @@ function ChangeLanguage(props) {
     </View>
   )
 }
-
-export default ChangeLanguage

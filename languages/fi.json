@@ -14,6 +14,12 @@
     "password_validation": "Salasana ei voi olla tyhjä",
     "register_email_validation": "Antamasi sähköposti ei ole oikea sähköpostiosoite",
     "register_password_validation_short": "Salasanan täytyy olla vähintään 8 kirjainta pitkä",
-    "register_password_validation_long": "Salasanan täytyy olla alle 256 kirjainta pitkä"
+    "register_password_validation_long": "Salasanan täytyy olla alle 256 kirjainta pitkä",
+    "login": "Kirjaudu",
+    "gotoregister": "Eikö sinulla ole tunnusta? Rekisteröidy",
+    "language": "Kieli",
+    "username_validation": "Käyttäjänimi ei saa olla tyjä",
+    "register_username_validation_validation_short": "Käyttäjänimi täytyy olla vähintään 4 kirjainta pitkä",
+    "register_username_validation_validation_long": "Käyttjänimen täytyy olla enintään 32 kirjainta pitkä"
   }
 }

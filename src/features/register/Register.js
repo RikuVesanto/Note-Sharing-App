@@ -1,20 +1,16 @@
 import { Text, TouchableOpacity, ScrollView } from 'react-native'
 import RegisterForm from './RegisterForm'
-import '../language-select/i18n'
-import { useTranslation } from 'react-i18next'
+import i18n from '../language-select/i18n'
 import styles from '../../utils/styles'
 
-function Register() {
-  const { t } = useTranslation()
+export default function Register({ setLoginScreen }) {
   return (
     <ScrollView contentContainerStyle={styles.registerContainer}>
-      <Text style={styles.headerStyle}>{t('register')}</Text>
+      <Text style={styles.headerStyle}>{i18n.t('register')}</Text>
       <RegisterForm />
-      <TouchableOpacity onPress={() => console.log()}>
-        <Text style={styles.hyperlink}>{t('gotologin')}</Text>
+      <TouchableOpacity onPress={() => setLoginScreen(true)}>
+        <Text style={styles.hyperlink}>{i18n.t('gotologin')}</Text>
       </TouchableOpacity>
     </ScrollView>
   )
 }
-
-export default Register
