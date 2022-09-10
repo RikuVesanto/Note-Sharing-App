@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-url = 'http://192.168.1.249:3000'
+url = 'http://192.168.1.193:3000'
 
 /**
  * Execute the callbacks on axios HTTP request promise. Should not be used separately.

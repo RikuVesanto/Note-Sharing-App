@@ -6,6 +6,7 @@ import {
   ImageBackground,
 } from 'react-native'
 import React, { useState } from 'react'
+import jwt_decode from 'jwt-decode';
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { LoginValidationSchema } from '../../utils/validation-schemas'
@@ -14,7 +15,7 @@ import '../language-select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 
-export default function LoginForm({ setLoggedIn }) {
+export default function LoginForm({ setLoginInfo }) {
   const { t } = useTranslation()
   const [hidden, setHidden] = useState(true)
   var source = hidden
@@ -28,17 +29,15 @@ export default function LoginForm({ setLoggedIn }) {
     }
     await postData(data, '/users/login', {
       onSuccess: async (response) => {
-        console.log(response)
-        setLoggedIn(true)
+        console.log(response.status)
+        var decoded = jwt_decode(response.data)
+        console.log(decoded)
+        if (decoded) {
+          setLoginInfo(decoded)
+        }
       },
       onError: (error) => {
         console.log(error)
-        let message = ''
-        if (error.response.status === 500) {
-          message = t('register_form_error')
-        } else {
-          message = error.response.data
-        }
       },
     })
   }

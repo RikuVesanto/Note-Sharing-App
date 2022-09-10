@@ -7,8 +7,16 @@ import styles from './src/utils/styles'
 import background from './assets/school_background.jpg'
 
 export default function App() {
-  const [loginScreen, setLoginScreen] = useState(true)
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [loginPage, setLoginPage] = useState(true)
+  const [loginInfo, setLoginInfo] = useState("")
+
+  let loggedInScreen
+
+  const loginScreen = loginPage ? (
+    <Login setLoginPage={setLoginPage} setLoginInfo={setLoginInfo} />
+  ) : (
+    <Register setLoginPage={setLoginPage} />
+  )
 
   return (
     <View style={styles.appContainer}>
@@ -17,12 +25,8 @@ export default function App() {
         resizeMode="cover"
         style={styles.imageBackground}
       >
-        {loginScreen ? (
-          <Login setLoginScreen={setLoginScreen} setLoggedIn={setLoggedIn} />
-        ) : (
-          <Register setLoginScreen={setLoginScreen} />
-        )}
-        <ChangeLanguage />
+      {loginInfo != "" ? loggedInScreen : loginScreen}
+      <ChangeLanguage />
       </ImageBackground>
     </View>
   )
