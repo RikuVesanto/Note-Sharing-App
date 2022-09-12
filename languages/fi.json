@@ -20,6 +20,17 @@
     "language": "Kieli",
     "username_validation": "Käyttäjänimi ei saa olla tyjä",
     "register_username_validation_validation_short": "Käyttäjänimi täytyy olla vähintään 4 kirjainta pitkä",
-    "register_username_validation_validation_long": "Käyttjänimen täytyy olla enintään 32 kirjainta pitkä"
+    "register_username_validation_validation_long": "Käyttjänimen täytyy olla enintään 32 kirjainta pitkä",
+    "join_group": "Liity Ryhmään",
+    "create_group": "Luo Ryhmä",
+    "group_hub": "Ryhmätila",
+    "name_short_validation": "Nimen täytyy olla vähintään 4 kirjainta pitkä",
+    "name_long_validation": "Nimi ei saa olla yli 48 kirjainta pitkä",
+    "name_required_validation": "Nimi ei saa olla tyhjä",
+    "class_long_validation": "Luokka ei saa olla yli 48 kirjainta pitkä",
+    "description_long_validation": "Kuvaus ei saa olla yli 100 kirjainta pitkä",
+    "group_name": "Ryhmän nimi",
+    "class": "Luokka",
+    "description": "Kuvays"
   }
 }

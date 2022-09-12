@@ -97,4 +97,35 @@ export default StyleSheet.create({
     height: 50,
     width: 50,
   },
+  //Large Button
+  largeButton: {
+    backgroundColor: "#8eddfa",
+    padding: 10,
+    marginTop:50,
+    marginLeft: '15%',
+    width: '70%',
+    height: 125,
+    borderRadius:5,
+  },
+  largeButtonTitle:{
+    textAlign:'center',
+    marginTop:35,
+    fontWeight: 'bold',
+    fontSize: 24,
+  },
+  highInput: {
+    backgroundColor: '#fff',
+    height: 80,
+    width: '100%',
+    borderColor: '#777',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  highInputContainer: {
+    width: '80%',
+    height: 110,
+    alignSelf: 'center',
+  },
 })
