@@ -36,4 +36,15 @@ async function postData(data, requestUrl, callbacks) {
   await executeRequestCallbacks(axios.post(url + requestUrl, data), callbacks)
 }
 
-export { postData }
+/**
+ * Get data and execute the given callback based on the result.
+ * @param {*} requestUrl The specific route that the request is made to.
+ * @param {*} id Id used for finding the wanted data
+ * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
+ */
+ async function getData(requestUrl, callbacks) {
+  await executeRequestCallbacks(axios.get(url + requestUrl,
+  ), callbacks)
+}
+
+export { postData, getData }

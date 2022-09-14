@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, ScrollView } from 'react-native'
 import LoginForm from './LoginForm'
-import '../language-select/i18n'
+import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 

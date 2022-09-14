@@ -10,19 +10,21 @@ import {
   import { Formik } from 'formik'
   import { CreateGroupValidationSchema } from '../../utils/validation-schemas'
   import { postData } from '../../utils/http-requests'
-  import i18n from '../language-select/i18n'
+  import i18n from '../language_select/i18n'
   import styles from '../../utils/styles'
   
-  export default function RegisterForm() {
+  export default function RegisterForm({loginInfo}) {
     const [hidden, setHidden] = useState(true)
     var source = hidden
       ? require('../../../assets/eye-off-fill.png')
       : require('../../../assets/eye-fill.png')
   
     const sendData = async (values) => {
+      console.log(loginInfo)
       var data = {
         name: values.name,
         password: values.password,
+        creatorId:loginInfo.id
       }
       if (values.class != '') data.class = values.class
       if (values.description != '') data.description = values.description

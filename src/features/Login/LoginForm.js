@@ -11,7 +11,7 @@ import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { LoginValidationSchema } from '../../utils/validation-schemas'
 import { postData } from '../../utils/http-requests'
-import '../language-select/i18n'
+import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 
@@ -29,9 +29,7 @@ export default function LoginForm({ setLoginInfo }) {
     }
     await postData(data, '/users/login', {
       onSuccess: async (response) => {
-        console.log(response.status)
         var decoded = jwt_decode(response.data)
-        console.log(decoded)
         if (decoded) {
           setLoginInfo(decoded)
         }

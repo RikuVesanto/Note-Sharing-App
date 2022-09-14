@@ -13,7 +13,7 @@ import { RegisterValidationSchema } from '../../utils/validation-schemas'
 import { postData } from '../../utils/http-requests'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
-import i18n from '../language-select/i18n'
+import i18n from '../language_select/i18n'
 import styles from '../../utils/styles'
 
 export default function RegisterForm() {
