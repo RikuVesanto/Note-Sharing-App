@@ -31,6 +31,9 @@
     "description_long_validation": "Kuvaus ei saa olla yli 100 kirjainta pitkä",
     "group_name": "Ryhmän nimi",
     "class": "Luokka",
-    "description": "Kuvays"
+    "description": "Kuvays",
+    "new_topic": "Luo uusi aihe",
+    "topic": "Aihe",
+    "create_topic": "Luo Aihe"
   }
 }

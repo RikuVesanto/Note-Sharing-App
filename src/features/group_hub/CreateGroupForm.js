@@ -45,113 +45,115 @@ import {
     }
   
     return (
-      <Formik
-        initialValues={{
-          name: '',
-          class:'',
-          description: '',
-          password: '',
-        }}
-        validationSchema={CreateGroupValidationSchema}
-        validateOnMount={true}
-        onSubmit={(values) => {
-          sendData(values)
-        }}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          touched,
-          isValid,
-        }) => (
-          <View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.required}>*</Text>
-              <TextInput
-                style={[
-                  styles.input,
-                  touched.name && errors.name && styles.inputError,
-                ]}
-                placeholder={i18n.t('group_name')}
-                onChangeText={handleChange('name')}
-                onBlur={handleBlur('name')}
-                value={values.name}
-              />
-              {errors.name && touched.name && (
-                <Text style={styles.errorText}>{errors.name}</Text>
-              )}
-            </View>
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={[
-                  styles.input,
-                  touched.class && errors.class && styles.inputError,
-                ]}
-                placeholder={i18n.t('class')}
-                onChangeText={handleChange('class')}
-                onBlur={handleBlur('class')}
-                value={values.class}
-              />
-              {errors.class && touched.class && (
-                <Text style={styles.errorText}>{errors.class}</Text>
-              )}
-            </View>
-            <View style={styles.highInputContainer}>
-              <TextInput
-                style={[
-                  styles.highInput,
-                  touched.description && errors.description && styles.inputError,
-                ]}
-                placeholder={i18n.t('description')}
-                onChangeText={handleChange('description')}
-                onBlur={handleBlur('description')}
-                value={values.description}
-                multiline={true}
-              />
-              {errors.description && touched.description && (
-                <Text style={styles.errorText}>{errors.description}</Text>
-              )}
-            </View>
-            <View style={styles.inputContainer}>
-              <View style={styles.reveal}>
-                <TouchableOpacity
-                  title="reveal"
-                  onPress={() => setHidden(!hidden)}
-                >
-                  <ImageBackground
-                    style={styles.formFieldImage}
-                    source={source}
-                    resizeMode="center"
-                  ></ImageBackground>
-                </TouchableOpacity>
+      <View>
+        <Formik
+          initialValues={{
+            name: '',
+            class:'',
+            description: '',
+            password: '',
+          }}
+          validationSchema={CreateGroupValidationSchema}
+          validateOnMount={true}
+          onSubmit={(values) => {
+            sendData(values)
+          }}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+            isValid,
+          }) => (
+            <View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.required}>*</Text>
+                <TextInput
+                  style={[
+                    styles.input,
+                    touched.name && errors.name && styles.inputError,
+                  ]}
+                  placeholder={i18n.t('group_name')}
+                  onChangeText={handleChange('name')}
+                  onBlur={handleBlur('name')}
+                  value={values.name}
+                />
+                {errors.name && touched.name && (
+                  <Text style={styles.errorText}>{errors.name}</Text>
+                )}
               </View>
-              <TextInput
-                style={[
-                  styles.input,
-                  touched.password && errors.password && styles.inputError,
-                ]}
-                placeholder={i18n.t('password')}
-                onChangeText={handleChange('password')}
-                secureTextEntry={hidden}
-                onBlur={handleBlur('password')}
-              />
-              {errors.password && touched.password && (
-                <Text style={styles.errorText}>{errors.password}</Text>
-              )}
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={[
+                    styles.input,
+                    touched.class && errors.class && styles.inputError,
+                  ]}
+                  placeholder={i18n.t('class')}
+                  onChangeText={handleChange('class')}
+                  onBlur={handleBlur('class')}
+                  value={values.class}
+                />
+                {errors.class && touched.class && (
+                  <Text style={styles.errorText}>{errors.class}</Text>
+                )}
+              </View>
+              <View style={styles.highInputContainer}>
+                <TextInput
+                  style={[
+                    styles.highInput,
+                    touched.description && errors.description && styles.inputError,
+                  ]}
+                  placeholder={i18n.t('description')}
+                  onChangeText={handleChange('description')}
+                  onBlur={handleBlur('description')}
+                  value={values.description}
+                  multiline={true}
+                />
+                {errors.description && touched.description && (
+                  <Text style={styles.errorText}>{errors.description}</Text>
+                )}
+              </View>
+              <View style={styles.inputContainer}>
+                <View style={styles.reveal}>
+                  <TouchableOpacity
+                    title="reveal"
+                    onPress={() => setHidden(!hidden)}
+                  >
+                    <ImageBackground
+                      style={styles.formFieldImage}
+                      source={source}
+                      resizeMode="center"
+                    ></ImageBackground>
+                  </TouchableOpacity>
+                </View>
+                <TextInput
+                  style={[
+                    styles.input,
+                    touched.password && errors.password && styles.inputError,
+                  ]}
+                  placeholder={i18n.t('password')}
+                  onChangeText={handleChange('password')}
+                  secureTextEntry={hidden}
+                  onBlur={handleBlur('password')}
+                />
+                {errors.password && touched.password && (
+                  <Text style={styles.errorText}>{errors.password}</Text>
+                )}
+              </View>
+              <View style={styles.buttonStyle}>
+                <Button
+                  title={i18n.t('create_group')}
+                  onPress={handleSubmit}
+                  disabled={!isValid}
+                />
+              </View>
             </View>
-            <View style={styles.buttonStyle}>
-              <Button
-                title={i18n.t('create_group')}
-                onPress={handleSubmit}
-                disabled={!isValid}
-              />
-            </View>
-          </View>
-        )}
-      </Formik>
+          )}
+        </Formik>
+      </View>
     )
   }
   

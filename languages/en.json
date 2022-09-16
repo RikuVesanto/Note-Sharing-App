@@ -31,6 +31,9 @@
     "description_long_validation": "Description can't be more than 100 characters long",
     "group_name": "Group Name",
     "class": "Class",
-    "description": "Description"
+    "description": "Description",
+    "new_topic": "Create a new topic",
+    "topic": "Topic",
+    "create_topic": "Create Topic"
   }
 }

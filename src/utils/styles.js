@@ -128,4 +128,43 @@ export default StyleSheet.create({
     height: 110,
     alignSelf: 'center',
   },
+  //topic buttons
+  topicButton: {
+    backgroundColor: "#8eddfa",
+    marginLeft: '10%',
+    marginBottom: 30,
+    width: '80%',
+    height: 100,
+    borderRadius:5,
+  },
+  topicTitle: {
+    textAlign:'center',
+    marginTop:10,
+    fontWeight: 'bold',
+    fontSize: 18,
+  },  
+  topicDescription: {
+    textAlign:'center',
+    marginTop:10,
+    fontSize: 14,
+  },
+  formTitle: {   
+    textAlign:'center',
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginTop: 20,
+    marginBottom: 40,
+  },
+  newTopicTitle: {
+    textAlign:'center',
+    marginTop:35,
+    fontWeight: 'bold',
+    fontSize: 18,
+  },  
+  //back button
+  backButton: {
+    marginLeft: 50,
+    height: 50,
+    width: 50,
+  }
 })

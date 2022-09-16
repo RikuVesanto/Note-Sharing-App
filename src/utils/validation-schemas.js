@@ -41,4 +41,12 @@ module.exports = {
     .max(256, i18n.t('register_password_validation_long'))
     .required(i18n.t('password_validation')),
   }),
+  CreateTopicValidationSchema: Yup.object().shape({
+    topic: Yup.string()
+    .min(1, i18n.t('topic_short_validation'))
+    .max(48, i18n.t('topic_long_validation'))
+    .required(i18n.t('topic_required_validation')),
+    description: Yup.string()
+    .max(100, i18n.t('description_long_validation')),
+  }),
 }

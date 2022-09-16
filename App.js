@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { View, ImageBackground } from 'react-native'
+import { View } from 'react-native'
 import Register from './src/features/register/Register'
 import Login from './src/features/login/Login'
 import ChangeLanguage from './src/features/language_select/ChangeLanguage'
 import GroupHub from './src/features/group_hub/GroupHub'
-import GroupPage from './src/features/group_list/GroupPage'
+import GroupPage from './src/features/group_page/GroupPage'
 import styles from './src/utils/styles'
-import background from './assets/school_background.jpg'
 import { getData } from './src/utils/http-requests'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
@@ -51,7 +50,7 @@ export default function App() {
     for (var group of groups) {
       if (list.includes(group.name)) {
       } else {
-      screens.push(<Drawer.Screen key={group.name} name={group.name} component={GroupPage} />)
+      screens.push(<Drawer.Screen key={group.name} name={group.name} children={() => <GroupPage {...group} />}/>)
       list.push(group.name)
       }
     }
@@ -60,10 +59,10 @@ export default function App() {
 
   let loggedInScreen = <NavigationContainer>
   <Drawer.Navigator>
-    {groupScreens}
-  <Drawer.Screen name="bi" component={GroupHub} />
+  {groupScreens}
+  <Drawer.Screen name="Group Hub" children={() => <GroupHub loginInfo={loginInfo} />} />
   </Drawer.Navigator>
-</NavigationContainer>
+  </NavigationContainer>
 
   const loginScreen = loginPage ? (
     <Login setLoginPage={setLoginPage} setLoginInfo={setLoginInfo} />
