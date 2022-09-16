@@ -34,6 +34,7 @@
     "description": "Kuvays",
     "new_topic": "Luo uusi aihe",
     "topic": "Aihe",
-    "create_topic": "Luo Aihe"
+    "create_topic": "Luo Aihe",
+    "create_note": "Create Note"
   }
 }

@@ -34,6 +34,7 @@
     "description": "Description",
     "new_topic": "Create a new topic",
     "topic": "Topic",
-    "create_topic": "Create Topic"
+    "create_topic": "Create Topic",
+    "create_note": "Luo merkintä"
   }
 }

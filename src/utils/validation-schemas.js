@@ -49,4 +49,11 @@ module.exports = {
     description: Yup.string()
     .max(100, i18n.t('description_long_validation')),
   }),
+  NoteValidationSchema: Yup.object().shape({
+    title: Yup.string()
+    .min(1, i18n.t('topic_short_validation'))
+    .max(48, i18n.t('topic_long_validation')),
+    content: Yup.string()
+    .required(i18n.t('topic_required_validation'))
+  }),
 }

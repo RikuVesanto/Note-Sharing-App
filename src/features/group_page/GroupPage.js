@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, TouchableOpacity, Text } from 'react-native'
+import { ScrollView, TouchableOpacity, Text, View } from 'react-native'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import NewTopicForm from './NewTopicForm'
-import Topic from './Topic'
+import Topic from '../topic_page/Topic'
 import { getData } from '../../utils/http-requests'
 
 export default function GroupHub({name, id }) {
   const { t } = useTranslation()
 
   const [newTopicFormVisible, setNewTopicFormVisible] = useState(false)
-  const [topicsNotesVisible, setTopicsNotesVisible] = useState([])
+  const [topicsNotesVisible, setTopicsNotesVisible] = useState(false)
   const [topicButtons, setTopicButtons] = useState([])
   const [topics, setTopics] = useState([])
   const [activeTopic, setActiveTopic] = useState([])
 
 useEffect(() => {
   getTopics()
-} , [])
 
+} , [])
 
 useEffect(() => {
   createTopicButtons()
@@ -59,12 +59,14 @@ const createTopicButtons = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.registerContainer}>
-      {topicsNotesVisible && <Topic {...activeTopic}/>}
-      <Text style={styles.headerStyle}>{name}</Text>
-      {topicButtons}
-      <TouchableOpacity style={styles.topicButton} onPress={() => setNewTopicFormVisible(true)}>
-          <Text style={styles.newTopicTitle}>{t('new_topic')}</Text>
-      </TouchableOpacity>
+      {topicsNotesVisible ? <Topic {...activeTopic} setTopicsNotesVisible={setTopicsNotesVisible} topicsNotesVisible={topicsNotesVisible}/> :
+      <View>
+        <Text style={styles.headerStyle}>{name}</Text>
+        {topicButtons}
+        <TouchableOpacity style={styles.topicButton} onPress={() => setNewTopicFormVisible(true)}>
+            <Text style={styles.newTopicTitle}>{t('new_topic')}</Text>
+        </TouchableOpacity>
+      </View>}
       <NewTopicForm newTopicFormVisible={newTopicFormVisible} setNewTopicFormVisible={setNewTopicFormVisible} groupId={id}/>
     </ScrollView>
   )

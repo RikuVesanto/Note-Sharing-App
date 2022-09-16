@@ -166,5 +166,10 @@ export default StyleSheet.create({
     marginLeft: 50,
     height: 50,
     width: 50,
+  },
+  addnoteButton: {
+    height: 50,
+    width: 50,
+    marginLeft:30
   }
 })
