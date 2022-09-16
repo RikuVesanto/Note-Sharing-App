@@ -19,7 +19,9 @@ export default function App() {
   const [groupScreens, setGroupScreens] = useState([])
 
   useEffect(() => {
-    getGroups()
+    if (loginInfo != "") {
+      getGroups()
+    }
   } , [loginInfo])
 
   useEffect(() => {

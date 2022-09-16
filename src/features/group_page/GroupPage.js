@@ -45,7 +45,7 @@ const getTopics = async () => {
 const createTopicButtons = () => {
   let buttons = []
   for (var topic of topics) {
-      buttons.push(<TouchableOpacity style={styles.topicButton} onPress={() => 
+      buttons.push(<TouchableOpacity style={styles.topicButton} key={topic.topic} onPress={() => 
       {
         setActiveTopic(topic)
         setTopicsNotesVisible(true)
