@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import NewTopicForm from './NewTopicForm'
 import Topic from '../topic_page/Topic'
+import TopicCard from './TopicCard'
 import { getData } from '../../utils/http-requests'
 
 export default function GroupHub({name, id }) {
@@ -12,7 +13,7 @@ export default function GroupHub({name, id }) {
 
   const [newTopicFormVisible, setNewTopicFormVisible] = useState(false)
   const [topicsNotesVisible, setTopicsNotesVisible] = useState(false)
-  const [topicButtons, setTopicButtons] = useState([])
+  const [topicCards, setTopicCards] = useState([])
   const [topics, setTopics] = useState([])
   const [activeTopic, setActiveTopic] = useState([])
 
@@ -22,7 +23,7 @@ useEffect(() => {
 } , [])
 
 useEffect(() => {
-  createTopicButtons()
+  createTopicCards()
 } , [topics])
 
 const getTopics = async () => {
@@ -42,19 +43,12 @@ const getTopics = async () => {
     })
 }
 
-const createTopicButtons = () => {
-  let buttons = []
+const createTopicCards = () => {
+  let cards = []
   for (var topic of topics) {
-      buttons.push(<TouchableOpacity style={styles.topicButton} key={topic.topic} onPress={() => 
-      {
-        setActiveTopic(topic)
-        setTopicsNotesVisible(true)
-      }
-      }>
-      <Text style={styles.topicTitle}>{topic.topic}</Text>
-      <Text style={styles.topicDescription}>{topic.description}</Text></TouchableOpacity>)
+    cards.push(<TopicCard title={topic.topic} description={topic.description} action={() => {setActiveTopic(topic);setTopicsNotesVisible(true)}}/>)
   }
-  setTopicButtons(buttons)
+  setTopicCards(cards)
 }
 
   return (
@@ -62,10 +56,8 @@ const createTopicButtons = () => {
       {topicsNotesVisible ? <Topic {...activeTopic} setTopicsNotesVisible={setTopicsNotesVisible} topicsNotesVisible={topicsNotesVisible}/> :
       <View>
         <Text style={styles.headerStyle}>{name}</Text>
-        {topicButtons}
-        <TouchableOpacity style={styles.topicButton} onPress={() => setNewTopicFormVisible(true)}>
-            <Text style={styles.newTopicTitle}>{t('new_topic')}</Text>
-        </TouchableOpacity>
+        {topicCards}
+        <TopicCard title={t('new_topic')} action={setNewTopicFormVisible}/>
       </View>}
       <NewTopicForm newTopicFormVisible={newTopicFormVisible} setNewTopicFormVisible={setNewTopicFormVisible} groupId={id}/>
     </ScrollView>
