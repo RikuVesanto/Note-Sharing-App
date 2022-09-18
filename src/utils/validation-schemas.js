@@ -56,4 +56,8 @@ module.exports = {
     content: Yup.string()
     .required(i18n.t('topic_required_validation'))
   }),
+  SearchValidationSchema: Yup.object().shape({
+    search: Yup.string()
+    .required(i18n.t('search_required_validation'))
+  }),
 }
