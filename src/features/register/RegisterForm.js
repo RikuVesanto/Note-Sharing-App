@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   TextInput,
   Keyboard,
   TouchableOpacity,
@@ -14,14 +13,12 @@ import { postData } from '../../utils/http-requests'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
 import i18n from '../language_select/i18n'
+import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
+import FormField from '../general_components/FormField'
 
 export default function RegisterForm() {
-  const [hidden, setHidden] = useState(true)
-  var source = hidden
-    ? require('../../../assets/eye-off-fill.png')
-    : require('../../../assets/eye-fill.png')
-
+  const { t } = useTranslation()
   const [stateBirthday, setStateBirthday] = useState(null)
   const [showDatePicker, setShowDatePicker] = useState(false)
 
@@ -84,81 +81,16 @@ export default function RegisterForm() {
         isValid,
       }) => (
         <View>
-          <View style={styles.inputContainer}>
-            <Text style={styles.required}>*</Text>
-            <TextInput
-              style={[
-                styles.input,
-                touched.email && errors.email && styles.inputError,
-              ]}
-              placeholder={i18n.t('email')}
-              onChangeText={handleChange('email')}
-              onBlur={handleBlur('email')}
-              value={values.email}
-            />
-            {errors.email && touched.email && (
-              <Text style={styles.errorText}>{errors.email}</Text>
-            )}
-          </View>
-          <View style={styles.inputContainer}>
-            <Text style={styles.required}>*</Text>
-            <TextInput
-              style={[
-                styles.input,
-                touched.username && errors.username && styles.inputError,
-              ]}
-              placeholder={i18n.t('username')}
-              onChangeText={handleChange('username')}
-              onBlur={handleBlur('username')}
-              value={values.username}
-            />
-            {errors.username && touched.username && (
-              <Text style={styles.errorText}>{errors.username}</Text>
-            )}
-          </View>
-          <View style={styles.inputContainer}>
-            <Text style={styles.required}>*</Text>
-            <View style={styles.reveal}>
-              <TouchableOpacity
-                title="reveal"
-                onPress={() => setHidden(!hidden)}
-              >
-                <ImageBackground
-                  style={styles.formFieldImage}
-                  source={source}
-                  resizeMode="center"
-                ></ImageBackground>
-              </TouchableOpacity>
-            </View>
-            <TextInput
-              style={[
-                styles.input,
-                touched.password && errors.password && styles.inputError,
-              ]}
-              placeholder={i18n.t('password')}
-              onChangeText={handleChange('password')}
-              secureTextEntry={hidden}
-              onBlur={handleBlur('password')}
-            />
-            {errors.password && touched.password && (
-              <Text style={styles.errorText}>{errors.password}</Text>
-            )}
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={[
-                styles.input,
-                touched.name && errors.name && styles.inputError,
-              ]}
-              placeholder={i18n.t('name')}
-              onChangeText={handleChange('name')}
-              onBlur={handleBlur('name')}
-              value={values.name}
-            />
-            {errors.name && touched.name && (
-              <Text style={styles.errorText}>{errors.name}</Text>
-            )}
-          </View>
+          <FormField hideText={false} required={true} largeField={false} placeholder={t('email')} handleChange={() => handleChange('email')}
+            handleBlur={() => handleBlur('email')} errors={errors} touched={touched}/>
+          <FormField hideText={false} required={true} largeField={false} placeholder={t('username')} handleChange={() => handleChange('username')}
+            handleBlur={() => handleBlur('username')} errors={errors} touched={touched}/>
+          <FormField hideText={true} required={true} largeField={false} placeholder={t('password')} handleChange={() => handleChange('password')}
+            handleBlur={() => handleBlur('password')} errors={errors} touched={touched}/>
+          <FormField hideText={false} required={false} largeField={false} placeholder={t('name')} handleChange={() => handleChange('name')}
+            handleBlur={() => handleBlur('name')} errors={errors} touched={touched}/>
+          <FormField hideText={false} required={false} largeField={false} placeholder={t('school')} handleChange={() => handleChange('school')}
+            handleBlur={() => handleBlur('school')} errors={errors} touched={touched}/>
           <View style={styles.inputContainer}>
             <View style={styles.reveal}>
               <TouchableOpacity
@@ -186,21 +118,6 @@ export default function RegisterForm() {
                 mode="date"
                 onChange={onBirthdayChange}
               />
-            )}
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={[
-                styles.input,
-                touched.school && errors.school && styles.inputError,
-              ]}
-              placeholder={i18n.t('school')}
-              onChangeText={handleChange('school')}
-              onBlur={handleBlur('school')}
-              value={values.school}
-            />
-            {errors.school && touched.school && (
-              <Text style={styles.errorText}>{errors.school}</Text>
             )}
           </View>
           <View style={styles.buttonStyle}>

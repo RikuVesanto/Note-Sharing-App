@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {Text, View, TextInput} from 'react-native'
+import {View} from 'react-native'
 import styles from '../../utils/styles'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import i18n from '../language_select/i18n'
 import { getData, postData } from '../../utils/http-requests'
 import SearchResultCard from './SearchResultCard'
+import FormField from '../general_components/FormField'
 
 export default function GroupSearch({userId}) {
     const [groups, setGroups] = useState("")
@@ -91,22 +92,8 @@ export default function GroupSearch({userId}) {
         isValid,
         }) => (
         <View>
-        <View style={styles.inputContainer}>
-            <Text style={styles.required}>*</Text>
-            <TextInput
-                style={[
-                styles.input,
-                touched.search && errors.search && styles.inputError,
-                ]}
-                placeholder={i18n.t('group_name')}
-                onChangeText={handleChange('search')}
-                onBlur={handleBlur('search')}
-                value={values.search}
-            />
-            {errors.search && touched.search && (
-                <Text style={styles.errorText}>{errors.search}</Text>
-            )}
-        </View>
+          <FormField hideText={false} required={false} largeField={false} placeholder={t('group_name')} handleChange={() => handleChange('search')}
+            handleBlur={() => handleBlur('search')} errors={errors} touched={touched}/> 
         <View style={styles.buttonStyle}>
                 <Button
                     title={t('search')}

@@ -1,33 +1,26 @@
 import {
     View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    ImageBackground,
   } from 'react-native'
-  import React, { useState } from 'react'
   import { Button } from '@rneui/themed'
   import { Formik } from 'formik'
   import { CreateGroupValidationSchema } from '../../utils/validation-schemas'
   import { postData } from '../../utils/http-requests'
   import i18n from '../language_select/i18n'
+  import { useTranslation } from 'react-i18next'
   import styles from '../../utils/styles'
+  import FormField from '../general_components/FormField'
   
   export default function RegisterForm({loginInfo}) {
-    const [hidden, setHidden] = useState(true)
-    var source = hidden
-      ? require('../../../assets/eye-off-fill.png')
-      : require('../../../assets/eye-fill.png')
-  
+    const { t } = useTranslation()
     const sendData = async (values) => {
-      console.log(loginInfo)
       var data = {
         name: values.name,
-        password: values.password,
         creatorId:loginInfo.id
       }
+      if (values.password != '') data.password = values.password
       if (values.class != '') data.class = values.class
       if (values.description != '') data.description = values.description
+      console.log(data)
       await postData(data, '/groups/register', {
         onSuccess: async (response) => {
           console.log(response)
@@ -69,83 +62,17 @@ import {
             isValid,
           }) => (
             <View>
-              <View style={styles.inputContainer}>
-                <Text style={styles.required}>*</Text>
-                <TextInput
-                  style={[
-                    styles.input,
-                    touched.name && errors.name && styles.inputError,
-                  ]}
-                  placeholder={i18n.t('group_name')}
-                  onChangeText={handleChange('name')}
-                  onBlur={handleBlur('name')}
-                  value={values.name}
-                />
-                {errors.name && touched.name && (
-                  <Text style={styles.errorText}>{errors.name}</Text>
-                )}
-              </View>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={[
-                    styles.input,
-                    touched.class && errors.class && styles.inputError,
-                  ]}
-                  placeholder={i18n.t('class')}
-                  onChangeText={handleChange('class')}
-                  onBlur={handleBlur('class')}
-                  value={values.class}
-                />
-                {errors.class && touched.class && (
-                  <Text style={styles.errorText}>{errors.class}</Text>
-                )}
-              </View>
-              <View style={styles.highInputContainer}>
-                <TextInput
-                  style={[
-                    styles.highInput,
-                    touched.description && errors.description && styles.inputError,
-                  ]}
-                  placeholder={i18n.t('description')}
-                  onChangeText={handleChange('description')}
-                  onBlur={handleBlur('description')}
-                  value={values.description}
-                  multiline={true}
-                />
-                {errors.description && touched.description && (
-                  <Text style={styles.errorText}>{errors.description}</Text>
-                )}
-              </View>
-              <View style={styles.inputContainer}>
-                <View style={styles.reveal}>
-                  <TouchableOpacity
-                    title="reveal"
-                    onPress={() => setHidden(!hidden)}
-                  >
-                    <ImageBackground
-                      style={styles.formFieldImage}
-                      source={source}
-                      resizeMode="center"
-                    ></ImageBackground>
-                  </TouchableOpacity>
-                </View>
-                <TextInput
-                  style={[
-                    styles.input,
-                    touched.password && errors.password && styles.inputError,
-                  ]}
-                  placeholder={i18n.t('password')}
-                  onChangeText={handleChange('password')}
-                  secureTextEntry={hidden}
-                  onBlur={handleBlur('password')}
-                />
-                {errors.password && touched.password && (
-                  <Text style={styles.errorText}>{errors.password}</Text>
-                )}
-              </View>
+              <FormField hideText={false} required={true} largeField={false} placeholder={t('group_name')} handleChange={() => handleChange('name')}
+                handleBlur={() => handleBlur('name')} errors={errors} touched={touched}/> 
+              <FormField hideText={false} required={false} largeField={false} placeholder={t('class')} handleChange={() => handleChange('class')}
+                handleBlur={() => handleBlur('class')} errors={errors} touched={touched}/> 
+              <FormField hideText={false} required={false} largeField={true} placeholder={t('description')} handleChange={() => handleChange('description')}
+                handleBlur={() => handleBlur('description')} errors={errors} touched={touched}/>
+              <FormField hideText={true} required={false} largeField={false} placeholder={t('password')} handleChange={() => handleChange('password')}
+                handleBlur={() => handleBlur('password')} errors={errors} touched={touched}/>  
               <View style={styles.buttonStyle}>
                 <Button
-                  title={i18n.t('create_group')}
+                  title={t('create_group')}
                   onPress={handleSubmit}
                   disabled={!isValid}
                 />

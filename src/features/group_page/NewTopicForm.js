@@ -1,4 +1,4 @@
-import {View,Text,TextInput, Alert, Modal} from 'react-native'
+import {View,Text, Alert, Modal} from 'react-native'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
@@ -7,7 +7,8 @@ import { Formik } from 'formik'
 import { CreateTopicValidationSchema } from '../../utils/validation-schemas'
 import { postData } from '../../utils/http-requests'
 import i18n from '../language_select/i18n'
-import BackButton from '../back_button/BackButton'
+import BackButton from '../general_components/BackButton'
+import FormField from '../general_components/FormField'
 
 export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisible, groupId}) {
   const { t } = useTranslation()
@@ -67,38 +68,10 @@ export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisibl
           isValid,
         }) => (
           <View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.required}>*</Text>
-              <TextInput
-                style={[
-                  styles.input,
-                  touched.topic && errors.topic && styles.inputError,
-                ]}
-                placeholder={i18n.t('topic')}
-                onChangeText={handleChange('topic')}
-                onBlur={handleBlur('topic')}
-                value={values.topic}
-              />
-              {errors.topic && touched.topic && (
-                <Text style={styles.errorText}>{errors.topic}</Text>
-              )}
-            </View>
-            <View style={styles.highInputContainer}>
-              <TextInput
-                style={[
-                  styles.highInput,
-                  touched.description && errors.description && styles.inputError,
-                ]}
-                placeholder={i18n.t('description')}
-                onChangeText={handleChange('description')}
-                onBlur={handleBlur('description')}
-                value={values.description}
-                multiline={true}
-              />
-              {errors.description && touched.description && (
-                <Text style={styles.errorText}>{errors.description}</Text>
-              )}
-            </View>
+            <FormField hideText={false} required={true} largeField={false} placeholder={t('topic')} handleChange={() => handleChange('topic')}
+              handleBlur={() => handleBlur('topic')} errors={errors} touched={touched}/>
+            <FormField hideText={false} required={false} largeField={true} placeholder={t('description')} handleChange={() => handleChange('description')}
+              handleBlur={() => handleBlur('description')} errors={errors} touched={touched}/>  
             <View style={styles.buttonStyle}>
               <Button
                 title={i18n.t('create_topic')}

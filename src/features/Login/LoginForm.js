@@ -1,11 +1,7 @@
 import {
   View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ImageBackground,
 } from 'react-native'
-import React, { useState } from 'react'
+
 import jwt_decode from 'jwt-decode';
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
@@ -14,13 +10,10 @@ import { postData } from '../../utils/http-requests'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
+import FormField from '../general_components/FormField'
 
 export default function LoginForm({ setLoginInfo }) {
   const { t } = useTranslation()
-  const [hidden, setHidden] = useState(true)
-  var source = hidden
-    ? require('../../../assets/eye-off-fill.png')
-    : require('../../../assets/eye-fill.png')
 
   const sendData = async (values) => {
     var data = {
@@ -62,48 +55,10 @@ export default function LoginForm({ setLoginInfo }) {
         isValid,
       }) => (
         <View>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={[
-                styles.input,
-                touched.username && errors.username && styles.inputError,
-              ]}
-              placeholder={t('username')}
-              onChangeText={handleChange('username')}
-              onBlur={handleBlur('username')}
-              value={values.username}
-            />
-            {errors.username && touched.username && (
-              <Text style={styles.errorText}>{errors.username}</Text>
-            )}
-          </View>
-          <View style={styles.inputContainer}>
-            <View style={styles.reveal}>
-              <TouchableOpacity
-                title="reveal"
-                onPress={() => setHidden(!hidden)}
-              >
-                <ImageBackground
-                  style={styles.formFieldImage}
-                  source={source}
-                  resizeMode="center"
-                ></ImageBackground>
-              </TouchableOpacity>
-            </View>
-            <TextInput
-              style={[
-                styles.input,
-                touched.password && errors.password && styles.inputError,
-              ]}
-              placeholder={t('password')}
-              onChangeText={handleChange('password')}
-              secureTextEntry={hidden}
-              onBlur={handleBlur('password')}
-            />
-            {errors.password && touched.password && (
-              <Text style={styles.errorText}>{errors.password}</Text>
-            )}
-          </View>
+          <FormField hideText={false} required={false} largeField={false} placeholder={t('username')} handleChange={() => handleChange('username')}
+            handleBlur={() => handleBlur('username')} errors={errors} touched={touched}/>
+          <FormField hideText={true} required={false} largeField={false} placeholder={t('password')} handleChange={() => handleChange('password')}
+            handleBlur={() => handleBlur('password')} errors={errors} touched={touched}/>
           <View style={styles.buttonStyle}>
             <Button
               title={t('login')}
