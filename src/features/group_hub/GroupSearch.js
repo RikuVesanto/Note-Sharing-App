@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {View} from 'react-native'
+import {View, Text} from 'react-native'
 import styles from '../../utils/styles'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
@@ -15,14 +15,20 @@ export default function GroupSearch({userId}) {
     const [searchResultCards, setSearchResultCards] = useState([])
 
     useEffect(() => {
+      if (groups != "") {
+        console.log("bah")
         createSearchResultCards()
+      }
     } , [groups])
 
     const createSearchResultCards = () => {
         let screens = []
+        let results = 0
         for (var group of groups) {
           screens.push(<SearchResultCard key={group.id} name={group.name} description={group.description} action={joinGroup} groupId={group.id}/>)
+          results++
         }
+        screens.unshift(<Text style={styles.noResultsText}>{results + " " + i18n.t('results_found')}</Text>)
         setSearchResultCards(screens)
     }
 
@@ -33,11 +39,9 @@ export default function GroupSearch({userId}) {
             userId: userId,
             groupId:groupId         
         }
-        console.log(values)
         await postData(values, "/groups/adduserconnection/", {
             onSuccess: async (response) => {
                 console.log(response.data)
-                setGroups(response.data)
             },
             onError: (error) => {
               console.log(error)
@@ -51,7 +55,7 @@ export default function GroupSearch({userId}) {
           })
     }
 
-    const sendData = async (values) => {
+    const getGroups = async (values) => {
         await getData(`/groups/searchlist/${values.search}`, {
             onSuccess: async (response) => {
                 console.log(response.data)
@@ -79,14 +83,13 @@ export default function GroupSearch({userId}) {
         validationSchema={SearchValidationSchema}
         validateOnMount={true}
         onSubmit={(values) => {
-        sendData(values)
+        getGroups(values)
         }}
     >
         {({
         handleChange,
         handleBlur,
         handleSubmit,
-        values,
         errors,
         touched,
         isValid,

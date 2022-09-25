@@ -171,5 +171,11 @@ export default StyleSheet.create({
     height: 50,
     width: 50,
     marginLeft:30
+  },
+  //search
+  noResultsText: {
+    textAlign:'center',
+    marginTop:30,
+    fontSize: 18
   }
 })

@@ -36,6 +36,7 @@
     "topic": "Aihe",
     "create_topic": "Luo Aihe",
     "create_note": "Create Note",
-    "search": "Hae"
+    "search": "Hae",
+    "results_found": "tulosta löydetty"
   }
 }

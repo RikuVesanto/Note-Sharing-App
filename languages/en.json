@@ -36,6 +36,7 @@
     "topic": "Topic",
     "create_topic": "Create Topic",
     "create_note": "Luo merkintä",
-    "search": "Search"
+    "search": "Search",
+    "results_found": "results found"
   }
 }
