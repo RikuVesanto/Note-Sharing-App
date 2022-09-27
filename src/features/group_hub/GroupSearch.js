@@ -9,8 +9,9 @@ import i18n from '../language_select/i18n'
 import { getData, postData } from '../../utils/http-requests'
 import SearchResultCard from './SearchResultCard'
 import FormField from '../general_components/FormField'
+import BackButton from '../general_components/BackButton'
 
-export default function GroupSearch({userId}) {
+export default function GroupSearch({userId,setJoinGroup}) {
     const [groups, setGroups] = useState("")
     const [searchResultCards, setSearchResultCards] = useState([])
 
@@ -27,7 +28,7 @@ export default function GroupSearch({userId}) {
           screens.push(<SearchResultCard key={group.id} name={group.name} description={group.description} action={joinGroup} groupId={group.id}/>)
           results++
         }
-        screens.unshift(<Text style={styles.noResultsText}>{results + " " + i18n.t('results_found')}</Text>)
+        screens.unshift(<Text style={styles.resultsText}>{results + " " + i18n.t('results_found')}</Text>)
         setSearchResultCards(screens)
     }
 
@@ -74,38 +75,39 @@ export default function GroupSearch({userId}) {
 
   return (
     <View>
-    <Formik
-        initialValues={{
-        title: '',
-        content: '',
-        }}
-        validationSchema={SearchValidationSchema}
-        validateOnMount={true}
-        onSubmit={(values) => {
-        getGroups(values)
-        }}
-    >
-        {({
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        errors,
-        touched,
-        isValid,
-        }) => (
-        <View>
-          <FormField hideText={false} required={false} largeField={false} placeholder={t('group_name')} handleChange={() => handleChange('search')}
-            handleBlur={() => handleBlur('search')} errors={errors} touched={touched}/> 
-        <View style={styles.buttonStyle}>
-                <Button
-                    title={t('search')}
-                    onPress={handleSubmit}
-                    disabled={!isValid}
-                />
-                </View>
-        </View>)}
-    </Formik>
-    {searchResultCards}
+      <BackButton action={setJoinGroup}/> 
+      <Formik
+          initialValues={{
+          title: '',
+          content: '',
+          }}
+          validationSchema={SearchValidationSchema}
+          validateOnMount={true}
+          onSubmit={(values) => {
+          getGroups(values)
+          }}
+      >
+          {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          errors,
+          touched,
+          isValid,
+          }) => (
+          <View>
+            <FormField hideText={false} required={false} largeField={false} placeholder={t('group_name')} handleChange={() => handleChange('search')}
+              handleBlur={() => handleBlur('search')} errors={errors} touched={touched}/> 
+          <View style={styles.buttonStyle}>
+                  <Button
+                      title={t('search')}
+                      onPress={handleSubmit}
+                      disabled={!isValid}
+                  />
+                  </View>
+          </View>)}
+      </Formik>
+      {searchResultCards}
     </View>
   )
 }

@@ -173,9 +173,50 @@ export default StyleSheet.create({
     marginLeft:30
   },
   //search
-  noResultsText: {
+  resultsText: {
     textAlign:'center',
     marginTop:30,
+    marginBottom:30,
     fontSize: 18
+  },
+  //search result card
+  groupCard: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    backgroundColor: '#d1c9c9',
+    margin:30
+  },
+  joinGroupButton: {
+    marginTop:5,
+    backgroundColor: "#8eddfa",
+    marginBottom: 30,
+    marginLeft:20,
+    width: '40%',
+    height: 60,
+    borderRadius:5,
+  },
+  joinGroupButtonTitle: {
+    textAlign:'center',
+    marginTop:15,
+    fontWeight: 'bold',
+    fontSize: 24,
+  },
+  groupCardTitle: {
+    textAlign:'center',
+    fontWeight: 'bold',
+    fontSize: 24,
+  }, 
+  groupCardDescription: {
+    textAlign:'center',
+    marginTop:10,
+    fontSize: 16,
+    flex: 1, 
+    width: 150
+    
+  },
+  groupInfoColumn: {
+    flexDirection: 'column',
   }
 })
