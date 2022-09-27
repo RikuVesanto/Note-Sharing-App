@@ -50,10 +50,11 @@ export default function App() {
     let screens = []
     let list = []
     for (var group of groups) {
-      if (list.includes(group.name)) {
-      } else {
-      screens.push(<Drawer.Screen key={group.name} name={group.name} children={() => <GroupPage {...group} />}/>)
-      list.push(group.name)
+      //using closure so the group that's passed to GroupPage isn't always the last one that's iterated
+      let x = group
+      if (!list.includes(group.name)) {
+          screens.push(<Drawer.Screen key={group.id} name={group.name} children={() => <GroupPage {...x} />}/>)
+          list.push(group.name)
       }
     }
     setGroupScreens(screens)
