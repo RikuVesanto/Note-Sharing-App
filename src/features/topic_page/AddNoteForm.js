@@ -7,8 +7,10 @@ import { postData } from '../../utils/http-requests'
 import { useTranslation } from 'react-i18next'
 import i18n from '../language_select/i18n'
 import FormField from '../general_components/FormField'
+import addToUseState from '../../utils/general-functions'
 
-export default function AddNoteForm({id}) {
+export default function AddNoteForm({id, notes, setNotes, setAddNote}) {
+    
 
     const { t } = useTranslation()
 
@@ -22,6 +24,8 @@ export default function AddNoteForm({id}) {
         await postData(data, '/notes/add/', {
         onSuccess: async (response) => {
             console.log(response)
+            addToUseState(data,notes, setNotes)
+            setAddNote(false)
         },
         onError: (error) => {
             console.log(error)

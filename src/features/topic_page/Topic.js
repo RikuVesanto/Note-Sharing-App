@@ -3,8 +3,9 @@ import styles from '../../utils/styles'
 import React, { useState, useEffect } from 'react'
 import AddNoteForm from '../topic_page/AddNoteForm'
 import { getData } from '../../utils/http-requests'
+import BackButton from '../general_components/BackButton'
 
-export default function Topic({topic,description,id,setTopicsNotesVisible, topicsNotesVisible}) {
+export default function Topic({topic,description,id,setTopicsNotesVisible}) {
   const [addNote, setAddNote] = useState(false)
   const [notes, setNotes] = useState([])
   const [noteBlocks, setNoteBlocks] = useState([])
@@ -20,11 +21,10 @@ export default function Topic({topic,description,id,setTopicsNotesVisible, topic
     createNoteBlocks()
   } , [notes])
 
-
-
   const getNotes = async () => {
     await getData(`/notes/notelist/${id}`, {
         onSuccess: async (response) => {
+          console.log(response.data)
           setNotes(response.data)
         },
         onError: (error) => {
@@ -42,14 +42,15 @@ export default function Topic({topic,description,id,setTopicsNotesVisible, topic
   const createNoteBlocks = () => {
     let blocks = []
     for (var note of notes) {
-      blocks.push(<View><Text style={styles.topicTitle}>{note.title}</Text>
+      blocks.push(<View key={note.id}><Text style={styles.topicTitle}>{note.title}</Text>
         <Text style={styles.topicDescription}>{note.content}</Text></View>)
     }
     setNoteBlocks(blocks)
   }
 
   return (
-    <View> 
+    <View>
+      <BackButton action={setTopicsNotesVisible}/> 
       <Text style={styles.headerStyle}>{topic}</Text>
       <Text style={styles.topicDescription}>{description}</Text>
       <TouchableOpacity onPress={() => setAddNote(true)}>
@@ -59,7 +60,7 @@ export default function Topic({topic,description,id,setTopicsNotesVisible, topic
             style={styles.addnoteButton}
         />
       </TouchableOpacity>
-      {addNote && <AddNoteForm id={id}/>}
+      {addNote && <AddNoteForm id={id} notes={notes} setNotes={setNotes} setAddNote={setAddNote}/>}
       {noteBlocks}
     </View>
   )

@@ -9,8 +9,9 @@ import { postData } from '../../utils/http-requests'
 import i18n from '../language_select/i18n'
 import BackButton from '../general_components/BackButton'
 import FormField from '../general_components/FormField'
+import addToUseState from '../../utils/general-functions'
 
-export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisible, groupId}) {
+export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisible, groupId, topics, setTopics}) {
   const { t } = useTranslation()
 
   const sendData = async (values) => {
@@ -22,6 +23,8 @@ export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisibl
     await postData(data, '/topics/register', {
       onSuccess: async (response) => {
         console.log(response)
+        addToUseState(data,topics, setTopics)
+        setNewTopicFormVisible(false)
       },
       onError: (error) => {
         console.log(error)

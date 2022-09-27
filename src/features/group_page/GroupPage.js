@@ -53,13 +53,13 @@ const createTopicCards = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.registerContainer}>
-      {topicsNotesVisible ? <Topic {...activeTopic} setTopicsNotesVisible={setTopicsNotesVisible} topicsNotesVisible={topicsNotesVisible}/> :
+      {topicsNotesVisible ? <Topic {...activeTopic} setTopicsNotesVisible={setTopicsNotesVisible}/> :
       <View>
         <Text style={styles.headerStyle}>{name}</Text>
         {topicCards}
         <TopicCard title={t('new_topic')} action={setNewTopicFormVisible}/>
       </View>}
-      <NewTopicForm newTopicFormVisible={newTopicFormVisible} setNewTopicFormVisible={setNewTopicFormVisible} groupId={id}/>
+      <NewTopicForm newTopicFormVisible={newTopicFormVisible} setNewTopicFormVisible={setNewTopicFormVisible} groupId={id} topics={topics} setTopics={setTopics}/>
     </ScrollView>
   )
 }

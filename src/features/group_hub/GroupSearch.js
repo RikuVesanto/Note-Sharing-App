@@ -16,7 +16,6 @@ export default function GroupSearch({userId}) {
 
     useEffect(() => {
       if (groups != "") {
-        console.log("bah")
         createSearchResultCards()
       }
     } , [groups])
