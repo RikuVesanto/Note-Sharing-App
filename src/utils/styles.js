@@ -163,8 +163,8 @@ export default StyleSheet.create({
   },  
   //back button
   backButton: {
-    marginLeft: 50,
-    marginRight:20,
+    marginLeft: 30,
+    marginRight:5,
     marginBottom:10,
     height: 50,
     width: 50,
@@ -224,5 +224,16 @@ export default StyleSheet.create({
   },
   columnLayout: {
     flexDirection: 'column',
+  },
+  //modal
+  modal: {
+    borderColor:'#bfbfbf',
+    borderWidth:2,
+    borderRadius:5,
+    backgroundColor:"white",
+    marginLeft:'10%',
+    width:'80%',
+    marginTop:'20%',
+    height:'50%'
   }
 })

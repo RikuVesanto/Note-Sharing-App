@@ -1,4 +1,4 @@
-import {View,Text, Alert, Modal} from 'react-native'
+import {View,Text, Modal} from 'react-native'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
@@ -40,14 +40,16 @@ export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisibl
 
   return (
     <Modal
-    animationType="slide"
+    animationType="fade"
     visible={newTopicFormVisible}
     onBackButtonPress={() => setNewTopicFormVisible(false)}
     onRequestClose={() => {
-      Alert.alert("Modal has been closed.")
       setNewTopicFormVisible(false)
     }}
+    transparent={true}
+    hasBackdrop={false}
   >
+    <View style={styles.modal}>
     <View style={styles.rowLayout}>
       <BackButton action={setNewTopicFormVisible}/>
       <Text style={styles.formTitle}>{t('new_topic')}</Text>
@@ -67,7 +69,6 @@ export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisibl
           handleChange,
           handleBlur,
           handleSubmit,
-          values,
           errors,
           touched,
           isValid,
@@ -87,6 +88,7 @@ export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisibl
           </View>
         )}
       </Formik>
+      </View>
   </Modal>
   )
 }
