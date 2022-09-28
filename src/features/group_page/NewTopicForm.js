@@ -48,8 +48,10 @@ export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisibl
       setNewTopicFormVisible(false)
     }}
   >
-    <BackButton action={setNewTopicFormVisible}/>
-    <Text style={styles.formTitle}>{t('new_topic')}</Text>
+    <View style={styles.rowLayout}>
+      <BackButton action={setNewTopicFormVisible}/>
+      <Text style={styles.formTitle}>{t('new_topic')}</Text>
+    </View>
     <Formik
         initialValues={{
           topic: '',

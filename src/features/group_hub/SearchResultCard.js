@@ -7,7 +7,7 @@ export default function SearchResultCard({name,description, action, groupId}) {
 
   return (
     <View style={styles.groupCard}>
-        <View style={styles.groupInfoColumn}>
+        <View style={styles.columnLayout}>
         <Text style={styles.groupCardTitle}>{name}</Text>
         <Text style={styles.groupCardDescription}>{description}</Text>
         </View>

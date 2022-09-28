@@ -50,9 +50,13 @@ export default function Topic({topic,description,id,setTopicsNotesVisible}) {
 
   return (
     <View>
-      <BackButton action={setTopicsNotesVisible}/> 
-      <Text style={styles.headerStyle}>{topic}</Text>
-      <Text style={styles.topicDescription}>{description}</Text>
+      <View style={styles.rowLayout}>
+        <BackButton action={setTopicsNotesVisible}/> 
+        <View style={styles.columnLayout}>
+          <Text style={styles.headerStyle}>{topic}</Text>
+          <Text style={styles.topicDescription}>{description}</Text>
+        </View>
+      </View>
       <TouchableOpacity onPress={() => setAddNote(true)}>
         <ImageBackground
             source={addIcon}

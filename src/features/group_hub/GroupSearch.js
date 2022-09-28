@@ -75,7 +75,10 @@ export default function GroupSearch({userId,setJoinGroup}) {
 
   return (
     <View>
-      <BackButton action={setJoinGroup}/> 
+        <View style={styles.rowLayout}>
+          <BackButton action={setJoinGroup}/>
+          <Text style={styles.headerStyle}>{t('group_search')}</Text>
+        </View>
       <Formik
           initialValues={{
           title: '',

@@ -151,8 +151,8 @@ export default StyleSheet.create({
   formTitle: {   
     textAlign:'center',
     fontWeight: 'bold',
-    fontSize: 18,
-    marginTop: 20,
+    fontSize: 24,
+    marginTop: 5,
     marginBottom: 40,
   },
   newTopicTitle: {
@@ -164,8 +164,14 @@ export default StyleSheet.create({
   //back button
   backButton: {
     marginLeft: 50,
+    marginRight:20,
+    marginBottom:10,
     height: 50,
     width: 50,
+  },
+  rowLayout: {
+    flexDirection: 'row',    
+    marginTop:10
   },
   addnoteButton: {
     height: 50,
@@ -216,7 +222,7 @@ export default StyleSheet.create({
     width: 150
     
   },
-  groupInfoColumn: {
+  columnLayout: {
     flexDirection: 'column',
   }
 })

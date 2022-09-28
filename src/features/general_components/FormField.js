@@ -9,10 +9,10 @@ export default function FormField({hideText, required, largeField, placeholder, 
     ? require('../../../assets/eye-off-fill.png')
     : require('../../../assets/eye-fill.png')
 
-  var inputStyle = largeField ? styles.highInputContainer : styles.inputContainer
-
+  var viewStyle = largeField ? styles.highInputContainer : styles.inputContainer
+  var inputStyle = largeField ? styles.highInput : styles.input
   return (
-        <View style={inputStyle}>
+        <View style={viewStyle}>
             {hideText && 
             <View style={styles.reveal}>
               <TouchableOpacity
@@ -29,7 +29,7 @@ export default function FormField({hideText, required, largeField, placeholder, 
             {required &&<Text style={styles.required}>*</Text>}
             <TextInput
               style={[
-                styles.input,
+                inputStyle,
                 touched.password && errors.password && styles.inputError,
               ]}
               placeholder={placeholder}

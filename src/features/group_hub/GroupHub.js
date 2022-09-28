@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import CreateGroupForm from './CreateGroupForm'
 import GroupSearch from './GroupSearch'
 import LargeButton from './LargeButton'
-import BackButton from '../general_components/BackButton'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
@@ -14,10 +13,9 @@ export default function GroupHub({ loginInfo}) {
   const [joinGroup, setJoinGroup] = useState(false)
   return (
     <ScrollView contentContainerStyle={styles.registerContainer}>
-         {createGroup && <BackButton action={setCreateGroup}/>}
-      <Text style={styles.headerStyle}>{t('group_hub')}</Text>
+      {(!joinGroup && !createGroup)  && <Text style={styles.headerStyle}>{t('group_hub')}</Text>}
       {(!createGroup && !joinGroup) && <View><LargeButton title={t("create_group")} action={setCreateGroup}/><LargeButton title={t("join_group")} action={setJoinGroup}/></View>}
-      {(createGroup) &&<CreateGroupForm loginInfo={loginInfo}/>}
+      {(createGroup) &&<CreateGroupForm loginInfo={loginInfo} setCreateGroup={setCreateGroup}/>}
       {(joinGroup) &&<GroupSearch setJoinGroup={setJoinGroup} userId={loginInfo.id}/>}
     </ScrollView>
   )

@@ -37,6 +37,7 @@
     "create_topic": "Create Topic",
     "create_note": "Luo merkintä",
     "search": "Search",
-    "results_found": "results found"
+    "results_found": "results found",
+    "group_search": "Group Search"
   }
 }

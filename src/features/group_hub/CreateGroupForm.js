@@ -1,16 +1,15 @@
-import {
-    View,
-  } from 'react-native'
-  import { Button } from '@rneui/themed'
-  import { Formik } from 'formik'
-  import { CreateGroupValidationSchema } from '../../utils/validation-schemas'
-  import { postData } from '../../utils/http-requests'
-  import i18n from '../language_select/i18n'
-  import { useTranslation } from 'react-i18next'
-  import styles from '../../utils/styles'
-  import FormField from '../general_components/FormField'
+import {View, Text} from 'react-native'
+import { Button } from '@rneui/themed'
+import { Formik } from 'formik'
+import { CreateGroupValidationSchema } from '../../utils/validation-schemas'
+import { postData } from '../../utils/http-requests'
+import i18n from '../language_select/i18n'
+import { useTranslation } from 'react-i18next'
+import styles from '../../utils/styles'
+import FormField from '../general_components/FormField'
+import BackButton from '../general_components/BackButton'
   
-  export default function RegisterForm({loginInfo}) {
+  export default function RegisterForm({loginInfo, setCreateGroup}) {
     const { t } = useTranslation()
     const sendData = async (values) => {
       var data = {
@@ -39,6 +38,10 @@ import {
   
     return (
       <View>
+        <View style={styles.rowLayout}>
+          <BackButton action={setCreateGroup}/>
+          <Text style={styles.headerStyle}>{t('create_group')}</Text>
+        </View>
         <Formik
           initialValues={{
             name: '',

@@ -37,6 +37,7 @@
     "create_topic": "Luo Aihe",
     "create_note": "Create Note",
     "search": "Hae",
-    "results_found": "tulosta löydetty"
+    "results_found": "tulosta löydetty",
+    "group_search": "Ryhmähaku"
   }
 }
