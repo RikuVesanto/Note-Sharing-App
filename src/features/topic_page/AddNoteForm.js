@@ -21,7 +21,7 @@ export default function AddNoteForm({id, notes, setNotes, setAddNote}) {
         content: values.content,
         topicId: id
         }
-        await postData(data, '/notes/add/', {
+        await postData(data, '/notes/note/', {
         onSuccess: async (response) => {
             console.log(response)
             addToUseState(data,notes, setNotes)

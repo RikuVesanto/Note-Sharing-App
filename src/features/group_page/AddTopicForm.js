@@ -20,7 +20,7 @@ export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisibl
       groupId: groupId
     }
     if (values.description != '') data.description = values.description
-    await postData(data, '/topics/register', {
+    await postData(data, '/topics/topic', {
       onSuccess: async (response) => {
         console.log(response)
         addToUseState(data,topics, setTopics)

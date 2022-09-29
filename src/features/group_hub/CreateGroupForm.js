@@ -20,7 +20,7 @@ import BackButton from '../general_components/BackButton'
       if (values.class != '') data.class = values.class
       if (values.description != '') data.description = values.description
       console.log(data)
-      await postData(data, '/groups/register', {
+      await postData(data, '/groups/group', {
         onSuccess: async (response) => {
           console.log(response)
         },

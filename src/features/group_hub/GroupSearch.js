@@ -39,7 +39,7 @@ export default function GroupSearch({userId,setJoinGroup}) {
             userId: userId,
             groupId:groupId         
         }
-        await postData(values, "/groups/adduserconnection/", {
+        await postData(values, "/groups/userconnection/", {
             onSuccess: async (response) => {
                 console.log(response.data)
             },

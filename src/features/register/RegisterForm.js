@@ -40,7 +40,7 @@ export default function RegisterForm() {
     if (values.name != '') data.name = values.name
     if (values.school != '') data.school = values.school
     if (stateBirthday) data.birthday = stateBirthday.toISOString()
-    await postData(data, '/users/register', {
+    await postData(data, '/users/user', {
       onSuccess: async (response) => {
         console.log(response)
       },
