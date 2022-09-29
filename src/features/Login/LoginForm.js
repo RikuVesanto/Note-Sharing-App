@@ -6,7 +6,7 @@ import jwt_decode from 'jwt-decode';
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { LoginValidationSchema } from '../../utils/validation-schemas'
-import { postData } from '../../utils/http-requests'
+import { getData } from '../../utils/http-requests'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
@@ -16,11 +16,7 @@ export default function LoginForm({ setLoginInfo }) {
   const { t } = useTranslation()
 
   const sendData = async (values) => {
-    var data = {
-      password: values.password,
-      username: values.username,
-    }
-    await postData(data, '/users/login', {
+    await getData(`/users/user/${values.username}/${values.password}`, {
       onSuccess: async (response) => {
         var decoded = jwt_decode(response.data)
         if (decoded) {
