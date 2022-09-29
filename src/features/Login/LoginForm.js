@@ -18,13 +18,14 @@ export default function LoginForm({ setLoginInfo }) {
   const sendData = async (values) => {
     await getData(`/users/user/${values.username}/${values.password}`, {
       onSuccess: async (response) => {
+        console.log(response.status)
         var decoded = jwt_decode(response.data)
         if (decoded) {
           setLoginInfo(decoded)
         }
       },
       onError: (error) => {
-        console.log(error)
+        console.log(error.status, error.data.message)
       },
     })
   }
