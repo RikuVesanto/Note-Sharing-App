@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
 
-export default function RegisterForm() {
+export default function RegisterForm({setLoginPage}) {
   const { t } = useTranslation()
   const [stateBirthday, setStateBirthday] = useState(null)
   const [showDatePicker, setShowDatePicker] = useState(false)
@@ -43,6 +43,7 @@ export default function RegisterForm() {
     await postData(data, '/users/user', {
       onSuccess: async (response) => {
         console.log(response)
+        setLoginPage(true)
       },
       onError: (error) => {
         console.log(error)

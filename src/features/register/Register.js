@@ -7,7 +7,7 @@ export default function Register({ setLoginPage }) {
   return (
     <ScrollView contentContainerStyle={styles.registerContainer}>
       <Text style={styles.headerStyle}>{i18n.t('register')}</Text>
-      <RegisterForm />
+      <RegisterForm setLoginPage={setLoginPage}/>
       <TouchableOpacity onPress={() => setLoginPage(true)}>
         <Text style={styles.hyperlink}>{i18n.t('gotologin')}</Text>
       </TouchableOpacity>
