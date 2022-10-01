@@ -11,7 +11,7 @@ export default function SearchResultCard({name,description, action, groupId}) {
         <Text style={styles.groupCardTitle}>{name}</Text>
         <Text style={styles.groupCardDescription}>{description}</Text>
         </View>
-        <TouchableOpacity style={styles.joinGroupButton} onPress={() => action(groupId)}>
+        <TouchableOpacity style={styles.joinGroupButton} onPress={() => action(groupId, name)}>
             <Text style={styles.joinGroupButtonTitle}>{i18n.t('join_group')}</Text>
         </TouchableOpacity>
         <Divider style={{ height: 1}} />

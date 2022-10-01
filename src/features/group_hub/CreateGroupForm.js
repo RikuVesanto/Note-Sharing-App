@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react'
 import {View, Text} from 'react-native'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
@@ -8,9 +9,24 @@ import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
 import BackButton from '../general_components/BackButton'
-  
-  export default function RegisterForm({loginInfo, setCreateGroup}) {
+import addToUseState from '../../utils/general-functions'
+import { useNavigation } from '@react-navigation/native';
+
+  export default function RegisterForm({loginInfo, groups, setGroups, setCreateGroup, setNeedToNavigate, readyToNavigate, setReadyToNavigate}) {
+    const navigation = useNavigation();
     const { t } = useTranslation()
+
+    const [navigationLocation, setNavigationLocation] = useState("")
+
+    useEffect(() => {
+      if (readyToNavigate) {
+        setReadyToNavigate(false)
+        setNeedToNavigate(false)
+        navigation.navigate(navigationLocation)
+        setCreateGroup(false)
+      }
+    },[readyToNavigate])
+
     const sendData = async (values) => {
       var data = {
         name: values.name,
@@ -19,10 +35,12 @@ import BackButton from '../general_components/BackButton'
       if (values.password != '') data.password = values.password
       if (values.class != '') data.class = values.class
       if (values.description != '') data.description = values.description
-      console.log(data)
       await postData(data, '/groups/group', {
         onSuccess: async (response) => {
-          console.log(response)
+          //console.log(response.data)
+          setNeedToNavigate(true)
+          setNavigationLocation(data.name)
+          addToUseState(data,groups, setGroups)
         },
         onError: (error) => {
           console.log(error)

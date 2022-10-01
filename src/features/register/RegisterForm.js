@@ -42,11 +42,11 @@ export default function RegisterForm({setLoginPage}) {
     if (stateBirthday) data.birthday = stateBirthday.toISOString()
     await postData(data, '/users/user', {
       onSuccess: async (response) => {
-        console.log(response)
+        console.log(response.data)
         setLoginPage(true)
       },
       onError: (error) => {
-        console.log(error)
+        console.log(error.data)
         let message = ''
         if (error.response.status === 500) {
           message = i18n.t('register_form_error')

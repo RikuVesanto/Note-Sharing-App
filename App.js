@@ -15,8 +15,10 @@ const Drawer = createDrawerNavigator();
 export default function App() {
   const [loginPage, setLoginPage] = useState(true)
   const [loginInfo, setLoginInfo] = useState("")
-  const [groups, setGroups] = useState("")
+  const [groups, setGroups] = useState([])
   const [groupScreens, setGroupScreens] = useState([])
+  const [needToNavigate, setNeedToNavigate] = useState(false)
+  const [readyToNavigate, setReadyToNavigate] = useState(false)
 
   useEffect(() => {
     if (loginInfo != "") {
@@ -26,12 +28,18 @@ export default function App() {
 
   useEffect(() => {
     createGroupScreens()
-} , [groups])
+  } , [groups])
 
+  useEffect(() => {
+    if (needToNavigate) {
+      setReadyToNavigate(true)
+    }
+  } , [groupScreens])
 
   const getGroups = async () => {
       await getData(`/groups/grouplist/${loginInfo.id}`, {
           onSuccess: async (response) => {
+            //console.log(response.data)
             setGroups(response.data)
           },
           onError: (error) => {
@@ -58,12 +66,14 @@ export default function App() {
       }
     }
     setGroupScreens(screens)
-}
+  }
 
   let loggedInScreen = <NavigationContainer>
   <Drawer.Navigator>
   {groupScreens}
-  <Drawer.Screen name="Group Hub" children={() => <GroupHub loginInfo={loginInfo} />} />
+  <Drawer.Screen name="Group Hub" children={() => <GroupHub loginInfo={loginInfo} groups={groups} 
+  setGroups={setGroups} setNeedToNavigate={setNeedToNavigate} 
+  readyToNavigate={readyToNavigate} setReadyToNavigate={setReadyToNavigate}/>} />
   </Drawer.Navigator>
   </NavigationContainer>
 

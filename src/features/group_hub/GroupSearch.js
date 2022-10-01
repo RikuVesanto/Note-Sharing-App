@@ -11,15 +11,28 @@ import SearchResultCard from './SearchResultCard'
 import FormField from '../general_components/FormField'
 import BackButton from '../general_components/BackButton'
 
-export default function GroupSearch({userId,setJoinGroup}) {
+export default function GroupSearch({userId,setJoinGroup, setNeedToNavigate, readyToNavigate, setReadyToNavigate}) {
     const [groups, setGroups] = useState("")
     const [searchResultCards, setSearchResultCards] = useState([])
+    const [navigationLocation, setNavigationLocation] = useState("")
 
     useEffect(() => {
       if (groups != "") {
         createSearchResultCards()
       }
     } , [groups])
+
+    useEffect(() => {
+      if (readyToNavigate) {
+        console.log("bonk")
+        setReadyToNavigate(false)
+        setNeedToNavigate(false)
+        navigation.navigate(navigationLocation)
+        setJoinGroup(false)
+      } else {
+        console.log("bah")
+      }
+    },[readyToNavigate])
 
     const createSearchResultCards = () => {
         let screens = []
@@ -34,7 +47,7 @@ export default function GroupSearch({userId,setJoinGroup}) {
 
     const { t } = useTranslation()
 
-    const joinGroup = async (groupId) => {
+    const joinGroup = async (groupId, location) => {
         const values = {
             userId: userId,
             groupId:groupId         
@@ -42,6 +55,8 @@ export default function GroupSearch({userId,setJoinGroup}) {
         await postData(values, "/groups/userconnection/", {
             onSuccess: async (response) => {
                 console.log(response.data)
+                setNeedToNavigate(true)
+                setNavigationLocation(location)
             },
             onError: (error) => {
               console.log(error)
