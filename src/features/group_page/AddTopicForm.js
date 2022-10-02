@@ -11,7 +11,7 @@ import BackButton from '../general_components/BackButton'
 import FormField from '../general_components/FormField'
 import addToUseState from '../../utils/general-functions'
 
-export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisible, groupId, topics, setTopics}) {
+export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisible, groupId, refreshTopics, setRefreshTopics}) {
   const { t } = useTranslation()
 
   const sendData = async (values) => {
@@ -23,7 +23,7 @@ export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisibl
     await postData(data, '/topics/topic', {
       onSuccess: async (response) => {
         console.log(response)
-        addToUseState(data,topics, setTopics)
+        setRefreshTopics(!refreshTopics)
         setNewTopicFormVisible(false)
       },
       onError: (error) => {

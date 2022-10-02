@@ -171,12 +171,14 @@ export default StyleSheet.create({
   },
   rowLayout: {
     flexDirection: 'row',    
-    marginTop:10
+    marginTop:10,
   },
   addnoteButton: {
     height: 50,
     width: 50,
-    marginLeft:30
+    marginLeft:40,
+    marginTop:30,
+    marginBottom: 10
   },
   //search
   resultsText: {
@@ -224,6 +226,7 @@ export default StyleSheet.create({
   },
   columnLayout: {
     flexDirection: 'column',
+    alignItems:'center',
   },
   //modal
   modal: {
@@ -235,5 +238,26 @@ export default StyleSheet.create({
     width:'80%',
     marginTop:'20%',
     height:'50%'
+  },
+  //topic page title view
+  titleCardLayout: {
+    width:"80%",
+    height:150,
+    backgroundColor:'#8eddfa',
+    borderColor: '#777',
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  noteCard: {
+    padding: 5,
+    marginTop: 20,
+    marginBottom:20,
+    marginLeft:"10%",
+    width:"80%",
+    textAlign:'center',
+    backgroundColor:'#b3e0ff',
+    borderColor: '#777',
+    borderWidth: 1,
+    borderRadius: 5,
   }
 })

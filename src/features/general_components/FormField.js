@@ -11,6 +11,7 @@ export default function FormField({hideText, required, largeField, placeholder, 
 
   var viewStyle = largeField ? styles.highInputContainer : styles.inputContainer
   var inputStyle = largeField ? styles.highInput : styles.input
+  var multiline = largeField ? true : false
   return (
         <View style={viewStyle}>
             {hideText && 
@@ -32,6 +33,7 @@ export default function FormField({hideText, required, largeField, placeholder, 
                 inputStyle,
                 touched.password && errors.password && styles.inputError,
               ]}
+              multiline={multiline}
               placeholder={placeholder}
               onChangeText={handleChange()}
               secureTextEntry={hidden}

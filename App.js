@@ -86,7 +86,6 @@ export default function App() {
   return (
     <View style={styles.appContainer}>
       {loginInfo != "" ? loggedInScreen : loginScreen}
-      <ChangeLanguage />
     </View>
   )
 }

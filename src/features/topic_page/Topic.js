@@ -1,4 +1,4 @@
-import {Text, View, ImageBackground, TouchableOpacity} from 'react-native'
+import {Text, View, ImageBackground, TouchableOpacity, ScrollView} from 'react-native'
 import styles from '../../utils/styles'
 import React, { useState, useEffect } from 'react'
 import AddNoteForm from '../topic_page/AddNoteForm'
@@ -15,7 +15,6 @@ export default function Topic({topic,description,id,setTopicsNotesVisible}) {
 
   useEffect(() => {
     getNotes()
-  
   } , [])
   
   useEffect(() => {
@@ -25,7 +24,7 @@ export default function Topic({topic,description,id,setTopicsNotesVisible}) {
   const getNotes = async () => {
     await getData(`/notes/notelist/${id}`, {
         onSuccess: async (response) => {
-          console.log(response.data)
+          //console.log(response.data)
           setNotes(response.data)
         },
         onError: (error) => {
@@ -43,21 +42,22 @@ export default function Topic({topic,description,id,setTopicsNotesVisible}) {
   const createNoteBlocks = () => {
     let blocks = []
     for (var note of notes) {
-      blocks.push(<View key={note.id}><Text style={styles.topicTitle}>{note.title}</Text>
+      console.log(note.id)
+      blocks.push(<View key={note.id} style={styles.noteCard}>{note.title && <Text style={styles.topicTitle}>{note.title}</Text>}
         <Text style={styles.topicDescription}>{note.content}</Text></View>)
     }
     setNoteBlocks(blocks)
   }
 
   return (
-    <View>
-      <View style={styles.rowLayout}>
+    <ScrollView>
         <BackButton action={setTopicsNotesVisible}/> 
         <View style={styles.columnLayout}>
-          <Text style={styles.headerStyle}>{topic}</Text>
-          <Text style={styles.topicDescription}>{description}</Text>
+          <View style={styles.titleCardLayout}>
+            <Text style={styles.headerStyle}>{topic}</Text>
+            <Text style={styles.topicDescription}>{description}</Text>
+          </View>
         </View>
-      </View>
       {addNote ? <TouchableOpacity onPress={() => setAddNote(false)}>
         <ImageBackground
             source={minusIcon}
@@ -72,6 +72,6 @@ export default function Topic({topic,description,id,setTopicsNotesVisible}) {
       </TouchableOpacity>}
       {addNote && <AddNoteForm id={id} notes={notes} setNotes={setNotes} setAddNote={setAddNote}/>}
       {noteBlocks}
-    </View>
+    </ScrollView>
   )
 }

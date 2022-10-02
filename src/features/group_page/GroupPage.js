@@ -16,11 +16,11 @@ export default function GroupHub({name, id }) {
   const [topicCards, setTopicCards] = useState([])
   const [topics, setTopics] = useState([])
   const [activeTopic, setActiveTopic] = useState([])
+  const [refreshTopics, setRefreshTopics] = useState(false)
 
 useEffect(() => {
   getTopics()
-
-} , [])
+} , [refreshTopics])
 
 useEffect(() => {
   createTopicCards()
@@ -46,7 +46,8 @@ const getTopics = async () => {
 const createTopicCards = () => {
   let cards = []
   for (var topic of topics) {
-    cards.push(<TopicCard title={topic.topic} description={topic.description} action={() => {setActiveTopic(topic);setTopicsNotesVisible(true)}}/>)
+    let x = topic
+    cards.push(<TopicCard key={topic.id} title={topic.topic} description={topic.description} action={() => {setActiveTopic(x);setTopicsNotesVisible(true)}}/>)
   }
   setTopicCards(cards)
 }
@@ -59,7 +60,7 @@ const createTopicCards = () => {
         {topicCards}
         <TopicCard title={t('new_topic')} action={setNewTopicFormVisible}/>
       </View>}
-      <NewTopicForm newTopicFormVisible={newTopicFormVisible} setNewTopicFormVisible={setNewTopicFormVisible} groupId={id} topics={topics} setTopics={setTopics}/>
+      <NewTopicForm newTopicFormVisible={newTopicFormVisible} setNewTopicFormVisible={setNewTopicFormVisible} groupId={id} refreshTopics={refreshTopics} setRefreshTopics={setRefreshTopics}/>
     </ScrollView>
   )
 }

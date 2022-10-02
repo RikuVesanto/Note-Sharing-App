@@ -17,10 +17,11 @@ export default function AddNoteForm({id, notes, setNotes, setAddNote}) {
     const sendData = async (values) => {
         console.log(id)
         var data = {
-        title: values.title,
         content: values.content,
         topicId: id
         }
+        if (values.title != '') data.title = values.title
+        
         await postData(data, '/notes/note/', {
         onSuccess: async (response) => {
             console.log(response)
