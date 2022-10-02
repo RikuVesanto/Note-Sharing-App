@@ -11,6 +11,7 @@ export default function Topic({topic,description,id,setTopicsNotesVisible}) {
   const [noteBlocks, setNoteBlocks] = useState([])
 
   var addIcon = require('../../../assets/add.png')
+  var minusIcon = require('../../../assets/minus.png')
 
   useEffect(() => {
     getNotes()
@@ -57,13 +58,18 @@ export default function Topic({topic,description,id,setTopicsNotesVisible}) {
           <Text style={styles.topicDescription}>{description}</Text>
         </View>
       </View>
-      <TouchableOpacity onPress={() => setAddNote(true)}>
+      {addNote ? <TouchableOpacity onPress={() => setAddNote(false)}>
+        <ImageBackground
+            source={minusIcon}
+            resizeMode="cover"
+            style={styles.addnoteButton}
+        /></TouchableOpacity> : <TouchableOpacity onPress={() => setAddNote(true)}>
         <ImageBackground
             source={addIcon}
             resizeMode="cover"
             style={styles.addnoteButton}
         />
-      </TouchableOpacity>
+      </TouchableOpacity>}
       {addNote && <AddNoteForm id={id} notes={notes} setNotes={setNotes} setAddNote={setAddNote}/>}
       {noteBlocks}
     </View>

@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { RegisterValidationSchema } from '../../utils/validation-schemas'
@@ -30,6 +30,7 @@ export default function RegisterForm({setLoginPage}) {
     setShowDatePicker(false)
     Keyboard.dismiss()
   }
+
 
   const sendData = async (values) => {
     var data = {
@@ -76,21 +77,26 @@ export default function RegisterForm({setLoginPage}) {
         handleChange,
         handleBlur,
         handleSubmit,
-        values,
         errors,
         touched,
         isValid,
+        values
       }) => (
         <View>
-          <FormField hideText={false} required={true} largeField={false} placeholder={t('email')} handleChange={() => handleChange('email')}
+          <FormField hideText={false} required={true} largeField={false} placeholder={t('email')}
+           handleChange={() => handleChange('email')}
             handleBlur={() => handleBlur('email')} errors={errors} touched={touched}/>
-          <FormField hideText={false} required={true} largeField={false} placeholder={t('username')} handleChange={() => handleChange('username')}
+          <FormField hideText={false} required={true} largeField={false} placeholder={t('username')}
+          handleChange={() => handleChange('username')}
             handleBlur={() => handleBlur('username')} errors={errors} touched={touched}/>
-          <FormField hideText={true} required={true} largeField={false} placeholder={t('password')} handleChange={() => handleChange('password')}
+          <FormField hideText={true} required={true} largeField={false} placeholder={t('password')}
+          handleChange={() => handleChange('password')}
             handleBlur={() => handleBlur('password')} errors={errors} touched={touched}/>
-          <FormField hideText={false} required={false} largeField={false} placeholder={t('name')} handleChange={() => handleChange('name')}
+          <FormField hideText={false} required={false} largeField={false} placeholder={t('name')}
+          handleChange={() => handleChange('name')}
             handleBlur={() => handleBlur('name')} errors={errors} touched={touched}/>
-          <FormField hideText={false} required={false} largeField={false} placeholder={t('school')} handleChange={() => handleChange('school')}
+          <FormField hideText={false} required={false} largeField={false} placeholder={t('school')}
+          handleChange={() => handleChange('school')}
             handleBlur={() => handleBlur('school')} errors={errors} touched={touched}/>
           <View style={styles.inputContainer}>
             <View style={styles.reveal}>
@@ -123,6 +129,7 @@ export default function RegisterForm({setLoginPage}) {
           </View>
           <View style={styles.buttonStyle}>
             <Button
+              name="button"
               title={i18n.t('register')}
               onPress={handleSubmit}
               disabled={!isValid}
