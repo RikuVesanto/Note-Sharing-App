@@ -214,15 +214,13 @@ export default StyleSheet.create({
   groupCardTitle: {
     textAlign:'center',
     fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: 16,
   }, 
   groupCardDescription: {
     textAlign:'center',
     marginTop:10,
     fontSize: 16,
     flex: 1, 
-    width: 150
-    
   },
   columnLayout: {
     flexDirection: 'column',

@@ -78,7 +78,7 @@ export default function App() {
   </NavigationContainer>
 
   const loginScreen = loginPage ? (
-    <Login setLoginPage={setLoginPage} setLoginInfo={setLoginInfo} />
+    <View><Login setLoginPage={setLoginPage} setLoginInfo={setLoginInfo} /><ChangeLanguage/></View>
   ) : (
     <Register setLoginPage={setLoginPage} />
   )

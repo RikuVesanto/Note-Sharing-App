@@ -1,22 +1,28 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import english from '../../../languages/en.json'
-import finnish from '../../../languages/fi.json'
+import en from '../../../languages/en.json'
+import fi from '../../../languages/fi.json'
 import AppStorage from '../../utils/secure-store'
 
-AppStorage.getValueFor('language').then((language) =>
   i18n.use(initReactI18next).init({
-    compatibilityJSON: 'v3',
-    lng: language,
-    fallbackLng: 'en',
-    resources: {
-      en: english,
-      fi: finnish,
-    },
-    interpolation: {
-      escapeValue: false, // react already safes from xss
-    },
+      compatibilityJSON: 'v3',
+      resources: {
+        en: {
+          translation: en,
+        },
+        fi: {
+          translation: fi,
+        },
+      },
+      lng: 'en',
+      fallbackLng: 'en',
+      interpolation: {
+        escapeValue: false,
+      },
+    })
+
+  AppStorage.getValueFor('language').then((language) => {
+    i18n.changeLanguage(language)
   })
-)
 
 export default i18n

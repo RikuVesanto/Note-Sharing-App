@@ -6,10 +6,8 @@ import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { CreateTopicValidationSchema } from '../../utils/validation-schemas'
 import { postData } from '../../utils/http-requests'
-import i18n from '../language_select/i18n'
 import BackButton from '../general_components/BackButton'
 import FormField from '../general_components/FormField'
-import addToUseState from '../../utils/general-functions'
 
 export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisible, groupId, refreshTopics, setRefreshTopics}) {
   const { t } = useTranslation()
@@ -30,7 +28,7 @@ export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisibl
         console.log(error)
         let message = ''
         if (error.response.status === 500) {
-          message = i18n.t('register_form_error')
+          message = t('register_form_error')
         } else {
           message = error.response.data
         }
@@ -80,7 +78,7 @@ export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisibl
               handleBlur={() => handleBlur('description')} errors={errors} touched={touched}/>  
             <View style={styles.buttonStyle}>
               <Button
-                title={i18n.t('create_topic')}
+                title={t('create_topic')}
                 onPress={handleSubmit}
                 disabled={!isValid}
               />

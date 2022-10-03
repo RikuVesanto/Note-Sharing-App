@@ -5,13 +5,14 @@ import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { SearchValidationSchema } from '../../utils/validation-schemas'
 import { useTranslation } from 'react-i18next'
-import i18n from '../language_select/i18n'
+import '../language_select/i18n'
 import { getData, postData } from '../../utils/http-requests'
 import SearchResultCard from './SearchResultCard'
 import FormField from '../general_components/FormField'
 import BackButton from '../general_components/BackButton'
 
 export default function GroupSearch({userId,setJoinGroup, setNeedToNavigate, readyToNavigate, setReadyToNavigate}) {
+    const { t } = useTranslation()
     const [groups, setGroups] = useState("")
     const [searchResultCards, setSearchResultCards] = useState([])
     const [navigationLocation, setNavigationLocation] = useState("")
@@ -41,11 +42,9 @@ export default function GroupSearch({userId,setJoinGroup, setNeedToNavigate, rea
           screens.push(<SearchResultCard key={group.id} name={group.name} description={group.description} action={joinGroup} groupId={group.id}/>)
           results++
         }
-        screens.unshift(<Text style={styles.resultsText}>{results + " " + i18n.t('results_found')}</Text>)
+        screens.unshift(<Text key="results" style={styles.resultsText}>{results + " " + t('results_found')}</Text>)
         setSearchResultCards(screens)
     }
-
-    const { t } = useTranslation()
 
     const joinGroup = async (groupId, location) => {
         const values = {
@@ -62,7 +61,7 @@ export default function GroupSearch({userId,setJoinGroup, setNeedToNavigate, rea
               console.log(error)
               let message = ''
               if (error.response.status === 500) {
-                message = i18n.t('register_form_error')
+                message = t('register_form_error')
               } else {
                 message = error.response.data
               }
@@ -80,7 +79,7 @@ export default function GroupSearch({userId,setJoinGroup, setNeedToNavigate, rea
               console.log(error)
               let message = ''
               if (error.response.status === 500) {
-                message = i18n.t('register_form_error')
+                message = t('register_form_error')
               } else {
                 message = error.response.data
               }
@@ -102,6 +101,7 @@ export default function GroupSearch({userId,setJoinGroup, setNeedToNavigate, rea
           validationSchema={SearchValidationSchema}
           validateOnMount={true}
           onSubmit={(values) => {
+          console.log("bah")
           getGroups(values)
           }}
       >

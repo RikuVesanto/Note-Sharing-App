@@ -1,7 +1,4 @@
-import {
-  View,
-} from 'react-native'
-
+import {View} from 'react-native'
 import jwt_decode from 'jwt-decode';
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'

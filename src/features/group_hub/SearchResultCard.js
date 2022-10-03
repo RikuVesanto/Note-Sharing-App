@@ -1,18 +1,20 @@
 import { TouchableOpacity, Text, View } from 'react-native'
 import { Divider } from 'react-native-paper';
 import styles from '../../utils/styles'
-import i18n from '../language_select/i18n'
+import '../language_select/i18n'
+import { useTranslation } from 'react-i18next'
 
 export default function SearchResultCard({name,description, action, groupId}) {
-
+  const { t } = useTranslation()
+  
   return (
     <View style={styles.groupCard}>
         <View style={styles.columnLayout}>
-        <Text style={styles.groupCardTitle}>{name}</Text>
-        <Text style={styles.groupCardDescription}>{description}</Text>
+            <Text style={styles.groupCardTitle}>{name}</Text>
+            <Text style={styles.groupCardDescription}>{description}</Text>
         </View>
         <TouchableOpacity style={styles.joinGroupButton} onPress={() => action(groupId, name)}>
-            <Text style={styles.joinGroupButtonTitle}>{i18n.t('join_group')}</Text>
+          <Text style={styles.joinGroupButtonTitle}>{t('join_group')}</Text>
         </TouchableOpacity>
         <Divider style={{ height: 1}} />
     </View>

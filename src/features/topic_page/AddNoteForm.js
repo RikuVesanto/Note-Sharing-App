@@ -5,13 +5,11 @@ import { Formik } from 'formik'
 import { NoteValidationSchema } from '../../utils/validation-schemas'
 import { postData } from '../../utils/http-requests'
 import { useTranslation } from 'react-i18next'
-import i18n from '../language_select/i18n'
+import '../language_select/i18n'
 import FormField from '../general_components/FormField'
 import addToUseState from '../../utils/general-functions'
 
 export default function AddNoteForm({id, notes, setNotes, setAddNote}) {
-    
-
     const { t } = useTranslation()
 
     const sendData = async (values) => {
@@ -32,7 +30,7 @@ export default function AddNoteForm({id, notes, setNotes, setAddNote}) {
             console.log(error)
             let message = ''
             if (error.response.status === 500) {
-            message = i18n.t('register_form_error')
+            message = t('register_form_error')
             } else {
             message = error.response.data
             }

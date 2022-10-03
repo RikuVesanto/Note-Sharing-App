@@ -1,18 +1,12 @@
-import {
-  View,
-  TextInput,
-  Keyboard,
-  TouchableOpacity,
-  ImageBackground,
-} from 'react-native'
-import React, { useState, useEffect } from 'react'
+import {View,TextInput,Keyboard,TouchableOpacity,ImageBackground,} from 'react-native'
+import React, { useState} from 'react'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { RegisterValidationSchema } from '../../utils/validation-schemas'
 import { postData } from '../../utils/http-requests'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
-import i18n from '../language_select/i18n'
+import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
@@ -50,7 +44,7 @@ export default function RegisterForm({setLoginPage}) {
         console.log(error.data)
         let message = ''
         if (error.response.status === 500) {
-          message = i18n.t('register_form_error')
+          message = t('register_form_error')
         } else {
           message = error.response.data
         }
@@ -80,7 +74,6 @@ export default function RegisterForm({setLoginPage}) {
         errors,
         touched,
         isValid,
-        values
       }) => (
         <View>
           <FormField hideText={false} required={true} largeField={false} placeholder={t('email')}
@@ -113,7 +106,7 @@ export default function RegisterForm({setLoginPage}) {
             </View>
             <TextInput
               style={styles.input}
-              placeholder={i18n.t('birthday')}
+              placeholder={t('birthday')}
               value={
                 stateBirthday ? moment(stateBirthday).format('DD.MM.Y') : ''
               }
@@ -130,7 +123,7 @@ export default function RegisterForm({setLoginPage}) {
           <View style={styles.buttonStyle}>
             <Button
               name="button"
-              title={i18n.t('register')}
+              title={t('register')}
               onPress={handleSubmit}
               disabled={!isValid}
             />
