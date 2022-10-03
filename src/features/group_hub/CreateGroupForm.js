@@ -83,13 +83,13 @@ import { useNavigation } from '@react-navigation/native';
           }) => (
             <View>
               <FormField hideText={false} required={true} largeField={false} placeholder={t('group_name')} handleChange={() => handleChange('name')}
-                handleBlur={() => handleBlur('name')} errors={errors} touched={touched}/> 
+                handleBlur={handleBlur('name')} errors={errors.name} touched={touched.name}/> 
               <FormField hideText={false} required={false} largeField={false} placeholder={t('class')} handleChange={() => handleChange('class')}
-                handleBlur={() => handleBlur('class')} errors={errors} touched={touched}/> 
+                handleBlur={handleBlur('class')} errors={errors.class} touched={touched.class}/> 
               <FormField hideText={false} required={false} largeField={true} placeholder={t('description')} handleChange={() => handleChange('description')}
-                handleBlur={() => handleBlur('description')} errors={errors} touched={touched}/>
+                handleBlur={handleBlur('description')} errors={errors.description} touched={touched.description}/>
               <FormField hideText={true} required={false} largeField={false} placeholder={t('password')} handleChange={() => handleChange('password')}
-                handleBlur={() => handleBlur('password')} errors={errors} touched={touched}/>  
+                handleBlur={handleBlur('password')} errors={errors.password} touched={touched.password}/>  
               <View style={styles.buttonStyle}>
                 <Button
                   title={t('create_group')}

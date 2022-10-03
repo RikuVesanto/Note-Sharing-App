@@ -18,8 +18,8 @@
     "gotoregister": "Eikö sinulla ole tunnusta? Rekisteröidy",
     "language": "Kieli",
     "username_validation": "Käyttäjänimi ei saa olla tyjä",
-    "register_username_validation_validation_short": "Käyttäjänimi täytyy olla vähintään 4 kirjainta pitkä",
-    "register_username_validation_validation_long": "Käyttjänimen täytyy olla enintään 32 kirjainta pitkä",
+    "register_username_validation_short": "Käyttäjänimi täytyy olla vähintään 4 kirjainta pitkä",
+    "register_username_validation_long": "Käyttjänimen täytyy olla enintään 32 kirjainta pitkä",
     "join_group": "Liity Ryhmään",
     "create_group": "Luo Ryhmä",
     "group_hub": "Ryhmätila",
@@ -34,8 +34,13 @@
     "new_topic": "Luo uusi aihe",
     "topic": "Aihe",
     "create_topic": "Luo Aihe",
-    "create_note": "Create Note",
+    "create_note": "Luo muistio",
     "search": "Hae",
     "results_found": "tulosta löydetty",
-    "group_search": "Ryhmähaku"
+    "group_search": "Ryhmähaku",
+    "search_required_validation": "Haku ei saa olla tyhjä",
+    "topic_required_validation": "Aihe ei saa olla tyhjä",
+    "topic_long_validation": "Aihe ei saa olla yli 48 kirjainta pitkä",
+    "title_long_validation": "Title can't be longer than 48 characters long",
+    "content_required_validation": "Muistio ei saa olla tyhjä"
   }

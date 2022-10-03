@@ -73,9 +73,9 @@ export default function NewTopicForm({newTopicFormVisible, setNewTopicFormVisibl
         }) => (
           <View>
             <FormField hideText={false} required={true} largeField={false} placeholder={t('topic')} handleChange={() => handleChange('topic')}
-              handleBlur={() => handleBlur('topic')} errors={errors} touched={touched}/>
+              handleBlur={handleBlur('topic')} errors={errors.topic} touched={touched.topic}/>
             <FormField hideText={false} required={false} largeField={true} placeholder={t('description')} handleChange={() => handleChange('description')}
-              handleBlur={() => handleBlur('description')} errors={errors} touched={touched}/>  
+              handleBlur={handleBlur('description')} errors={errors.description} touched={touched.description}/>  
             <View style={styles.buttonStyle}>
               <Button
                 title={t('create_topic')}

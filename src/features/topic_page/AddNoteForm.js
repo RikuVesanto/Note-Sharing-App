@@ -52,16 +52,15 @@ export default function AddNoteForm({id,setAddNote,refreshNotes, setRefreshNotes
             handleChange,
             handleBlur,
             handleSubmit,
-            values,
             errors,
             touched,
             isValid,
             }) => (
             <View>
                 <FormField hideText={false} required={false} largeField={false} placeholder={t('title')} handleChange={() => handleChange('title')}
-                    handleBlur={() => handleBlur('title')} errors={errors} touched={touched}/>
+                    handleBlur={handleBlur('title')} errors={errors.title} touched={touched.title}/>
                 <FormField hideText={false} required={true} largeField={true} placeholder={t('content')} handleChange={() => handleChange('content')}
-                    handleBlur={() => handleBlur('content')} errors={errors} touched={touched}/>    
+                    handleBlur={handleBlur('content')} errors={errors.content} touched={touched.content}/>    
                 <View style={styles.buttonStyle}>
                 <Button
                     title={t('create_note')}

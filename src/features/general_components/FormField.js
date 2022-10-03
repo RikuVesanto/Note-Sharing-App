@@ -31,7 +31,7 @@ export default function FormField({hideText, required, largeField, placeholder, 
             <TextInput
               style={[
                 inputStyle,
-                touched.password && errors.password && styles.inputError,
+                touched && errors && styles.inputError,
               ]}
               multiline={multiline}
               placeholder={placeholder}
@@ -39,8 +39,8 @@ export default function FormField({hideText, required, largeField, placeholder, 
               secureTextEntry={hidden}
               onBlur={handleBlur}
             />
-            {errors.password && touched.password && (
-              <Text style={styles.errorText}>{errors.password}</Text>
+            {errors && touched && (
+              <Text style={styles.errorText}>{errors}</Text>
             )}
         </View>
   )

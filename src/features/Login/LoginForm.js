@@ -43,16 +43,15 @@ export default function LoginForm({ setLoginInfo }) {
         handleChange,
         handleBlur,
         handleSubmit,
-        values,
         errors,
         touched,
         isValid,
       }) => (
         <View>
           <FormField hideText={false} required={false} largeField={false} placeholder={t('username')} handleChange={() => handleChange('username')}
-            handleBlur={() => handleBlur('username')} errors={errors} touched={touched}/>
+            handleBlur={handleBlur('username')} errors={errors.username} touched={touched.username}/>
           <FormField hideText={true} required={false} largeField={false} placeholder={t('password')} handleChange={() => handleChange('password')}
-            handleBlur={() => handleBlur('password')} errors={errors} touched={touched}/>
+            handleBlur={handleBlur('password')} errors={errors.password} touched={touched.password}/>
           <View style={styles.buttonStyle}>
             <Button
               title={t('login')}

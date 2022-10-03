@@ -39,10 +39,10 @@ module.exports = {
     password: Yup.string()
     .min(8, i18n.t('register_password_validation_short'))
     .max(256, i18n.t('register_password_validation_long'))
+    .required(i18n.t('password_validation')),
   }),
   CreateTopicValidationSchema: Yup.object().shape({
     topic: Yup.string()
-    .min(1, i18n.t('topic_short_validation'))
     .max(48, i18n.t('topic_long_validation'))
     .required(i18n.t('topic_required_validation')),
     description: Yup.string()
@@ -50,10 +50,9 @@ module.exports = {
   }),
   NoteValidationSchema: Yup.object().shape({
     title: Yup.string()
-    .min(1, i18n.t('topic_short_validation'))
-    .max(48, i18n.t('topic_long_validation')),
+    .max(48, i18n.t('title_long_validation')),
     content: Yup.string()
-    .required(i18n.t('topic_required_validation'))
+    .required(i18n.t('content_required_validation'))
   }),
   SearchValidationSchema: Yup.object().shape({
     search: Yup.string()

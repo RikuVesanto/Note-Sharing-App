@@ -115,7 +115,7 @@ export default function GroupSearch({userId,setJoinGroup, setNeedToNavigate, rea
           }) => (
           <View>
             <FormField hideText={false} required={false} largeField={false} placeholder={t('group_name')} handleChange={() => handleChange('search')}
-              handleBlur={() => handleBlur('search')} errors={errors} touched={touched}/> 
+              handleBlur={handleBlur('search')} errors={errors.search} touched={touched.search}/> 
           <View style={styles.buttonStyle}>
                   <Button
                       title={t('search')}

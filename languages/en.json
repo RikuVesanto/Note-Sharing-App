@@ -18,8 +18,8 @@
     "gotoregister": "Don't have an account? Register",
     "language": "Language",
     "username_validation": "Username can't be empty",
-    "register_username_validation_validation_short": "Username must have at least 4 characters",
-    "register_username_validation_validation_long": "Username must have at most 32 characters",
+    "register_username_validation_short": "Username must have at least 4 characters",
+    "register_username_validation_long": "Username must have at most 32 characters",
     "join_group": "Join Group",
     "create_group": "Create Group",
     "group_hub": "Group Hub",
@@ -37,5 +37,10 @@
     "create_note": "Luo merkintä",
     "search": "Search",
     "results_found": "results found",
-    "group_search": "Group Search"
+    "group_search": "Group Search",
+    "search_required_validation": "Search can't be empty",
+    "topic_required_validation": "Topic can't be empty",
+    "topic_long_validation": "Topic can't be longer than 48 characters",
+    "title_long_validation": "Title can't be longer than 48 characters long",
+    "content_required_validation": "Note can't be empty"
   }

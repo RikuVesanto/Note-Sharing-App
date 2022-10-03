@@ -78,19 +78,19 @@ export default function RegisterForm({setLoginPage}) {
         <View>
           <FormField hideText={false} required={true} largeField={false} placeholder={t('email')}
            handleChange={() => handleChange('email')}
-            handleBlur={() => handleBlur('email')} errors={errors} touched={touched}/>
+            handleBlur={handleBlur('email')} errors={errors.email} touched={touched.email}/>
           <FormField hideText={false} required={true} largeField={false} placeholder={t('username')}
           handleChange={() => handleChange('username')}
-            handleBlur={() => handleBlur('username')} errors={errors} touched={touched}/>
+            handleBlur={handleBlur('username')} errors={errors.username} touched={touched.username}/>
           <FormField hideText={true} required={true} largeField={false} placeholder={t('password')}
           handleChange={() => handleChange('password')}
-            handleBlur={() => handleBlur('password')} errors={errors} touched={touched}/>
+            handleBlur={handleBlur('password')} errors={errors.password} touched={touched.password}/>
           <FormField hideText={false} required={false} largeField={false} placeholder={t('name')}
           handleChange={() => handleChange('name')}
-            handleBlur={() => handleBlur('name')} errors={errors} touched={touched}/>
+            handleBlur={handleBlur('name')} errors={errors.name} touched={touched.name}/>
           <FormField hideText={false} required={false} largeField={false} placeholder={t('school')}
           handleChange={() => handleChange('school')}
-            handleBlur={() => handleBlur('school')} errors={errors} touched={touched}/>
+            handleBlur={handleBlur('school')} errors={errors.school} touched={touched.school}/>
           <View style={styles.inputContainer}>
             <View style={styles.reveal}>
               <TouchableOpacity
