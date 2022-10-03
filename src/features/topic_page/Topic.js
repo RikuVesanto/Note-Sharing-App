@@ -9,13 +9,14 @@ export default function Topic({topic,description,id,setTopicsNotesVisible}) {
   const [addNote, setAddNote] = useState(false)
   const [notes, setNotes] = useState([])
   const [noteBlocks, setNoteBlocks] = useState([])
+  const [refreshNotes, setRefreshNotes] = useState([])
 
   var addIcon = require('../../../assets/add.png')
   var minusIcon = require('../../../assets/minus.png')
 
   useEffect(() => {
     getNotes()
-  } , [])
+  } , [refreshNotes])
   
   useEffect(() => {
     createNoteBlocks()
@@ -70,7 +71,7 @@ export default function Topic({topic,description,id,setTopicsNotesVisible}) {
             style={styles.addnoteButton}
         />
       </TouchableOpacity>}
-      {addNote && <AddNoteForm id={id} notes={notes} setNotes={setNotes} setAddNote={setAddNote}/>}
+      {addNote && <AddNoteForm id={id} refreshNotes={refreshNotes} setRefreshNotes={setRefreshNotes} setAddNote={setAddNote}/>}
       {noteBlocks}
     </ScrollView>
   )

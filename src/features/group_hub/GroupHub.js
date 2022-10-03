@@ -7,7 +7,7 @@ import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 
-export default function GroupHub({ loginInfo, groups, setGroups, setNeedToNavigate, readyToNavigate, setReadyToNavigate }) {
+export default function GroupHub({ loginInfo, setNeedToNavigate, readyToNavigate, setReadyToNavigate, refreshGroups, setRefreshGroups }) {
   const { t } = useTranslation()
   const [createGroup, setCreateGroup] = useState(false)
   const [joinGroup, setJoinGroup] = useState(false)
@@ -16,7 +16,7 @@ export default function GroupHub({ loginInfo, groups, setGroups, setNeedToNaviga
       {(!joinGroup && !createGroup)  && <Text style={styles.headerStyle}>{t('group_hub')}</Text>}
       {(!createGroup && !joinGroup) && <View><LargeButton title={t("create_group")} 
       action={setCreateGroup}/><LargeButton title={t("join_group")} action={setJoinGroup}/></View>}
-      {(createGroup) && <CreateGroupForm loginInfo={loginInfo} groups={groups} setGroups={setGroups} 
+      {(createGroup) && <CreateGroupForm loginInfo={loginInfo} refreshGroups={refreshGroups} setRefreshGroups={setRefreshGroups} 
       setCreateGroup={setCreateGroup} setNeedToNavigate={setNeedToNavigate} 
       readyToNavigate={readyToNavigate} setReadyToNavigate={setReadyToNavigate}/>}
       {(joinGroup) && <GroupSearch setJoinGroup={setJoinGroup} userId={loginInfo.id}

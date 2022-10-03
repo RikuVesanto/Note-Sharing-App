@@ -19,12 +19,13 @@ export default function App() {
   const [groupScreens, setGroupScreens] = useState([])
   const [needToNavigate, setNeedToNavigate] = useState(false)
   const [readyToNavigate, setReadyToNavigate] = useState(false)
+  const [refreshGroups, setRefreshGroups] = useState(false)
 
   useEffect(() => {
     if (loginInfo != "") {
       getGroups()
     }
-  } , [loginInfo])
+  } , [loginInfo,refreshGroups])
 
   useEffect(() => {
     createGroupScreens()
@@ -71,8 +72,7 @@ export default function App() {
   let loggedInScreen = <NavigationContainer>
   <Drawer.Navigator>
   {groupScreens}
-  <Drawer.Screen name="Group Hub" children={() => <GroupHub loginInfo={loginInfo} groups={groups} 
-  setGroups={setGroups} setNeedToNavigate={setNeedToNavigate} 
+  <Drawer.Screen name="Group Hub" children={() => <GroupHub loginInfo={loginInfo} refreshGroups={refreshGroups} setRefreshGroups={setRefreshGroups} setNeedToNavigate={setNeedToNavigate} 
   readyToNavigate={readyToNavigate} setReadyToNavigate={setReadyToNavigate}/>} />
   </Drawer.Navigator>
   </NavigationContainer>

@@ -7,13 +7,11 @@ import { postData } from '../../utils/http-requests'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 import FormField from '../general_components/FormField'
-import addToUseState from '../../utils/general-functions'
 
-export default function AddNoteForm({id, notes, setNotes, setAddNote}) {
+export default function AddNoteForm({id,setAddNote,refreshNotes, setRefreshNotes}) {
     const { t } = useTranslation()
 
     const sendData = async (values) => {
-        console.log(id)
         var data = {
         content: values.content,
         topicId: id
@@ -23,7 +21,7 @@ export default function AddNoteForm({id, notes, setNotes, setAddNote}) {
         await postData(data, '/notes/note/', {
         onSuccess: async (response) => {
             console.log(response)
-            addToUseState(data,notes, setNotes)
+            setRefreshNotes(!refreshNotes)
             setAddNote(false)
         },
         onError: (error) => {

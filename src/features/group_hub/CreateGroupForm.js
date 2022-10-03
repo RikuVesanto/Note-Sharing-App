@@ -9,10 +9,9 @@ import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
 import BackButton from '../general_components/BackButton'
-import addToUseState from '../../utils/general-functions'
 import { useNavigation } from '@react-navigation/native';
 
-  export default function RegisterForm({loginInfo, groups, setGroups, setCreateGroup, setNeedToNavigate, readyToNavigate, setReadyToNavigate}) {
+  export default function RegisterForm({loginInfo, setCreateGroup, setNeedToNavigate, readyToNavigate, setReadyToNavigate, refreshGroups, setRefreshGroups}) {
     const navigation = useNavigation();
     const { t } = useTranslation()
 
@@ -38,9 +37,9 @@ import { useNavigation } from '@react-navigation/native';
       await postData(data, '/groups/group', {
         onSuccess: async (response) => {
           //console.log(response.data)
+          setRefreshGroups(!refreshGroups)
           setNeedToNavigate(true)
           setNavigationLocation(data.name)
-          addToUseState(data,groups, setGroups)
         },
         onError: (error) => {
           console.log(error)
