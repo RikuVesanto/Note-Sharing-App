@@ -39,7 +39,6 @@ module.exports = {
     password: Yup.string()
     .min(8, i18n.t('register_password_validation_short'))
     .max(256, i18n.t('register_password_validation_long'))
-    .required(i18n.t('password_validation')),
   }),
   CreateTopicValidationSchema: Yup.object().shape({
     topic: Yup.string()

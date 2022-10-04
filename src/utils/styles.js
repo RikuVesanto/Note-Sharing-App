@@ -257,5 +257,23 @@ export default StyleSheet.create({
     borderColor: '#777',
     borderWidth: 1,
     borderRadius: 5,
-  }
+  },
+  //info messages
+  successInfoMessage: {
+    backgroundColor: "#4dff88",
+  },
+  failureInfoMessage: {
+    backgroundColor: "#ff4d4d",
+  },
+  neutralInfoMessage: {
+    backgroundColor: "#b3ffff",
+    color:"black"
+  },
+  infoMessageTitle: {
+    fontWeight: 'bold', 
+    fontSize: 16,
+  },
+  infoMessageFontColorNeutral: {
+    color:"#000000"
+  },
 })

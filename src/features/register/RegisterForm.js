@@ -4,6 +4,7 @@ import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { RegisterValidationSchema } from '../../utils/validation-schemas'
 import { postData } from '../../utils/http-requests'
+import {showStatusMessage} from '../../utils/general-functions'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import moment from 'moment'
 import '../language_select/i18n'
@@ -38,16 +39,11 @@ export default function RegisterForm({setLoginPage}) {
     await postData(data, '/users/user', {
       onSuccess: async (response) => {
         console.log(response.data)
+        showStatusMessage(response.data, "success")
         setLoginPage(true)
       },
       onError: (error) => {
-        console.log(error.data)
-        let message = ''
-        if (error.response.status === 500) {
-          message = t('register_form_error')
-        } else {
-          message = error.response.data
-        }
+        showStatusMessage(error.data, "failure")
       },
     })
   }

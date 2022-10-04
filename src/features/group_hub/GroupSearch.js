@@ -7,6 +7,7 @@ import { SearchValidationSchema } from '../../utils/validation-schemas'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 import { getData, postData } from '../../utils/http-requests'
+import {showStatusMessage} from '../../utils/general-functions'
 import SearchResultCard from './SearchResultCard'
 import FormField from '../general_components/FormField'
 import BackButton from '../general_components/BackButton'
@@ -25,13 +26,10 @@ export default function GroupSearch({userId,setJoinGroup, setNeedToNavigate, rea
 
     useEffect(() => {
       if (readyToNavigate) {
-        console.log("bonk")
         setReadyToNavigate(false)
         setNeedToNavigate(false)
         navigation.navigate(navigationLocation)
         setJoinGroup(false)
-      } else {
-        console.log("bah")
       }
     },[readyToNavigate])
 
@@ -58,14 +56,8 @@ export default function GroupSearch({userId,setJoinGroup, setNeedToNavigate, rea
                 setNavigationLocation(location)
             },
             onError: (error) => {
-              console.log(error)
-              let message = ''
-              if (error.response.status === 500) {
-                message = t('register_form_error')
-              } else {
-                message = error.response.data
-              }
-            },
+              showStatusMessage(error.data.message, "failure")
+            }
           })
     }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View } from 'react-native'
+import FlashMessage from "react-native-flash-message";
 import Register from './src/features/register/Register'
 import Login from './src/features/login/Login'
 import ChangeLanguage from './src/features/language_select/ChangeLanguage'
@@ -86,6 +87,7 @@ export default function App() {
   return (
     <View style={styles.appContainer}>
       {loginInfo != "" ? loggedInScreen : loginScreen}
+      <FlashMessage position="top" />
     </View>
   )
 }

@@ -4,6 +4,7 @@ import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { LoginValidationSchema } from '../../utils/validation-schemas'
 import { getData } from '../../utils/http-requests'
+import {showStatusMessage} from '../../utils/general-functions'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
@@ -15,7 +16,7 @@ export default function LoginForm({ setLoginInfo }) {
   const sendData = async (values) => {
     await getData(`/users/user/${values.username}/${values.password}`, {
       onSuccess: async (response) => {
-        console.log(response.status)
+        showStatusMessage("Login successful", "success")
         var decoded = jwt_decode(response.data)
         if (decoded) {
           setLoginInfo(decoded)
@@ -23,6 +24,7 @@ export default function LoginForm({ setLoginInfo }) {
       },
       onError: (error) => {
         console.log(error.status, error.data.message)
+        showStatusMessage(error.data.message, "failure")
       },
     })
   }
