@@ -67,7 +67,7 @@ export default function AddNoteForm({id,refreshNotes, setRefreshNotes}) {
                    <View style={styles.noteContainer}>
                         <TextInput
                             style={[
-                                styles.noteInput,styles.highNoteInput,
+                                styles.noteInput,styles.highInput,
                                 touched.content && errors && styles.inputError,
                             ]}
                             multiline={true}

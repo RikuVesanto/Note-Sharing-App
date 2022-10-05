@@ -10,7 +10,7 @@ export default function FormField({hideText, required, largeField, placeholder, 
     : require('../../../assets/eye-fill.png')
 
   var viewStyle = largeField ? styles.highInputContainer : styles.inputContainer
-  var inputStyle = largeField ? styles.highInput : styles.input
+  var inputStyle = largeField ? [styles.input,styles.highInput] : styles.input
   var multiline = largeField ? true : false
   return (
         <View style={viewStyle}>

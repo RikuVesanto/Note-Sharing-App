@@ -14,7 +14,7 @@ const addToUseState = (item, itemArray, setItemArray) => {
   setItemArray(tempArray)
 }
 
-const showStatusMessage = (message, status) => {
+const showStatusMessage = (message, status, duration = 1850) => {
   console.log(message)
   const style = status == "success" ? styles.successInfoMessage : (status == "failure" ? styles.failureInfoMessage : styles.neutralInfoMessage);
   const titleStyle = status == "neutral" ? (styles.infoMessageTitle,styles.infoMessageFontColorNeutral) : styles.infoMessageTitle
@@ -23,7 +23,9 @@ const showStatusMessage = (message, status) => {
     type: "info",
     style: style,
     titleStyle: titleStyle,
-    statusBarHeight: 30
+    statusBarHeight: 30,
+    duration:duration,
+    autoHide:true
   });
 }
 

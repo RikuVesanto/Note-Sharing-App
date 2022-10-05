@@ -16,7 +16,7 @@ export default function LoginForm({ setLoginInfo }) {
   const sendData = async (values) => {
     await getData(`/users/user/${values.username}/${values.password}`, {
       onSuccess: async (response) => {
-        showStatusMessage("Login successful", "success")
+        showStatusMessage("Login successful", "success", 600)
         var decoded = jwt_decode(response.data)
         if (decoded) {
           setLoginInfo(decoded)

@@ -114,14 +114,7 @@ export default StyleSheet.create({
     fontSize: 24,
   },
   highInput: {
-    backgroundColor: '#fff',
     height: 80,
-    width: '100%',
-    borderColor: '#777',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
   },
   highInputContainer: {
     width: '80%',
@@ -290,9 +283,6 @@ export default StyleSheet.create({
     width: '100%',
     paddingLeft: 10,
     paddingRight: 10,
-  },
-  highNoteInput: {
-    height: 80
   },
   titleErrorText: {
     position: 'absolute',
