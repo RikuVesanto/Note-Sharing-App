@@ -1,4 +1,4 @@
-import {Text, View, ImageBackground, TouchableOpacity, ScrollView} from 'react-native'
+import {Text, View, ScrollView} from 'react-native'
 import styles from '../../utils/styles'
 import React, { useState, useEffect } from 'react'
 import AddNoteForm from '../topic_page/AddNoteForm'
@@ -6,13 +6,9 @@ import { getData } from '../../utils/http-requests'
 import BackButton from '../general_components/BackButton'
 
 export default function Topic({topic,description,id,setTopicsNotesVisible}) {
-  const [addNote, setAddNote] = useState(false)
   const [notes, setNotes] = useState([])
   const [noteBlocks, setNoteBlocks] = useState([])
   const [refreshNotes, setRefreshNotes] = useState([])
-
-  var addIcon = require('../../../assets/add.png')
-  var minusIcon = require('../../../assets/minus.png')
 
   useEffect(() => {
     getNotes()
@@ -30,12 +26,6 @@ export default function Topic({topic,description,id,setTopicsNotesVisible}) {
         },
         onError: (error) => {
           console.log(error)
-          let message = ''
-          if (error.response.status === 500) {
-            message = i18n.t('register_form_error')
-          } else {
-            message = error.response.data
-          }
         },
       })
   }
@@ -59,20 +49,9 @@ export default function Topic({topic,description,id,setTopicsNotesVisible}) {
             <Text style={styles.topicDescription}>{description}</Text>
           </View>
         </View>
-      {addNote ? <TouchableOpacity onPress={() => setAddNote(false)}>
-        <ImageBackground
-            source={minusIcon}
-            resizeMode="cover"
-            style={styles.addnoteButton}
-        /></TouchableOpacity> : <TouchableOpacity onPress={() => setAddNote(true)}>
-        <ImageBackground
-            source={addIcon}
-            resizeMode="cover"
-            style={styles.addnoteButton}
-        />
-      </TouchableOpacity>}
-      {addNote && <AddNoteForm id={id} refreshNotes={refreshNotes} setRefreshNotes={setRefreshNotes} setAddNote={setAddNote}/>}
+        <AddNoteForm id={id} refreshNotes={refreshNotes} setRefreshNotes={setRefreshNotes}/>
       {noteBlocks}
+
     </ScrollView>
   )
 }

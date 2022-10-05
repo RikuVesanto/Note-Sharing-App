@@ -276,4 +276,35 @@ export default StyleSheet.create({
   infoMessageFontColorNeutral: {
     color:"#000000"
   },
+  //note creation form styling
+  noteContainer: {
+    width: '80%',
+    height: 70,
+    alignSelf: 'center',
+  },
+  noteInput: {
+    //backgroundColor: '#fff',
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    height: 40,
+    width: '100%',
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  highNoteInput: {
+    height: 80
+  },
+  titleErrorText: {
+    position: 'absolute',
+    top: 45,
+  },
+  contentErrorText: {
+    position: 'absolute',
+    top: 85,
+  },
+  noteSubmitButton: {
+    marginTop:40,
+    width: '80%',
+    alignSelf: 'center',
+  },
 })
