@@ -9,13 +9,15 @@ export default function SearchResultCard({name,description, action, groupId}) {
   
   return (
     <View style={styles.groupCard}>
-        <View style={styles.columnLayout}>
+        <View style={styles.groupCardLeft}>
             <Text style={styles.groupCardTitle}>{name}</Text>
             <Text style={styles.groupCardDescription}>{description}</Text>
         </View>
-        <TouchableOpacity style={styles.joinGroupButton} onPress={() => action(groupId, name)}>
-          <Text style={styles.joinGroupButtonTitle}>{t('join_group')}</Text>
-        </TouchableOpacity>
+        <View style={styles.groupCardRight}>
+          <TouchableOpacity style={styles.joinGroupButton} onPress={() => action(groupId, name)}>
+            <Text style={styles.joinGroupButtonTitle}>{t('join_group')}</Text>
+          </TouchableOpacity>
+        </View>
         <Divider style={{ height: 1}} />
     </View>
   )

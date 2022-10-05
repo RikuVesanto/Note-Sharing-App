@@ -189,12 +189,23 @@ export default StyleSheet.create({
     backgroundColor: '#d1c9c9',
     margin:30
   },
+  groupCardLeft: {
+    width:"50%",
+    flexDirection: 'column',
+    alignItems:'center',
+    paddingTop:10,
+    paddingLeft:10,
+    paddingBottom:10
+  },
+  groupCardRight: {
+    width:"50%",
+  },
   joinGroupButton: {
-    marginTop:5,
     backgroundColor: "#8eddfa",
-    marginBottom: 30,
+    marginTop:10,
+    marginBottom: 10,
     marginLeft:20,
-    width: '40%',
+    width: 130,
     height: 60,
     borderRadius:5,
   },
@@ -207,13 +218,12 @@ export default StyleSheet.create({
   groupCardTitle: {
     textAlign:'center',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
   }, 
   groupCardDescription: {
     textAlign:'center',
     marginTop:10,
     fontSize: 16,
-    flex: 1, 
   },
   columnLayout: {
     flexDirection: 'column',
