@@ -5,14 +5,14 @@ import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 
 export default function Register({ setLoginPage }) {
-  const { t } = useTranslation()
-  return (
-    <ScrollView contentContainerStyle={styles.registerContainer}>
-      <Text style={styles.headerStyle}>{t('register')}</Text>
-      <RegisterForm setLoginPage={setLoginPage}/>
-      <TouchableOpacity onPress={() => setLoginPage(true)}>
-        <Text style={styles.hyperlink}>{t('gotologin')}</Text>
-      </TouchableOpacity>
-    </ScrollView>
-  )
+	const { t } = useTranslation()
+	return (
+		<ScrollView contentContainerStyle={styles.registerContainer}>
+			<Text style={styles.headerStyle}>{t('register')}</Text>
+			<RegisterForm setLoginPage={setLoginPage} />
+			<TouchableOpacity onPress={() => setLoginPage(true)}>
+				<Text style={styles.hyperlink}>{t('gotologin')}</Text>
+			</TouchableOpacity>
+		</ScrollView>
+	)
 }

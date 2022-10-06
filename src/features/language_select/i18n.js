@@ -4,25 +4,25 @@ import en from '../../../languages/en.json'
 import fi from '../../../languages/fi.json'
 import AppStorage from '../../utils/secure-store'
 
-  i18n.use(initReactI18next).init({
-      compatibilityJSON: 'v3',
-      resources: {
-        en: {
-          translation: en,
-        },
-        fi: {
-          translation: fi,
-        },
-      },
-      lng: 'en',
-      fallbackLng: 'en',
-      interpolation: {
-        escapeValue: false,
-      },
-    })
+i18n.use(initReactI18next).init({
+	compatibilityJSON: 'v3',
+	resources: {
+		en: {
+			translation: en,
+		},
+		fi: {
+			translation: fi,
+		},
+	},
+	lng: 'en',
+	fallbackLng: 'en',
+	interpolation: {
+		escapeValue: false,
+	},
+})
 
-  AppStorage.getValueFor('language').then((language) => {
-    i18n.changeLanguage(language)
-  })
+AppStorage.getValueFor('language').then((language) => {
+	i18n.changeLanguage(language)
+})
 
 export default i18n

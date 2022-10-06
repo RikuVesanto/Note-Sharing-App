@@ -8,22 +8,22 @@ url = 'http://192.168.1.193:3000'
  * @param {*} callbacks Callbacks object with onSuccess, onError and onCompletion functions
  */
 async function executeRequestCallbacks(request, callbacks) {
-  return request
-    .then((response) => {
-      try {
-        callbacks.onSuccess(response)
-      } catch (callbackError) {}
-    })
-    .catch((error) => {
-      try {
-        callbacks.onError(error.response)
-      } catch (callbackError) {}
-    })
-    .then(() => {
-      try {
-        callbacks.onCompletion()
-      } catch (error) {}
-    })
+	return request
+		.then((response) => {
+			try {
+				callbacks.onSuccess(response)
+			} catch (callbackError) {}
+		})
+		.catch((error) => {
+			try {
+				callbacks.onError(error.response)
+			} catch (callbackError) {}
+		})
+		.then(() => {
+			try {
+				callbacks.onCompletion()
+			} catch (error) {}
+		})
 }
 
 /**
@@ -33,7 +33,7 @@ async function executeRequestCallbacks(request, callbacks) {
  * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
 async function postData(data, requestUrl, callbacks) {
-  await executeRequestCallbacks(axios.post(url + requestUrl, data), callbacks)
+	await executeRequestCallbacks(axios.post(url + requestUrl, data), callbacks)
 }
 
 /**
@@ -42,9 +42,8 @@ async function postData(data, requestUrl, callbacks) {
  * @param {*} id Id used for finding the wanted data
  * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
- async function getData(requestUrl, callbacks) {
-  await executeRequestCallbacks(axios.get(url + requestUrl,
-  ), callbacks)
+async function getData(requestUrl, callbacks) {
+	await executeRequestCallbacks(axios.get(url + requestUrl), callbacks)
 }
 
 export { postData, getData }

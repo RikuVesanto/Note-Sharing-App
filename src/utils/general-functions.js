@@ -1,4 +1,4 @@
-import { showMessage} from "react-native-flash-message";
+import { showMessage } from 'react-native-flash-message'
 import styles from './styles'
 
 /**
@@ -8,25 +8,36 @@ import styles from './styles'
  * @param {*} setItemArray Setter for updating the state array.
  */
 const addToUseState = (item, itemArray, setItemArray) => {
-  //just adding more json data to the state variable doesn't cause a re render
-  var tempArray = itemArray.slice()
-  tempArray.push(item)
-  setItemArray(tempArray)
+	//just adding more json data to the state variable doesn't cause a re render
+	var tempArray = itemArray.slice()
+	tempArray.push(item)
+	setItemArray(tempArray)
 }
 
 const showStatusMessage = (message, status, duration = 1850) => {
-  console.log(message)
-  const style = status == "success" ? styles.successInfoMessage : (status == "failure" ? styles.failureInfoMessage : styles.neutralInfoMessage);
-  const titleStyle = status == "neutral" ? (styles.infoMessageTitle,styles.infoMessageFontColorNeutral) : styles.infoMessageTitle
-  showMessage({
-    message:message,
-    type: "info",
-    style: style,
-    titleStyle: titleStyle,
-    statusBarHeight: 30,
-    duration:duration,
-    autoHide:true
-  });
+	console.log(message)
+	const style =
+		status == 'success'
+			? styles.successInfoMessage
+			: status == 'failure'
+			? styles.failureInfoMessage
+			: styles.neutralInfoMessage
+	const titleStyle =
+		status == 'neutral'
+			? (styles.infoMessageTitle, styles.infoMessageFontColorNeutral)
+			: styles.infoMessageTitle
+	showMessage({
+		message: message,
+		type: 'info',
+		style: style,
+		titleStyle: titleStyle,
+		statusBarHeight: 30,
+		duration: duration,
+		autoHide: true,
+	})
 }
 
-export {addToUseState as addToUseState, showStatusMessage as showStatusMessage}
+export {
+	addToUseState as addToUseState,
+	showStatusMessage as showStatusMessage,
+}
