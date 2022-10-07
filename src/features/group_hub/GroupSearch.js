@@ -11,6 +11,7 @@ import { showStatusMessage } from '../../utils/general-functions'
 import SearchResultCard from './SearchResultCard'
 import FormField from '../general_components/FormField'
 import BackButton from '../general_components/BackButton'
+import { useNavigation } from '@react-navigation/native'
 
 export default function GroupSearch({
 	userId,
@@ -18,7 +19,10 @@ export default function GroupSearch({
 	setNeedToNavigate,
 	readyToNavigate,
 	setReadyToNavigate,
+	refreshGroups,
+	setRefreshGroups,
 }) {
+	const navigation = useNavigation()
 	const { t } = useTranslation()
 	const [groups, setGroups] = useState('')
 	const [searchResultCards, setSearchResultCards] = useState([])
@@ -68,6 +72,8 @@ export default function GroupSearch({
 		await postData(values, '/groups/userconnection/', {
 			onSuccess: async (response) => {
 				console.log(response.data)
+				showStatusMessage(response.data, 'success')
+				setRefreshGroups(!refreshGroups)
 				setNeedToNavigate(true)
 				setNavigationLocation(location)
 			},

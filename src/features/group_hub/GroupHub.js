@@ -50,6 +50,8 @@ export default function GroupHub({
 				<GroupSearch
 					setJoinGroup={setJoinGroup}
 					userId={loginInfo.id}
+					refreshGroups={refreshGroups}
+					setRefreshGroups={setRefreshGroups}
 					setNeedToNavigate={setNeedToNavigate}
 					readyToNavigate={readyToNavigate}
 					setReadyToNavigate={setReadyToNavigate}

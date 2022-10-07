@@ -33,12 +33,6 @@ export default function GroupHub({ name, id }) {
 			},
 			onError: (error) => {
 				console.log(error)
-				let message = ''
-				if (error.response.status === 500) {
-					message = i18n.t('register_form_error')
-				} else {
-					message = error.response.data
-				}
 			},
 		})
 	}
