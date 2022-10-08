@@ -43,5 +43,6 @@
 	"topic_long_validation": "Aihe ei saa olla yli 48 kirjainta pitkä",
 	"title_long_validation": "Title can't be longer than 48 characters long",
 	"content_required_validation": "Muistio ei saa olla tyhjä",
-	"already_joined": "Olet Ryhmässä"
+	"already_joined": "Olet Ryhmässä",
+	"settings": "Asetukset"
 }

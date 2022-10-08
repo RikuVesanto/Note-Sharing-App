@@ -6,16 +6,20 @@ import Login from './src/features/login/Login'
 import ChangeLanguage from './src/features/language_select/ChangeLanguage'
 import GroupHub from './src/features/group_hub/GroupHub'
 import GroupPage from './src/features/group_page/GroupPage'
+import Settings from './src/features/settings/Settings'
 import styles from './src/utils/styles'
 import { getData } from './src/utils/http-requests'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import AppStorage from './src/utils/secure-store'
 import jwt_decode from 'jwt-decode'
+import './src/features/language_select/i18n'
+import { useTranslation } from 'react-i18next'
 
 const Drawer = createDrawerNavigator()
 
 export default function App() {
+	const { t } = useTranslation()
 	const [loginPage, setLoginPage] = useState(true)
 	const [login, setLogin] = useState(false)
 	const [groups, setGroups] = useState([])
@@ -66,18 +70,14 @@ export default function App() {
 
 	const createGroupScreens = () => {
 		let screens = []
-		let list = []
 		for (let group of groups) {
-			if (!list.includes(group.name)) {
-				screens.push(
-					<Drawer.Screen
-						key={group.id}
-						name={group.name}
-						children={() => <GroupPage {...group} />}
-					/>
-				)
-				list.push(group.name)
-			}
+			screens.push(
+				<Drawer.Screen
+					key={group.id}
+					name={group.name}
+					children={() => <GroupPage {...group} />}
+				/>
+			)
 		}
 		setGroupScreens(screens)
 	}
@@ -87,7 +87,7 @@ export default function App() {
 			<Drawer.Navigator>
 				{groupScreens}
 				<Drawer.Screen
-					name="Group Hub"
+					name={t('group_hub')}
 					children={() => (
 						<GroupHub
 							refreshGroups={refreshGroups}
@@ -98,6 +98,10 @@ export default function App() {
 							groups={groups}
 						/>
 					)}
+				/>
+				<Drawer.Screen
+					name={t('settings')}
+					children={() => <Settings setLogin={setLogin} />}
 				/>
 			</Drawer.Navigator>
 		</NavigationContainer>
