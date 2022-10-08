@@ -1,4 +1,5 @@
 import axios from 'axios'
+import AppStorage from './secure-store'
 
 url = 'http://192.168.1.193:3000'
 
@@ -33,7 +34,15 @@ async function executeRequestCallbacks(request, callbacks) {
  * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
 async function postData(data, requestUrl, callbacks) {
-	await executeRequestCallbacks(axios.post(url + requestUrl, data), callbacks)
+	let token = await AppStorage.getValueFor('loginInfo')
+	await executeRequestCallbacks(
+		axios.post(url + requestUrl, data, {
+			headers: {
+				authorization: token,
+			},
+		}),
+		callbacks
+	)
 }
 
 /**
@@ -43,7 +52,15 @@ async function postData(data, requestUrl, callbacks) {
  * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
 async function getData(requestUrl, callbacks) {
-	await executeRequestCallbacks(axios.get(url + requestUrl), callbacks)
+	let token = await AppStorage.getValueFor('loginInfo')
+	await executeRequestCallbacks(
+		axios.get(url + requestUrl, {
+			headers: {
+				authorization: token,
+			},
+		}),
+		callbacks
+	)
 }
 
 export { postData, getData }

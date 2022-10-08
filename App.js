@@ -27,7 +27,6 @@ export default function App() {
 		const getLoginInfo = async () => {
 			let userInfo = await AppStorage.getValueFor('loginInfo')
 			if (userInfo) {
-				console.log(jwt_decode(userInfo))
 				setLogin(true)
 			}
 		}
