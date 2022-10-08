@@ -44,5 +44,6 @@
 	"title_long_validation": "Title can't be longer than 48 characters long",
 	"content_required_validation": "Note can't be empty",
 	"already_joined": "Already Joined",
-	"settings": "Settings"
+	"settings": "Settings",
+	"edit": "Edit"
 }

@@ -46,6 +46,7 @@ export default function LoginForm({ setLogin }) {
 				errors,
 				touched,
 				isValid,
+				values,
 			}) => (
 				<View>
 					<FormField
@@ -57,6 +58,7 @@ export default function LoginForm({ setLogin }) {
 						handleBlur={handleBlur('username')}
 						errors={errors.username}
 						touched={touched.username}
+						value={values.username}
 					/>
 					<FormField
 						hideText={true}
@@ -67,6 +69,7 @@ export default function LoginForm({ setLogin }) {
 						handleBlur={handleBlur('password')}
 						errors={errors.password}
 						touched={touched.password}
+						value={values.password}
 					/>
 					<View style={styles.buttonStyle}>
 						<Button

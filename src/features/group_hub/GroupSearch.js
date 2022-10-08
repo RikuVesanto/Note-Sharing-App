@@ -106,8 +106,7 @@ export default function GroupSearch({
 			</View>
 			<Formik
 				initialValues={{
-					title: '',
-					content: '',
+					search: '',
 				}}
 				validationSchema={SearchValidationSchema}
 				validateOnMount={true}
@@ -122,6 +121,7 @@ export default function GroupSearch({
 					errors,
 					touched,
 					isValid,
+					values,
 				}) => (
 					<View>
 						<FormField
@@ -133,6 +133,7 @@ export default function GroupSearch({
 							handleBlur={handleBlur('search')}
 							errors={errors.search}
 							touched={touched.search}
+							value={values.search}
 						/>
 						<View style={styles.buttonStyle}>
 							<Button

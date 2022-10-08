@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import styles from '../../utils/styles'
 import AppStorage from '../../utils/secure-store'
+import EditUserInfoForm from './EditUserInfoForm'
 
 export default function Settings({ setLogin }) {
 	const { t } = useTranslation()
@@ -22,11 +23,12 @@ export default function Settings({ setLogin }) {
 				}}
 			>
 				<ImageBackground
-					style={styles.leftLanguageButton}
+					style={styles.logoutButton}
 					source={require('../../../assets/logout.png')}
 					resizeMode="center"
 				></ImageBackground>
 			</TouchableOpacity>
+			<EditUserInfoForm />
 		</ScrollView>
 	)
 }

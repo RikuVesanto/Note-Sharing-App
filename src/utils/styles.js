@@ -312,4 +312,10 @@ export default StyleSheet.create({
 		width: '80%',
 		alignSelf: 'center',
 	},
+	logoutButton: {
+		alignSelf: 'center',
+		height: 50,
+		width: 50,
+		marginBottom: 30,
+	},
 })

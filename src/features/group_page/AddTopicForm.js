@@ -72,6 +72,7 @@ export default function NewTopicForm({
 						errors,
 						touched,
 						isValid,
+						values,
 					}) => (
 						<View>
 							<FormField
@@ -83,6 +84,7 @@ export default function NewTopicForm({
 								handleBlur={handleBlur('topic')}
 								errors={errors.topic}
 								touched={touched.topic}
+								value={values.topic}
 							/>
 							<FormField
 								hideText={false}
@@ -93,6 +95,7 @@ export default function NewTopicForm({
 								handleBlur={handleBlur('description')}
 								errors={errors.description}
 								touched={touched.description}
+								value={values.description}
 							/>
 							<View style={styles.buttonStyle}>
 								<Button

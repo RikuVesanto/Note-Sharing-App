@@ -17,6 +17,7 @@ export default function FormField({
 	handleBlur,
 	errors,
 	touched,
+	value = '',
 }) {
 	const [hidden, setHidden] = useState(hideText)
 
@@ -55,6 +56,7 @@ export default function FormField({
 				onChangeText={handleChange()}
 				secureTextEntry={hidden}
 				onBlur={handleBlur}
+				value={value}
 			/>
 			{errors && touched && (
 				<Text style={styles.errorText}>{errors}</Text>

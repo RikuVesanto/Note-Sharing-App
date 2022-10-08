@@ -75,6 +75,7 @@ export default function RegisterForm({ setLoginPage }) {
 				errors,
 				touched,
 				isValid,
+				values,
 			}) => (
 				<View>
 					<FormField
@@ -86,6 +87,7 @@ export default function RegisterForm({ setLoginPage }) {
 						handleBlur={handleBlur('email')}
 						errors={errors.email}
 						touched={touched.email}
+						value={values.email}
 					/>
 					<FormField
 						hideText={false}
@@ -96,6 +98,7 @@ export default function RegisterForm({ setLoginPage }) {
 						handleBlur={handleBlur('username')}
 						errors={errors.username}
 						touched={touched.username}
+						value={values.username}
 					/>
 					<FormField
 						hideText={true}
@@ -106,6 +109,7 @@ export default function RegisterForm({ setLoginPage }) {
 						handleBlur={handleBlur('password')}
 						errors={errors.password}
 						touched={touched.password}
+						value={values.password}
 					/>
 					<FormField
 						hideText={false}
@@ -116,6 +120,7 @@ export default function RegisterForm({ setLoginPage }) {
 						handleBlur={handleBlur('name')}
 						errors={errors.name}
 						touched={touched.name}
+						value={values.name}
 					/>
 					<FormField
 						hideText={false}
@@ -126,6 +131,7 @@ export default function RegisterForm({ setLoginPage }) {
 						handleBlur={handleBlur('school')}
 						errors={errors.school}
 						touched={touched.school}
+						value={values.school}
 					/>
 					<View style={styles.inputContainer}>
 						<View style={styles.reveal}>

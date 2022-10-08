@@ -44,5 +44,6 @@
 	"title_long_validation": "Title can't be longer than 48 characters long",
 	"content_required_validation": "Muistio ei saa olla tyhjä",
 	"already_joined": "Olet Ryhmässä",
-	"settings": "Asetukset"
+	"settings": "Asetukset",
+	"edit_info": "Muokkaa"
 }

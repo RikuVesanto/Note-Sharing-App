@@ -48,7 +48,6 @@ async function postData(data, requestUrl, callbacks) {
 /**
  * Get data and execute the given callback based on the result.
  * @param {*} requestUrl The specific route that the request is made to.
- * @param {*} id Id used for finding the wanted data
  * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
 async function getData(requestUrl, callbacks) {
@@ -63,4 +62,22 @@ async function getData(requestUrl, callbacks) {
 	)
 }
 
-export { postData, getData }
+/**
+ * Edit given data and execute the given callback based on the result.
+ * @param {*} data Object that includes user data for registration.
+ * @param {*} requestUrl The specific route that the request is made to.
+ * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
+ */
+async function putData(data, requestUrl, callbacks) {
+	let token = await AppStorage.getValueFor('loginInfo')
+	await executeRequestCallbacks(
+		axios.put(url + requestUrl, data, {
+			headers: {
+				authorization: token,
+			},
+		}),
+		callbacks
+	)
+}
+
+export { postData, getData, putData }

@@ -14,8 +14,13 @@ const addToUseState = (item, itemArray, setItemArray) => {
 	setItemArray(tempArray)
 }
 
+/**
+ * Shows a popup message on the screen for a moment
+ * @param {*} message the message that is displayed
+ * @param {*} status changes what type of a message is displayed
+ * @param {*} duration The duration the message is displayed for in milliseconds
+ */
 const showStatusMessage = (message, status, duration = 1850) => {
-	console.log(message)
 	const style =
 		status == 'success'
 			? styles.successInfoMessage
@@ -37,7 +42,23 @@ const showStatusMessage = (message, status, duration = 1850) => {
 	})
 }
 
+/**
+ * checks if both the values are false and returns
+ * @param {*} message the message that is displayed
+ * @param {*} status changes what type of a message is displayed
+ * @param {*} duration The duration the message is displayed for in milliseconds
+ * @returns {*} false if both values are false otherwise true
+ */
+const checkForFalse = (bool1, bool2) => {
+	if (bool1 == false && bool2 == false) {
+		return false
+	} else {
+		return true
+	}
+}
+
 export {
 	addToUseState as addToUseState,
 	showStatusMessage as showStatusMessage,
+	checkForFalse as checkForFalse,
 }

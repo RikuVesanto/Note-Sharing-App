@@ -57,4 +57,15 @@ module.exports = {
 	SearchValidationSchema: Yup.object().shape({
 		search: Yup.string().required(i18n.t('search_required_validation')),
 	}),
+	editUserInfoValidationSchema: Yup.object().shape({
+		email: Yup.string()
+			.email(i18n.t('register_email_validation'))
+			.required(i18n.t('email_validation')),
+		username: Yup.string()
+			.min(4, i18n.t('register_username_validation_short'))
+			.max(32, i18n.t('register_username_validation_long'))
+			.required(i18n.t('username_validation')),
+		name: Yup.string(),
+		school: Yup.string(),
+	}),
 }

@@ -86,6 +86,7 @@ export default function CreateGroupForm({
 					errors,
 					touched,
 					isValid,
+					values,
 				}) => (
 					<View>
 						<FormField
@@ -97,6 +98,7 @@ export default function CreateGroupForm({
 							handleBlur={handleBlur('name')}
 							errors={errors.name}
 							touched={touched.name}
+							value={values.name}
 						/>
 						<FormField
 							hideText={false}
@@ -107,6 +109,7 @@ export default function CreateGroupForm({
 							handleBlur={handleBlur('class')}
 							errors={errors.class}
 							touched={touched.class}
+							value={values.class}
 						/>
 						<FormField
 							hideText={false}
@@ -117,6 +120,7 @@ export default function CreateGroupForm({
 							handleBlur={handleBlur('description')}
 							errors={errors.description}
 							touched={touched.description}
+							value={values.description}
 						/>
 						<FormField
 							hideText={true}
@@ -127,6 +131,7 @@ export default function CreateGroupForm({
 							handleBlur={handleBlur('password')}
 							errors={errors.password}
 							touched={touched.password}
+							value={values.password}
 						/>
 						<View style={styles.buttonStyle}>
 							<Button
