@@ -10,23 +10,36 @@ import styles from './src/utils/styles'
 import { getData } from './src/utils/http-requests'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
+import AppStorage from './src/utils/secure-store'
+import jwt_decode from 'jwt-decode'
 
 const Drawer = createDrawerNavigator()
 
 export default function App() {
 	const [loginPage, setLoginPage] = useState(true)
-	const [loginInfo, setLoginInfo] = useState('')
+	const [login, setLogin] = useState(false)
 	const [groups, setGroups] = useState([])
 	const [groupScreens, setGroupScreens] = useState([])
 	const [needToNavigate, setNeedToNavigate] = useState(false)
 	const [readyToNavigate, setReadyToNavigate] = useState(false)
 	const [refreshGroups, setRefreshGroups] = useState(false)
+	useEffect(() => {
+		const getLoginInfo = async () => {
+			let userInfo = await AppStorage.getValueFor('loginInfo')
+			if (userInfo) {
+				console.log(jwt_decode(userInfo))
+				setLogin(true)
+			}
+		}
+
+		getLoginInfo()
+	}, [])
 
 	useEffect(() => {
-		if (loginInfo != '') {
+		if (login) {
 			getGroups()
 		}
-	}, [loginInfo, refreshGroups])
+	}, [login, refreshGroups])
 
 	useEffect(() => {
 		createGroupScreens()
@@ -39,7 +52,9 @@ export default function App() {
 	}, [groupScreens])
 
 	const getGroups = async () => {
-		await getData(`/groups/grouplist/${loginInfo.id}`, {
+		let userInfo = await AppStorage.getValueFor('loginInfo')
+		let decoded = jwt_decode(userInfo)
+		await getData(`/groups/grouplist/${decoded.id}`, {
 			onSuccess: async (response) => {
 				//console.log(response.data)
 				setGroups(response.data)
@@ -76,7 +91,6 @@ export default function App() {
 					name="Group Hub"
 					children={() => (
 						<GroupHub
-							loginInfo={loginInfo}
 							refreshGroups={refreshGroups}
 							setRefreshGroups={setRefreshGroups}
 							setNeedToNavigate={setNeedToNavigate}
@@ -92,7 +106,7 @@ export default function App() {
 
 	const loginScreen = loginPage ? (
 		<View>
-			<Login setLoginPage={setLoginPage} setLoginInfo={setLoginInfo} />
+			<Login setLoginPage={setLoginPage} setLogin={setLogin} />
 			<ChangeLanguage />
 		</View>
 	) : (
@@ -101,7 +115,7 @@ export default function App() {
 
 	return (
 		<View style={styles.appContainer}>
-			{loginInfo != '' ? loggedInScreen : loginScreen}
+			{login ? loggedInScreen : loginScreen}
 			<FlashMessage position="top" />
 		</View>
 	)

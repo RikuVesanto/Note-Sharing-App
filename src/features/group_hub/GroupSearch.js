@@ -12,9 +12,10 @@ import SearchResultCard from './SearchResultCard'
 import FormField from '../general_components/FormField'
 import BackButton from '../general_components/BackButton'
 import { useNavigation } from '@react-navigation/native'
+import AppStorage from '../../utils/secure-store'
+import jwt_decode from 'jwt-decode'
 
 export default function GroupSearch({
-	userId,
 	setJoinGroup,
 	setNeedToNavigate,
 	readyToNavigate,
@@ -67,8 +68,10 @@ export default function GroupSearch({
 	}
 
 	const joinGroup = async (groupId, location) => {
+		let userInfo = await AppStorage.getValueFor('loginInfo')
+		let decoded = jwt_decode(userInfo)
 		const values = {
-			userId: userId,
+			userId: decoded.id,
 			groupId: groupId,
 		}
 		await postData(values, '/groups/userconnection/', {

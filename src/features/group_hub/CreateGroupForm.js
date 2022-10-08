@@ -11,9 +11,10 @@ import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
 import BackButton from '../general_components/BackButton'
 import { useNavigation } from '@react-navigation/native'
+import AppStorage from '../../utils/secure-store'
+import jwt_decode from 'jwt-decode'
 
-export default function RegisterForm({
-	loginInfo,
+export default function CreateGroupForm({
 	setCreateGroup,
 	setNeedToNavigate,
 	readyToNavigate,
@@ -36,9 +37,11 @@ export default function RegisterForm({
 	}, [readyToNavigate])
 
 	const sendData = async (values) => {
+		let userInfo = await AppStorage.getValueFor('loginInfo')
+		let decoded = jwt_decode(userInfo)
 		var data = {
 			name: values.name,
-			creatorId: loginInfo.id,
+			creatorId: decoded.id,
 		}
 		if (values.password != '') data.password = values.password
 		if (values.class != '') data.class = values.class

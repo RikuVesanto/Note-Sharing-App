@@ -1,5 +1,4 @@
 import { View } from 'react-native'
-import jwt_decode from 'jwt-decode'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { LoginValidationSchema } from '../../utils/validation-schemas'
@@ -9,18 +8,17 @@ import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
+import AppStorage from '../../utils/secure-store'
 
-export default function LoginForm({ setLoginInfo }) {
+export default function LoginForm({ setLogin }) {
 	const { t } = useTranslation()
 
 	const sendData = async (values) => {
 		await getData(`/users/user/${values.username}/${values.password}`, {
 			onSuccess: async (response) => {
 				showStatusMessage('Login successful', 'success', 600)
-				var decoded = jwt_decode(response.data)
-				if (decoded) {
-					setLoginInfo(decoded)
-				}
+				AppStorage.save('loginInfo', response.data)
+				setLogin(true)
 			},
 			onError: (error) => {
 				console.log(error.status, error.data.message)

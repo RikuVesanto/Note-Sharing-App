@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 
 export default function GroupHub({
-	loginInfo,
 	setNeedToNavigate,
 	readyToNavigate,
 	setReadyToNavigate,
@@ -38,7 +37,6 @@ export default function GroupHub({
 			)}
 			{createGroup && (
 				<CreateGroupForm
-					loginInfo={loginInfo}
 					refreshGroups={refreshGroups}
 					setRefreshGroups={setRefreshGroups}
 					setCreateGroup={setCreateGroup}
@@ -50,7 +48,6 @@ export default function GroupHub({
 			{joinGroup && (
 				<GroupSearch
 					setJoinGroup={setJoinGroup}
-					userId={loginInfo.id}
 					refreshGroups={refreshGroups}
 					setRefreshGroups={setRefreshGroups}
 					setNeedToNavigate={setNeedToNavigate}
