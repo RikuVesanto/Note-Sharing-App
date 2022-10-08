@@ -21,6 +21,7 @@ export default function GroupSearch({
 	setReadyToNavigate,
 	refreshGroups,
 	setRefreshGroups,
+	usersGroups,
 }) {
 	const navigation = useNavigation()
 	const { t } = useTranslation()
@@ -52,6 +53,7 @@ export default function GroupSearch({
 					description={group.description}
 					action={joinGroup}
 					groupId={group.id}
+					usersGroups={usersGroups}
 				/>
 			)
 			results++
@@ -71,14 +73,13 @@ export default function GroupSearch({
 		}
 		await postData(values, '/groups/userconnection/', {
 			onSuccess: async (response) => {
-				console.log(response.data)
 				showStatusMessage(response.data, 'success')
 				setRefreshGroups(!refreshGroups)
 				setNeedToNavigate(true)
 				setNavigationLocation(location)
 			},
 			onError: (error) => {
-				showStatusMessage(error.data.message, 'failure')
+				showStatusMessage(error.data, 'failure')
 			},
 		})
 	}

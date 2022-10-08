@@ -39,15 +39,14 @@ export default function GroupHub({ name, id }) {
 
 	const createTopicCards = () => {
 		let cards = []
-		for (var topic of topics) {
-			let x = topic
+		for (let topic of topics) {
 			cards.push(
 				<TopicCard
 					key={topic.id}
 					title={topic.topic}
 					description={topic.description}
 					action={() => {
-						setActiveTopic(x)
+						setActiveTopic(topic)
 						setTopicsNotesVisible(true)
 					}}
 				/>

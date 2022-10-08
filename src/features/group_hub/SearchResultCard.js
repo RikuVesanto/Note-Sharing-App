@@ -9,8 +9,10 @@ export default function SearchResultCard({
 	description,
 	action,
 	groupId,
+	usersGroups,
 }) {
 	const { t } = useTranslation()
+	const alreadyJoined = usersGroups.filter((g) => g.name == name).length > 0
 
 	return (
 		<View style={styles.groupCard}>
@@ -20,11 +22,16 @@ export default function SearchResultCard({
 			</View>
 			<View style={styles.groupCardRight}>
 				<TouchableOpacity
-					style={styles.joinGroupButton}
-					onPress={() => action(groupId, name)}
+					style={[
+						styles.joinGroupButton,
+						alreadyJoined && styles.alreadyJoinedColor,
+					]}
+					onPress={() => {
+						if (!alreadyJoined) action(groupId, name)
+					}}
 				>
 					<Text style={styles.joinGroupButtonTitle}>
-						{t('join_group')}
+						{alreadyJoined ? t('already_joined') : t('join_group')}
 					</Text>
 				</TouchableOpacity>
 			</View>

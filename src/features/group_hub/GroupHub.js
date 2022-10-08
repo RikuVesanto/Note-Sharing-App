@@ -14,6 +14,7 @@ export default function GroupHub({
 	setReadyToNavigate,
 	refreshGroups,
 	setRefreshGroups,
+	groups,
 }) {
 	const { t } = useTranslation()
 	const [createGroup, setCreateGroup] = useState(false)
@@ -55,6 +56,7 @@ export default function GroupHub({
 					setNeedToNavigate={setNeedToNavigate}
 					readyToNavigate={readyToNavigate}
 					setReadyToNavigate={setReadyToNavigate}
+					usersGroups={groups}
 				/>
 			)}
 		</ScrollView>

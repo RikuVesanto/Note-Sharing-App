@@ -216,6 +216,10 @@ export default StyleSheet.create({
 		fontWeight: 'bold',
 		fontSize: 24,
 	},
+	alreadyJoinedColor: {
+		backgroundColor: '#66ff66',
+		height: 80,
+	},
 	groupCardTitle: {
 		textAlign: 'center',
 		fontWeight: 'bold',
