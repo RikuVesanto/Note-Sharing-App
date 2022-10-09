@@ -45,5 +45,7 @@
 	"content_required_validation": "Muistio ei saa olla tyhjä",
 	"already_joined": "Olet Ryhmässä",
 	"settings": "Asetukset",
-	"edit_info": "Muokkaa"
+	"edit_info": "Muokkaa",
+	"change_password": "Vaihda Salasanaa",
+	"old_password": "Vanha Salasana"
 }

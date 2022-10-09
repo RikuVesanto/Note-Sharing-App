@@ -45,5 +45,7 @@
 	"content_required_validation": "Note can't be empty",
 	"already_joined": "Already Joined",
 	"settings": "Settings",
-	"edit": "Edit"
+	"edit": "Edit",
+	"change_password": "Change Password",
+	"old_password": "Old Password"
 }

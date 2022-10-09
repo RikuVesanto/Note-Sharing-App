@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
-import { editUserInfoValidationSchema } from '../../utils/validation-schemas'
+import { EditUserInfoValidationSchema } from '../../utils/validation-schemas'
 import { getData, putData } from '../../utils/http-requests'
 import { showStatusMessage, checkForFalse } from '../../utils/general-functions'
 import '../language_select/i18n'
@@ -74,7 +74,7 @@ export default function EditUserInfoForm() {
 				school: currentValues.school,
 			}}
 			enableReinitialize={true}
-			validationSchema={editUserInfoValidationSchema}
+			validationSchema={EditUserInfoValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
 				sendData(values)
@@ -92,7 +92,7 @@ export default function EditUserInfoForm() {
 				<View>
 					<FormField
 						hideText={false}
-						required={false}
+						required={true}
 						largeField={false}
 						placeholder={t('email')}
 						handleChange={() => handleChange('email')}
@@ -103,7 +103,7 @@ export default function EditUserInfoForm() {
 					/>
 					<FormField
 						hideText={false}
-						required={false}
+						required={true}
 						largeField={false}
 						placeholder={t('username')}
 						handleChange={() => handleChange('username')}
