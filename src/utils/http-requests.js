@@ -80,4 +80,21 @@ async function putData(data, requestUrl, callbacks) {
 	)
 }
 
-export { postData, getData, putData }
+/**
+ *Delete wanted object and execute the given callback based on the result.
+ * @param {*} requestUrl The specific route that the request is made to.
+ * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
+ */
+async function deleteData(requestUrl, callbacks) {
+	let token = await AppStorage.getValueFor('loginInfo')
+	await executeRequestCallbacks(
+		axios.delete(url + requestUrl, {
+			headers: {
+				authorization: token,
+			},
+		}),
+		callbacks
+	)
+}
+
+export { postData, getData, putData, deleteData }

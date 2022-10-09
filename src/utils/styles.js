@@ -318,4 +318,23 @@ export default StyleSheet.create({
 		width: 50,
 		marginBottom: 30,
 	},
+	buttonContainer: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		flexDirection: 'row',
+	},
+	deleteButton: {
+		alignSelf: 'center',
+		height: 50,
+		width: 50,
+		marginTop: 10,
+		marginRight: 10,
+	},
+	editButton: {
+		alignSelf: 'center',
+		marginTop: 10,
+		height: 50,
+		width: 50,
+	},
 })

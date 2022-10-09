@@ -1,9 +1,16 @@
-import { Text, View, ScrollView } from 'react-native'
+import {
+	Text,
+	View,
+	ScrollView,
+	TouchableOpacity,
+	ImageBackground,
+} from 'react-native'
 import styles from '../../utils/styles'
 import React, { useState, useEffect } from 'react'
 import AddNoteForm from '../topic_page/AddNoteForm'
-import { getData } from '../../utils/http-requests'
+import { getData, deleteData } from '../../utils/http-requests'
 import BackButton from '../general_components/BackButton'
+import { showStatusMessage } from '../../utils/general-functions'
 
 export default function Topic({
 	topic,
@@ -35,16 +42,50 @@ export default function Topic({
 		})
 	}
 
+	const deleteNote = async (id) => {
+		await deleteData(`/notes/note/${id}`, {
+			onSuccess: async (response) => {
+				showStatusMessage(response.data, 'success')
+				setRefreshNotes(!refreshNotes)
+			},
+			onError: (error) => {
+				showStatusMessage(error.data, 'failure')
+			},
+		})
+	}
+
 	const createNoteBlocks = () => {
 		let blocks = []
 		for (var note of notes) {
-			console.log(note.id)
 			blocks.push(
 				<View key={note.id} style={styles.noteCard}>
 					{note.title && (
 						<Text style={styles.topicTitle}>{note.title}</Text>
 					)}
 					<Text style={styles.topicDescription}>{note.content}</Text>
+					<View style={styles.buttonContainer}>
+						<TouchableOpacity
+							title="delete"
+							onPress={() => deleteNote(note.id)}
+						>
+							<ImageBackground
+								style={styles.deleteButton}
+								source={require('../../../assets/delete.png')}
+								resizeMode="center"
+							></ImageBackground>
+						</TouchableOpacity>
+
+						<TouchableOpacity
+							title="edit"
+							onPress={() => deleteNote(note.id)}
+						>
+							<ImageBackground
+								style={styles.editButton}
+								source={require('../../../assets/edit.png')}
+								resizeMode="center"
+							></ImageBackground>
+						</TouchableOpacity>
+					</View>
 				</View>
 			)
 		}
