@@ -40,7 +40,6 @@ export default function Topic({
 	const getNotes = async () => {
 		await getData(`/notes/notelist/${id}`, {
 			onSuccess: async (response) => {
-				//console.log(response.data)
 				setNotes(response.data)
 			},
 			onError: (error) => {
@@ -61,12 +60,14 @@ export default function Topic({
 		})
 	}
 
+	const closeNoteForms = () => {
+		for (let i = 0; i < notesStatus.length; i++) {
+			notesStatus[i] = false
+		}
+	}
 	const addToUseStateSlot = (item, slot) => {
+		closeNoteForms()
 		var tempArray = notesStatus
-		//if another form is open close it
-		tempArray.forEach(function (item, index) {
-			notesStatus[index] = false
-		})
 		tempArray[slot] = item
 		console.log(tempArray)
 		setNotesStatus(tempArray)
@@ -158,6 +159,7 @@ export default function Topic({
 				id={id}
 				refreshNotes={refreshNotes}
 				setRefreshNotes={setRefreshNotes}
+				closeNoteForms={closeNoteForms}
 			/>
 			{noteBlocks}
 		</ScrollView>

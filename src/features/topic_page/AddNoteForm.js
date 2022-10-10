@@ -8,7 +8,12 @@ import { showStatusMessage } from '../../utils/general-functions'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 
-export default function AddNoteForm({ id, refreshNotes, setRefreshNotes }) {
+export default function AddNoteForm({
+	id,
+	refreshNotes,
+	setRefreshNotes,
+	closeNoteForms,
+}) {
 	const { t } = useTranslation()
 
 	const sendData = async (values) => {
@@ -21,6 +26,7 @@ export default function AddNoteForm({ id, refreshNotes, setRefreshNotes }) {
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
 				setRefreshNotes(!refreshNotes)
+				closeNoteForms()
 			},
 			onError: (error) => {
 				showStatusMessage(error.data.message, 'failure')
