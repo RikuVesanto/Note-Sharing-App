@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import {
+	ScrollView,
+	Text,
+	View,
+	TouchableOpacity,
+	ImageBackground,
+} from 'react-native'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import NewTopicForm from './AddTopicForm'
 import Topic from '../topic_page/Topic'
 import TopicCard from './TopicCard'
+import Menu from './Menu'
 import { getData } from '../../utils/http-requests'
 
-export default function GroupHub({ name, id }) {
+export default function GroupPage({ name, description, id, setRefreshGroups }) {
 	const { t } = useTranslation()
 
 	const [newTopicFormVisible, setNewTopicFormVisible] = useState(false)
@@ -17,6 +24,7 @@ export default function GroupHub({ name, id }) {
 	const [topics, setTopics] = useState([])
 	const [activeTopic, setActiveTopic] = useState([])
 	const [refreshTopics, setRefreshTopics] = useState(false)
+	const [menu, setMenu] = useState(false)
 
 	useEffect(() => {
 		getTopics()
@@ -64,7 +72,29 @@ export default function GroupHub({ name, id }) {
 				/>
 			) : (
 				<View>
-					<Text style={styles.headerStyle}>{name}</Text>
+					<View style={styles.topicHeaderLayout}>
+						<View style={styles.columnLayout}>
+							<Text style={styles.topicHeader}>{name}</Text>
+							<Text style={styles.topicHeaderDescription}>
+								{description}
+							</Text>
+						</View>
+						<TouchableOpacity
+							title="open"
+							onPress={() => {
+								setMenu(!menu)
+							}}
+						>
+							<ImageBackground
+								style={styles.menuButton}
+								source={require('../../../assets/menu.png')}
+								resizeMode="center"
+							></ImageBackground>
+						</TouchableOpacity>
+					</View>
+					{menu && (
+						<Menu id={id} setRefreshGroups={setRefreshGroups} />
+					)}
 					{topicCards}
 					<TopicCard
 						title={t('new_topic')}

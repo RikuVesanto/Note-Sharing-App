@@ -75,7 +75,12 @@ export default function App() {
 				<Drawer.Screen
 					key={group.id}
 					name={group.name}
-					children={() => <GroupPage {...group} />}
+					children={() => (
+						<GroupPage
+							{...group}
+							setRefreshGroups={setRefreshGroups}
+						/>
+					)}
 				/>
 			)
 		}

@@ -125,7 +125,7 @@ export default StyleSheet.create({
 	topicButton: {
 		backgroundColor: '#8eddfa',
 		marginLeft: '10%',
-		marginBottom: 30,
+		marginTop: 30,
 		width: '80%',
 		height: 100,
 		borderRadius: 5,
@@ -336,5 +336,36 @@ export default StyleSheet.create({
 		marginTop: 10,
 		height: 50,
 		width: 50,
+	},
+	topicHeader: {
+		fontSize: 26,
+		textAlign: 'center',
+		fontWeight: 'bold',
+	},
+	topicHeaderDescription: {
+		textAlign: 'center',
+		fontSize: 18,
+	},
+	topicHeaderLayout: {
+		flexDirection: 'row',
+		alignSelf: 'center',
+		width: '90%',
+		backgroundColor: '#cccccc',
+	},
+	menuButton: {
+		alignSelf: 'center',
+		marginTop: 10,
+		height: 25,
+		width: 25,
+	},
+	menu: {
+		width: '90%',
+		alignSelf: 'center',
+		backgroundColor: '#cccccc',
+	},
+	LeaveGroupButton: {
+		height: 50,
+		width: 50,
+		marginBottom: 30,
 	},
 })

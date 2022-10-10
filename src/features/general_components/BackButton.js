@@ -1,7 +1,7 @@
 import { TouchableOpacity, ImageBackground } from 'react-native'
 import styles from '../../utils/styles'
 
-export default function GroupHub({ action }) {
+export default function BackButton({ action }) {
 	var backArrow = require('../../../assets/left-arrow.png')
 
 	return (
