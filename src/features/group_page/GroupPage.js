@@ -10,12 +10,19 @@ import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import NewTopicForm from './AddTopicForm'
+import EditGroupInfoForm from './EditGroupInfoForm'
 import Topic from '../topic_page/Topic'
 import TopicCard from './TopicCard'
 import Menu from './Menu'
 import { getData } from '../../utils/http-requests'
 
-export default function GroupPage({ name, description, id, setRefreshGroups }) {
+export default function GroupPage({
+	name,
+	description,
+	id,
+	setRefreshGroups,
+	refreshGroups,
+}) {
 	const { t } = useTranslation()
 
 	const [newTopicFormVisible, setNewTopicFormVisible] = useState(false)
@@ -25,6 +32,7 @@ export default function GroupPage({ name, description, id, setRefreshGroups }) {
 	const [activeTopic, setActiveTopic] = useState([])
 	const [refreshTopics, setRefreshTopics] = useState(false)
 	const [menu, setMenu] = useState(false)
+	const [EditGroupInfo, setEditGroupInfo] = useState(false)
 
 	useEffect(() => {
 		getTopics()
@@ -73,12 +81,26 @@ export default function GroupPage({ name, description, id, setRefreshGroups }) {
 			) : (
 				<View>
 					<View style={styles.topicHeaderLayout}>
-						<View style={styles.columnLayout}>
-							<Text style={styles.topicHeader}>{name}</Text>
-							<Text style={styles.topicHeaderDescription}>
-								{description}
-							</Text>
-						</View>
+						{EditGroupInfo ? (
+							<EditGroupInfoForm
+								id={id}
+								name={name}
+								description={description}
+								setEditGroupInfo={setEditGroupInfo}
+								setRefreshGroups={setRefreshGroups}
+								refreshGroups={refreshGroups}
+							/>
+						) : (
+							<TouchableOpacity
+								onPress={() => setEditGroupInfo(true)}
+								style={styles.columnLayout}
+							>
+								<Text style={styles.topicHeader}>{name}</Text>
+								<Text style={styles.topicHeaderDescription}>
+									{description}
+								</Text>
+							</TouchableOpacity>
+						)}
 						<TouchableOpacity
 							title="open"
 							onPress={() => {

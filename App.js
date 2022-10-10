@@ -79,6 +79,7 @@ export default function App() {
 						<GroupPage
 							{...group}
 							setRefreshGroups={setRefreshGroups}
+							refreshGroups={refreshGroups}
 						/>
 					)}
 				/>
