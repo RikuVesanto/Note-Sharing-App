@@ -15,11 +15,13 @@ import Topic from '../topic_page/Topic'
 import TopicCard from './TopicCard'
 import Menu from './Menu'
 import { getData } from '../../utils/http-requests'
+import AppStorage from '../../utils/secure-store'
+import jwt_decode from 'jwt-decode'
 
 export default function GroupPage({
+	id,
 	name,
 	description,
-	id,
 	setRefreshGroups,
 	refreshGroups,
 }) {
@@ -33,6 +35,16 @@ export default function GroupPage({
 	const [refreshTopics, setRefreshTopics] = useState(false)
 	const [menu, setMenu] = useState(false)
 	const [EditGroupInfo, setEditGroupInfo] = useState(false)
+	const [admin, setAdmin] = useState(false)
+
+	useEffect(() => {
+		async function fetchData() {
+			let userInfo = await AppStorage.getValueFor('loginInfo')
+			let decoded = jwt_decode(userInfo)
+			await getCreator(id, decoded.id)
+		}
+		fetchData()
+	}, [])
 
 	useEffect(() => {
 		getTopics()
@@ -41,6 +53,17 @@ export default function GroupPage({
 	useEffect(() => {
 		createTopicCards()
 	}, [topics])
+
+	const getCreator = async (groupId, userId) => {
+		await getData(`/groups/group/creator/${groupId}/${userId}`, {
+			onSuccess: async (response) => {
+				setAdmin(response.data)
+			},
+			onError: (error) => {
+				console.log(error)
+			},
+		})
+	}
 
 	const getTopics = async () => {
 		await getData(`/topics/topiclist/${id}`, {
@@ -81,7 +104,7 @@ export default function GroupPage({
 			) : (
 				<View>
 					<View style={styles.topicHeaderLayout}>
-						{EditGroupInfo ? (
+						{EditGroupInfo && admin ? (
 							<EditGroupInfoForm
 								id={id}
 								name={name}

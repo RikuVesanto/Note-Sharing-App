@@ -44,27 +44,30 @@ export default function GroupSearch({
 	}, [readyToNavigate])
 
 	const createSearchResultCards = () => {
-		let screens = []
-		let results = 0
-		for (var group of groups) {
-			screens.push(
-				<SearchResultCard
-					key={group.id}
-					name={group.name}
-					description={group.description}
-					action={joinGroup}
-					groupId={group.id}
-					usersGroups={usersGroups}
-				/>
+		if (groups) {
+			let screens = []
+			let results = 0
+			for (var group of groups) {
+				screens.push(
+					<SearchResultCard
+						key={group.id}
+						name={group.name}
+						description={group.description}
+						action={joinGroup}
+						groupId={group.id}
+						usersGroups={usersGroups}
+					/>
+				)
+				results++
+			}
+
+			screens.unshift(
+				<Text key="results" style={styles.resultsText}>
+					{results + ' ' + t('results_found')}
+				</Text>
 			)
-			results++
+			setSearchResultCards(screens)
 		}
-		screens.unshift(
-			<Text key="results" style={styles.resultsText}>
-				{results + ' ' + t('results_found')}
-			</Text>
-		)
-		setSearchResultCards(screens)
 	}
 
 	const joinGroup = async (groupId, location) => {
