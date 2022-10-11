@@ -1,13 +1,27 @@
-import { View, TouchableOpacity, ImageBackground } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import {
+	View,
+	TouchableOpacity,
+	ImageBackground,
+	FlatList,
+	Text,
+} from 'react-native'
 import styles from '../../utils/styles'
 import { deleteData } from '../../utils/http-requests'
 import { showStatusMessage } from '../../utils/general-functions'
 import AppStorage from '../../utils/secure-store'
 import jwt_decode from 'jwt-decode'
 import { useNavigation } from '@react-navigation/native'
+import { getData } from '../../utils/http-requests'
+import { useTranslation } from 'react-i18next'
+import '../language_select/i18n'
 
 export default function Menu({ id, setRefreshGroups }) {
+	const { t } = useTranslation()
 	const navigation = useNavigation()
+
+	const [users, setUsers] = useState([])
+
 	const leaveGroup = async () => {
 		let userInfo = await AppStorage.getValueFor('loginInfo')
 		let decoded = jwt_decode(userInfo)
@@ -23,19 +37,53 @@ export default function Menu({ id, setRefreshGroups }) {
 		})
 	}
 
+	useEffect(() => {
+		async function getUsers() {
+			await getData(`/groups/userlist/${id}`, {
+				onSuccess: async (response) => {
+					setUsers(
+						response.data.map((user) => {
+							return { key: user.username }
+						})
+					)
+				},
+				onError: (error) => {
+					showStatusMessage(error.data, 'failure')
+				},
+			})
+		}
+		getUsers()
+	}, [])
+
+	useEffect(() => {
+		console.log(users)
+	}, [users])
 	return (
 		<View style={styles.menu}>
-			<TouchableOpacity
-				onPress={() => {
-					leaveGroup()
-				}}
-			>
-				<ImageBackground
-					style={styles.logoutButton}
-					source={require('../../../assets/logout.png')}
-					resizeMode="center"
-				></ImageBackground>
-			</TouchableOpacity>
+			<View style={styles.headerView}>
+				<View style={styles.headerViewLeft}>
+					<Text style={styles.userListTitle}>{t('user_list')}</Text>
+				</View>
+				<View style={styles.headerViewRight}>
+					<TouchableOpacity
+						onPress={() => {
+							leaveGroup()
+						}}
+					>
+						<ImageBackground
+							style={styles.logoutButton}
+							source={require('../../../assets/logout.png')}
+							resizeMode="center"
+						></ImageBackground>
+					</TouchableOpacity>
+				</View>
+			</View>
+			<FlatList
+				data={users}
+				renderItem={({ item }) => (
+					<Text style={styles.userListItem}>{item.key}</Text>
+				)}
+			/>
 		</View>
 	)
 }

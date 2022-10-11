@@ -47,5 +47,6 @@
 	"settings": "Asetukset",
 	"edit_info": "Muokkaa",
 	"change_password": "Vaihda Salasanaa",
-	"old_password": "Vanha Salasana"
+	"old_password": "Vanha Salasana",
+	"user_list": "User List"
 }
