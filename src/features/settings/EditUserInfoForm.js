@@ -42,7 +42,6 @@ export default function EditUserInfoForm() {
 			email: values.email,
 			username: values.username,
 			name: values.name,
-			school: values.school,
 		}
 		await putData(data, '/users/user', {
 			onSuccess: async (response) => {
@@ -60,8 +59,7 @@ export default function EditUserInfoForm() {
 	const checkForChanges = (values) => {
 		return values.email != currentValues.email ||
 			values.username != currentValues.username ||
-			values.name != currentValues.name ||
-			values.school != currentValues.school
+			values.name != currentValues.name
 			? false
 			: true
 	}
@@ -72,7 +70,6 @@ export default function EditUserInfoForm() {
 				email: currentValues.email,
 				username: currentValues.username,
 				name: currentValues.name,
-				school: currentValues.school,
 			}}
 			enableReinitialize={true}
 			validationSchema={EditUserInfoValidationSchema}
@@ -124,17 +121,6 @@ export default function EditUserInfoForm() {
 						errors={errors.name}
 						touched={touched.name}
 						value={values.name}
-					/>
-					<FormField
-						hideText={false}
-						required={false}
-						largeField={false}
-						placeholder={t('school')}
-						handleChange={() => handleChange('school')}
-						handleBlur={handleBlur('school')}
-						errors={errors.school}
-						touched={touched.school}
-						value={values.school}
 					/>
 					<View style={styles.buttonStyle}>
 						<Button
