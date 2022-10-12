@@ -395,4 +395,13 @@ export default StyleSheet.create({
 	headerViewRight: {
 		width: '25%',
 	},
+	topicEditFormContainer: {
+		marginLeft: '10%',
+		width: '80%',
+		height: 250,
+		backgroundColor: '#8eddfa',
+		borderColor: '#777',
+		borderWidth: 1,
+		borderRadius: 5,
+	},
 })

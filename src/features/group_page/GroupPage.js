@@ -100,11 +100,14 @@ export default function GroupPage({
 				<Topic
 					{...activeTopic}
 					setTopicsNotesVisible={setTopicsNotesVisible}
+					setRefreshTopics={setRefreshTopics}
+					refreshTopics={refreshTopics}
+					setActiveTopic={setActiveTopic}
 				/>
 			) : (
 				<View>
 					<View style={styles.topicHeaderLayout}>
-						{EditGroupInfo && admin ? (
+						{EditGroupInfo && !menu && admin ? (
 							<EditGroupInfoForm
 								id={id}
 								name={name}
@@ -127,6 +130,7 @@ export default function GroupPage({
 						<TouchableOpacity
 							title="open"
 							onPress={() => {
+								setEditGroupInfo(false)
 								setMenu(!menu)
 							}}
 						>

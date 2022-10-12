@@ -5,6 +5,7 @@ import {
 	ImageBackground,
 	FlatList,
 	Text,
+	SafeAreaView,
 } from 'react-native'
 import styles from '../../utils/styles'
 import { deleteData } from '../../utils/http-requests'
@@ -55,9 +56,6 @@ export default function Menu({ id, setRefreshGroups }) {
 		getUsers()
 	}, [])
 
-	useEffect(() => {
-		console.log(users)
-	}, [users])
 	return (
 		<View style={styles.menu}>
 			<View style={styles.headerView}>

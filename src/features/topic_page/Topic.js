@@ -9,21 +9,26 @@ import styles from '../../utils/styles'
 import React, { useState, useEffect } from 'react'
 import AddNoteForm from '../topic_page/AddNoteForm'
 import EditNoteForm from '../topic_page/EditNoteForm'
+import EditTopicForm from '../topic_page/EditTopicForm'
 import { getData, deleteData } from '../../utils/http-requests'
 import BackButton from '../general_components/BackButton'
-import { showStatusMessage, addToUseState } from '../../utils/general-functions'
+import { showStatusMessage } from '../../utils/general-functions'
 
 export default function Topic({
 	topic,
 	description,
 	id,
 	setTopicsNotesVisible,
+	setRefreshTopics,
+	refreshTopics,
+	setActiveTopic,
 }) {
 	const [notes, setNotes] = useState([])
 	const [noteBlocks, setNoteBlocks] = useState([])
 	const [refreshNotes, setRefreshNotes] = useState(false)
 	const [notesStatus, setNotesStatus] = useState([])
 	const [refreshBlocks, setRefreshBlocks] = useState(false)
+	const [editTopic, setEditTopic] = useState(false)
 
 	useEffect(() => {
 		getNotes()
@@ -69,7 +74,6 @@ export default function Topic({
 		closeNoteForms()
 		var tempArray = notesStatus
 		tempArray[slot] = item
-		console.log(tempArray)
 		setNotesStatus(tempArray)
 		if (item == true) {
 			setRefreshBlocks(!refreshBlocks)
@@ -149,12 +153,29 @@ export default function Topic({
 	return (
 		<ScrollView>
 			<BackButton action={setTopicsNotesVisible} />
-			<View style={styles.columnLayout}>
-				<View style={styles.titleCardLayout}>
-					<Text style={styles.headerStyle}>{topic}</Text>
-					<Text style={styles.topicDescription}>{description}</Text>
-				</View>
-			</View>
+			{editTopic ? (
+				<EditTopicForm
+					setEditTopic={setEditTopic}
+					setRefreshTopics={setRefreshTopics}
+					refreshTopics={refreshTopics}
+					topicId={id}
+					topic={topic}
+					description={description}
+					setActiveTopic={setActiveTopic}
+				/>
+			) : (
+				<TouchableOpacity
+					style={styles.columnLayout}
+					onPress={() => setEditTopic(true)}
+				>
+					<View style={styles.titleCardLayout}>
+						<Text style={styles.headerStyle}>{topic}</Text>
+						<Text style={styles.topicDescription}>
+							{description}
+						</Text>
+					</View>
+				</TouchableOpacity>
+			)}
 			<AddNoteForm
 				id={id}
 				refreshNotes={refreshNotes}
