@@ -7,6 +7,8 @@ import { putData } from '../../utils/http-requests'
 import { showStatusMessage } from '../../utils/general-functions'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
+import { checkForFalse } from '../../utils/general-functions'
+import React, { useState } from 'react'
 
 export default function EditGroupInfoForm({
 	id,
@@ -17,7 +19,7 @@ export default function EditGroupInfoForm({
 	refreshGroups,
 }) {
 	const { t } = useTranslation()
-
+	const [wasPressed, setWasPressed] = useState(false)
 	const sendData = async (values) => {
 		var data = {
 			name: values.name,
@@ -29,18 +31,30 @@ export default function EditGroupInfoForm({
 				showStatusMessage(response.data, 'success')
 				setEditGroupInfo(false)
 				setRefreshGroups(!refreshGroups)
+				setWasPressed(false)
 			},
 			onError: (error) => {
+				setWasPressed(false)
 				showStatusMessage(error.data, 'failure')
 			},
 		})
 	}
+	const initialValues = { name: name, description: description }
+
+	const checkForChanges = (values) => {
+		return values.name != initialValues.name ||
+			values.description != initialValues.description
+			? false
+			: true
+	}
+
 	return (
 		<Formik
-			initialValues={{ name: name, description: description }}
+			initialValues={initialValues}
 			validationSchema={CreateGroupValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
+				setWasPressed(true)
 				sendData(values)
 			}}
 		>
@@ -106,7 +120,10 @@ export default function EditGroupInfoForm({
 						<Button
 							title={t('create_note')}
 							onPress={handleSubmit}
-							disabled={!isValid}
+							disabled={checkForFalse(
+								checkForFalse(!isValid, wasPressed),
+								checkForChanges(values)
+							)}
 						/>
 					</View>
 				</View>

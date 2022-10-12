@@ -11,9 +11,12 @@ import FormField from '../general_components/FormField'
 import AppStorage from '../../utils/secure-store'
 import jwt_decode from 'jwt-decode'
 import BackButton from '../general_components/BackButton'
+import { checkForFalse } from '../../utils/general-functions'
+import React, { useState } from 'react'
 
 export default function EditUserInfoForm({ setChangePassword }) {
 	const { t } = useTranslation()
+	const [wasPressed, setWasPressed] = useState(false)
 
 	const sendData = async (values) => {
 		let userInfo = await AppStorage.getValueFor('loginInfo')
@@ -28,9 +31,10 @@ export default function EditUserInfoForm({ setChangePassword }) {
 				console.log(response.data)
 				showStatusMessage(response.data, 'success')
 				setChangePassword(false)
+				setWasPressed(false)
 			},
 			onError: (error) => {
-				console.log(error.data)
+				setWasPressed(false)
 				showStatusMessage(error.data, 'failure')
 			},
 		})
@@ -50,6 +54,7 @@ export default function EditUserInfoForm({ setChangePassword }) {
 				validationSchema={ChangePasswordValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
+					setWasPressed(true)
 					sendData(values)
 				}}
 			>
@@ -90,7 +95,7 @@ export default function EditUserInfoForm({ setChangePassword }) {
 								name="button"
 								title={t('edit')}
 								onPress={handleSubmit}
-								disabled={!isValid}
+								disabled={checkForFalse(!isValid, wasPressed)}
 							/>
 						</View>
 					</View>

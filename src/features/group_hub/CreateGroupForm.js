@@ -13,6 +13,7 @@ import BackButton from '../general_components/BackButton'
 import { useNavigation } from '@react-navigation/native'
 import AppStorage from '../../utils/secure-store'
 import jwt_decode from 'jwt-decode'
+import { checkForFalse } from '../../utils/general-functions'
 
 export default function CreateGroupForm({
 	setCreateGroup,
@@ -24,7 +25,7 @@ export default function CreateGroupForm({
 }) {
 	const navigation = useNavigation()
 	const { t } = useTranslation()
-
+	const [wasPressed, setWasPressed] = useState(false)
 	const [navigationLocation, setNavigationLocation] = useState('')
 
 	useEffect(() => {
@@ -55,7 +56,8 @@ export default function CreateGroupForm({
 				setNavigationLocation(data.name)
 			},
 			onError: (error) => {
-				showStatusMessage(error.data.message, 'failure')
+				setWasPressed(false)
+				showStatusMessage(error.data, 'failure')
 			},
 		})
 	}
@@ -76,6 +78,7 @@ export default function CreateGroupForm({
 				validationSchema={CreateGroupValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
+					setWasPressed(true)
 					sendData(values)
 				}}
 			>
@@ -137,7 +140,7 @@ export default function CreateGroupForm({
 							<Button
 								title={t('create_group')}
 								onPress={handleSubmit}
-								disabled={!isValid}
+								disabled={checkForFalse(!isValid, wasPressed)}
 							/>
 						</View>
 					</View>

@@ -9,6 +9,8 @@ import { postData } from '../../utils/http-requests'
 import { showStatusMessage } from '../../utils/general-functions'
 import BackButton from '../general_components/BackButton'
 import FormField from '../general_components/FormField'
+import { checkForFalse } from '../../utils/general-functions'
+import React, { useState } from 'react'
 
 export default function NewTopicForm({
 	newTopicFormVisible,
@@ -18,7 +20,7 @@ export default function NewTopicForm({
 	setRefreshTopics,
 }) {
 	const { t } = useTranslation()
-
+	const [wasPressed, setWasPressed] = useState(false)
 	const sendData = async (values) => {
 		var data = {
 			topic: values.topic,
@@ -30,9 +32,10 @@ export default function NewTopicForm({
 				showStatusMessage(response.data, 'success')
 				setRefreshTopics(!refreshTopics)
 				setNewTopicFormVisible(false)
+				setWasPressed(false)
 			},
 			onError: (error) => {
-				console.log(error)
+				setWasPressed(false)
 				showStatusMessage(error.data.message, 'failure')
 			},
 		})
@@ -62,6 +65,7 @@ export default function NewTopicForm({
 					validationSchema={CreateTopicValidationSchema}
 					validateOnMount={true}
 					onSubmit={(values) => {
+						setWasPressed(true)
 						sendData(values)
 					}}
 				>
@@ -101,7 +105,10 @@ export default function NewTopicForm({
 								<Button
 									title={t('create_topic')}
 									onPress={handleSubmit}
-									disabled={!isValid}
+									disabled={checkForFalse(
+										!isValid,
+										wasPressed
+									)}
 								/>
 							</View>
 						</View>

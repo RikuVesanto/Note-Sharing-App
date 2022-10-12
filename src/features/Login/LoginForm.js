@@ -9,9 +9,12 @@ import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
 import AppStorage from '../../utils/secure-store'
+import { checkForFalse } from '../../utils/general-functions'
+import React, { useState } from 'react'
 
 export default function LoginForm({ setLogin }) {
 	const { t } = useTranslation()
+	const [wasPressed, setWasPressed] = useState(false)
 
 	const sendData = async (values) => {
 		await getData(`/users/user/${values.username}/${values.password}`, {
@@ -21,6 +24,7 @@ export default function LoginForm({ setLogin }) {
 				setLogin(true)
 			},
 			onError: (error) => {
+				setWasPressed(false)
 				console.log(error.status, error.data.message)
 				showStatusMessage(error.data.message, 'failure')
 			},
@@ -36,6 +40,7 @@ export default function LoginForm({ setLogin }) {
 			validationSchema={LoginValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
+				setWasPressed(true)
 				sendData(values)
 			}}
 		>
@@ -75,7 +80,7 @@ export default function LoginForm({ setLogin }) {
 						<Button
 							title={t('login')}
 							onPress={handleSubmit}
-							disabled={!isValid}
+							disabled={checkForFalse(!isValid, wasPressed)}
 						/>
 					</View>
 				</View>

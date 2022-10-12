@@ -43,7 +43,7 @@ const showStatusMessage = (message, status, duration = 1850) => {
 }
 
 /**
- * checks if both the values are false and returns
+ * checks if both the values are false
  * @param {*} message the message that is displayed
  * @param {*} status changes what type of a message is displayed
  * @param {*} duration The duration the message is displayed for in milliseconds

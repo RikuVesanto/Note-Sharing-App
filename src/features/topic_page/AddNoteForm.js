@@ -7,6 +7,8 @@ import { postData } from '../../utils/http-requests'
 import { showStatusMessage } from '../../utils/general-functions'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
+import { checkForFalse } from '../../utils/general-functions'
+import React, { useState } from 'react'
 
 export default function AddNoteForm({
 	id,
@@ -15,6 +17,7 @@ export default function AddNoteForm({
 	closeNoteForms,
 }) {
 	const { t } = useTranslation()
+	const [wasPressed, setWasPressed] = useState(false)
 
 	const sendData = async (values) => {
 		var data = {
@@ -27,8 +30,10 @@ export default function AddNoteForm({
 				showStatusMessage(response.data, 'success')
 				setRefreshNotes(!refreshNotes)
 				closeNoteForms()
+				setWasPressed(false)
 			},
 			onError: (error) => {
+				setWasPressed(false)
 				showStatusMessage(error.data.message, 'failure')
 			},
 		})
@@ -41,6 +46,7 @@ export default function AddNoteForm({
 				validationSchema={NoteValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values, actions) => {
+					setWasPressed(true)
 					sendData(values)
 					actions.setValues(emptyValues)
 				}}
@@ -109,7 +115,7 @@ export default function AddNoteForm({
 							<Button
 								title={t('create_note')}
 								onPress={handleSubmit}
-								disabled={!isValid}
+								disabled={checkForFalse(!isValid, wasPressed)}
 							/>
 						</View>
 					</View>

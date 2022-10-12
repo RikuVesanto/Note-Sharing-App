@@ -17,11 +17,13 @@ import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
+import { checkForFalse } from '../../utils/general-functions'
 
 export default function RegisterForm({ setLoginPage }) {
 	const { t } = useTranslation()
 	const [stateBirthday, setStateBirthday] = useState(null)
 	const [showDatePicker, setShowDatePicker] = useState(false)
+	const [wasPressed, setWasPressed] = useState(false)
 
 	// Updates birthday value to state and hides the date picker
 	const onBirthdayChange = (selectedDate) => {
@@ -48,6 +50,7 @@ export default function RegisterForm({ setLoginPage }) {
 				setLoginPage(true)
 			},
 			onError: (error) => {
+				setWasPressed(false)
 				showStatusMessage(error.data, 'failure')
 			},
 		})
@@ -65,6 +68,7 @@ export default function RegisterForm({ setLoginPage }) {
 			validationSchema={RegisterValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
+				setWasPressed(!wasPressed)
 				sendData(values)
 			}}
 		>
@@ -171,7 +175,7 @@ export default function RegisterForm({ setLoginPage }) {
 							name="button"
 							title={t('register')}
 							onPress={handleSubmit}
-							disabled={!isValid}
+							disabled={checkForFalse(!isValid, wasPressed)}
 						/>
 					</View>
 				</View>

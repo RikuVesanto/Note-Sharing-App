@@ -7,6 +7,8 @@ import { putData } from '../../utils/http-requests'
 import { showStatusMessage } from '../../utils/general-functions'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
+import { checkForFalse } from '../../utils/general-functions'
+import React, { useState } from 'react'
 
 export default function EditNoteForm({
 	id,
@@ -19,6 +21,7 @@ export default function EditNoteForm({
 	orderCount,
 }) {
 	const { t } = useTranslation()
+	const [wasPressed, setWasPressed] = useState(false)
 
 	const sendData = async (values) => {
 		var data = {
@@ -33,19 +36,31 @@ export default function EditNoteForm({
 				let tempArray = notesStatus
 				tempArray[orderCount] = false
 				setNotesStatus(tempArray)
+				setWasPressed(false)
 			},
 			onError: (error) => {
+				setWasPressed(false)
 				showStatusMessage(error.data, 'failure')
 			},
 		})
 	}
+
+	const checkForChanges = (values) => {
+		return values.title != currentValues.title ||
+			values.content != currentValues.content
+			? false
+			: true
+	}
+
+	const initialValues = { title: title, content: content }
 	return (
 		<View style={styles.noteCard}>
 			<Formik
-				initialValues={{ title: title, content: content }}
+				initialValues={initialValues}
 				validationSchema={NoteValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
+					setWasPressed(true)
 					sendData(values)
 				}}
 			>
@@ -113,7 +128,10 @@ export default function EditNoteForm({
 							<Button
 								title={t('create_note')}
 								onPress={handleSubmit}
-								disabled={!isValid}
+								disabled={checkForFalse(
+									checkForFalse(!isValid, wasPressed),
+									checkForChanges(values)
+								)}
 							/>
 						</View>
 					</View>

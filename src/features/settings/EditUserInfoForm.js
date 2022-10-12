@@ -15,6 +15,7 @@ import jwt_decode from 'jwt-decode'
 export default function EditUserInfoForm() {
 	const { t } = useTranslation()
 	const [currentValues, setCurrentValues] = useState([])
+	const [wasPressed, setWasPressed] = useState(false)
 
 	useEffect(() => {
 		fetchUserData()
@@ -29,9 +30,7 @@ export default function EditUserInfoForm() {
 				//console.log(response.data)
 				setCurrentValues(response.data)
 			},
-			onError: (error) => {
-				console.log(error)
-			},
+			onError: (error) => {},
 		})
 	}
 
@@ -49,20 +48,22 @@ export default function EditUserInfoForm() {
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
 				fetchUserData()
+				setWasPressed(false)
 			},
 			onError: (error) => {
+				setWasPressed(false)
 				showStatusMessage(error.data, 'failure')
 			},
 		})
 	}
 
-	const checkForChanges = (values, otherValues) => {
+	const checkForChanges = (values) => {
 		return values.email != currentValues.email ||
 			values.username != currentValues.username ||
 			values.name != currentValues.name ||
 			values.school != currentValues.school
-			? true
-			: false
+			? false
+			: true
 	}
 
 	return (
@@ -77,6 +78,7 @@ export default function EditUserInfoForm() {
 			validationSchema={EditUserInfoValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
+				setWasPressed(true)
 				sendData(values)
 			}}
 		>
@@ -140,8 +142,11 @@ export default function EditUserInfoForm() {
 							title={t('edit')}
 							onPress={handleSubmit}
 							disabled={checkForFalse(
-								!isValid,
-								!checkForChanges(values)
+								checkForFalse(
+									!isValid,
+									checkForChanges(values)
+								),
+								wasPressed
 							)}
 						/>
 					</View>
