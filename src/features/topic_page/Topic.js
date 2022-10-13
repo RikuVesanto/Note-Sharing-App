@@ -1,10 +1,4 @@
-import {
-	Text,
-	View,
-	ScrollView,
-	TouchableOpacity,
-	ImageBackground,
-} from 'react-native'
+import { Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import styles from '../../utils/styles'
 import React, { useState, useEffect } from 'react'
 import AddNoteForm from '../topic_page/AddNoteForm'

@@ -68,9 +68,33 @@ const getUserId = async () => {
 	return decoded.id
 }
 
+/**
+ * Checks if each value of the object matches each other, doesn't work for nested objects
+ * @param {*} object1 first object being compared
+ * @param {*} object2 second object being compared
+ * @returns {*} true if every value matches, otherwise false
+ */
+const CheckForShallowObjectEquality = (object1, object2) => {
+	const keys1 = Object.keys(object1)
+	const keys2 = Object.keys(object2)
+
+	if (keys1.length !== keys2.length) {
+		return false
+	}
+
+	for (let key of keys1) {
+		if (object1[key] !== object2[key]) {
+			return false
+		}
+	}
+
+	return true
+}
+
 export {
 	addToUseState as addToUseState,
 	showStatusMessage as showStatusMessage,
 	checkForFalse as checkForFalse,
 	getUserId as getUserId,
+	CheckForShallowObjectEquality as CheckForShallowObjectEquality,
 }

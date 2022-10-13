@@ -7,7 +7,10 @@ import { putData } from '../../utils/http-requests'
 import { showStatusMessage } from '../../utils/general-functions'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
-import { checkForFalse } from '../../utils/general-functions'
+import {
+	checkForFalse,
+	CheckForShallowObjectEquality,
+} from '../../utils/general-functions'
 import React, { useState } from 'react'
 import FormField from '../general_components/FormField'
 
@@ -44,13 +47,6 @@ export default function EditNoteForm({
 				showStatusMessage(error.data, 'failure')
 			},
 		})
-	}
-
-	const checkForChanges = (values) => {
-		return values.title != initialValues.title ||
-			values.content != initialValues.content
-			? false
-			: true
 	}
 
 	const initialValues = { title: title, content: content }
@@ -107,7 +103,10 @@ export default function EditNoteForm({
 								onPress={handleSubmit}
 								disabled={checkForFalse(
 									checkForFalse(!isValid, wasPressed),
-									checkForChanges(values)
+									CheckForShallowObjectEquality(
+										values,
+										initialValues
+									)
 								)}
 							/>
 						</View>

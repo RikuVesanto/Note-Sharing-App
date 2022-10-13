@@ -9,7 +9,10 @@ import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
-import { getUserId } from '../../utils/general-functions'
+import {
+	getUserId,
+	CheckForShallowObjectEquality,
+} from '../../utils/general-functions'
 
 export default function EditUserInfoForm() {
 	const { t } = useTranslation()
@@ -53,21 +56,15 @@ export default function EditUserInfoForm() {
 		})
 	}
 
-	const checkForChanges = (values) => {
-		return values.email != currentValues.email ||
-			values.username != currentValues.username ||
-			values.name != currentValues.name
-			? false
-			: true
+	const initialValues = {
+		email: currentValues.email,
+		username: currentValues.username,
+		name: currentValues.name,
 	}
 
 	return (
 		<Formik
-			initialValues={{
-				email: currentValues.email,
-				username: currentValues.username,
-				name: currentValues.name,
-			}}
+			initialValues={initialValues}
 			enableReinitialize={true}
 			validationSchema={EditUserInfoValidationSchema}
 			validateOnMount={true}
@@ -127,7 +124,10 @@ export default function EditUserInfoForm() {
 							disabled={checkForFalse(
 								checkForFalse(
 									!isValid,
-									checkForChanges(values)
+									CheckForShallowObjectEquality(
+										values,
+										initialValues
+									)
 								),
 								wasPressed
 							)}

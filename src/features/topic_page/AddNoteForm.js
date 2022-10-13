@@ -1,4 +1,4 @@
-import { View, Text, TextInput } from 'react-native'
+import { View } from 'react-native'
 import styles from '../../utils/styles'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
