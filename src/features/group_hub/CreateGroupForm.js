@@ -45,7 +45,6 @@ export default function CreateGroupForm({
 			creatorId: decoded.id,
 		}
 		if (values.password != '') data.password = values.password
-		if (values.class != '') data.class = values.class
 		if (values.description != '') data.description = values.description
 		await postData(data, '/groups/group', {
 			onSuccess: async (response) => {
@@ -71,7 +70,6 @@ export default function CreateGroupForm({
 			<Formik
 				initialValues={{
 					name: '',
-					class: '',
 					description: '',
 					password: '',
 				}}
@@ -102,17 +100,6 @@ export default function CreateGroupForm({
 							errors={errors.name}
 							touched={touched.name}
 							value={values.name}
-						/>
-						<FormField
-							hideText={false}
-							required={false}
-							largeField={false}
-							placeholder={t('class')}
-							handleChange={() => handleChange('class')}
-							handleBlur={handleBlur('class')}
-							errors={errors.class}
-							touched={touched.class}
-							value={values.class}
 						/>
 						<FormField
 							hideText={false}
