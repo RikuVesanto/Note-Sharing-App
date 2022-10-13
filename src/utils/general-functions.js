@@ -46,9 +46,8 @@ const showStatusMessage = (message, status, duration = 1850) => {
 
 /**
  * checks if both the values are false
- * @param {*} message the message that is displayed
- * @param {*} status changes what type of a message is displayed
- * @param {*} duration The duration the message is displayed for in milliseconds
+ * @param {*} bool1 first boolean value
+ * @param {*} bool2 second boolean value
  * @returns {*} false if both values are false otherwise true
  */
 const checkForFalse = (bool1, bool2) => {

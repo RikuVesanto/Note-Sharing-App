@@ -1,5 +1,4 @@
 import { TouchableOpacity, Text, View } from 'react-native'
-import { Divider } from 'react-native-paper'
 import styles from '../../utils/styles'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
@@ -35,7 +34,6 @@ export default function SearchResultCard({
 					</Text>
 				</TouchableOpacity>
 			</View>
-			<Divider style={{ height: 1 }} />
 		</View>
 	)
 }

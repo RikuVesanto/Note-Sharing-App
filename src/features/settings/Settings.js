@@ -12,6 +12,7 @@ import styles from '../../utils/styles'
 import AppStorage from '../../utils/secure-store'
 import EditUserInfoForm from './EditUserInfoForm'
 import ChangePasswordForm from './ChangePasswordForm'
+import ChangeLanguage from '../../features/language_select/ChangeLanguage'
 
 export default function Settings({ setLogin }) {
 	const { t } = useTranslation()
@@ -42,6 +43,7 @@ export default function Settings({ setLogin }) {
 							{t('change_password')}
 						</Text>
 					</TouchableOpacity>
+					<ChangeLanguage />
 				</View>
 			)}
 		</ScrollView>

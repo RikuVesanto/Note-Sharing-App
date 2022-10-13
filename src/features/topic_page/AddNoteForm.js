@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 import { checkForFalse } from '../../utils/general-functions'
 import React, { useState } from 'react'
+import FormField from '../general_components/FormField'
 
 export default function AddNoteForm({
 	id,
@@ -61,56 +62,32 @@ export default function AddNoteForm({
 					values,
 				}) => (
 					<View>
-						<View style={styles.noteContainer}>
-							<TextInput
-								style={[
-									styles.noteInput,
-									touched.title &&
-										errors &&
-										styles.inputError,
-								]}
-								placeholder={t('title')}
-								onChangeText={handleChange('title')}
-								onBlur={handleBlur('title')}
-								value={values.title}
-							/>
-							{errors && touched.title && (
-								<Text
-									style={[
-										styles.errorText,
-										styles.titleErrorText,
-									]}
-								>
-									{errors.title}
-								</Text>
-							)}
-						</View>
-						<View style={styles.noteContainer}>
-							<TextInput
-								style={[
-									styles.noteInput,
-									styles.highInput,
-									touched.content &&
-										errors &&
-										styles.inputError,
-								]}
-								multiline={true}
-								placeholder={t('content')}
-								onChangeText={handleChange('content')}
-								onBlur={handleBlur('content')}
-								value={values.content}
-							/>
-							{errors && touched.content && (
-								<Text
-									style={[
-										styles.errorText,
-										styles.contentErrorText,
-									]}
-								>
-									{errors.content}
-								</Text>
-							)}
-						</View>
+						<FormField
+							hideText={false}
+							required={false}
+							largeField={false}
+							placeholder={t('title')}
+							handleChange={() => handleChange('title')}
+							handleBlur={handleBlur('title')}
+							errors={errors.title}
+							touched={touched.title}
+							value={values.title}
+							minimalStyle={true}
+							errorPosition={45}
+						/>
+						<FormField
+							hideText={false}
+							required={false}
+							largeField={true}
+							placeholder={t('content')}
+							handleChange={() => handleChange('content')}
+							handleBlur={handleBlur('content')}
+							errors={errors.content}
+							touched={touched.content}
+							value={values.content}
+							minimalStyle={true}
+							errorPosition={85}
+						/>
 						<View style={styles.noteSubmitButton}>
 							<Button
 								title={t('create_note')}
