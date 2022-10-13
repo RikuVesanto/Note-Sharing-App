@@ -140,7 +140,11 @@ export default function GroupPage({
 						</TouchableOpacity>
 					</View>
 					{menu && (
-						<Menu id={id} setRefreshGroups={setRefreshGroups} />
+						<Menu
+							id={id}
+							setRefreshGroups={setRefreshGroups}
+							refreshGroups={refreshGroups}
+						/>
 					)}
 					{topicCards}
 					<TopicCard

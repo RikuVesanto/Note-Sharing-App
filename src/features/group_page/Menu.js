@@ -15,7 +15,7 @@ import { getData } from '../../utils/http-requests'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 
-export default function Menu({ id, setRefreshGroups }) {
+export default function Menu({ id, setRefreshGroups, refreshGroups }) {
 	const { t } = useTranslation()
 	const navigation = useNavigation()
 
@@ -26,7 +26,7 @@ export default function Menu({ id, setRefreshGroups }) {
 		await deleteData(`/groups/userconnection/${id}/${userId}`, {
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success', 600)
-				setRefreshGroups(true)
+				setRefreshGroups(!refreshGroups)
 				navigation.navigate('Group Hub')
 			},
 			onError: (error) => {
