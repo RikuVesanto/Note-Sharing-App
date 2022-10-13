@@ -114,11 +114,11 @@ export default StyleSheet.create({
 		fontSize: 24,
 	},
 	highInput: {
-		height: 80,
+		height: 70,
 	},
 	highInputContainer: {
 		width: '80%',
-		height: 110,
+		height: 90,
 		alignSelf: 'center',
 	},
 	//topic buttons
@@ -291,13 +291,11 @@ export default StyleSheet.create({
 		alignSelf: 'center',
 	},
 	noteInput: {
-		//backgroundColor: '#fff',
+		backgroundColor: 'transparent',
 		borderBottomColor: 'black',
+		borderWidth: 0,
+		borderRadius: 0,
 		borderBottomWidth: 1,
-		height: 40,
-		width: '100%',
-		paddingLeft: 10,
-		paddingRight: 10,
 	},
 	titleErrorText: {
 		position: 'absolute',

@@ -18,6 +18,8 @@ export default function FormField({
 	errors,
 	touched,
 	value = '',
+	minimalStyle = false,
+	errorPosition = null,
 }) {
 	const [hidden, setHidden] = useState(hideText)
 
@@ -25,15 +27,18 @@ export default function FormField({
 		? require('../../../assets/eye-off-fill.png')
 		: require('../../../assets/eye-fill.png')
 
-	var viewStyle = largeField
-		? styles.highInputContainer
-		: styles.inputContainer
 	var inputStyle = largeField
 		? [styles.input, styles.highInput]
 		: styles.input
 	var multiline = largeField ? true : false
+
 	return (
-		<View style={viewStyle}>
+		<View
+			style={[
+				styles.inputContainer,
+				largeField && styles.highInputContainer,
+			]}
+		>
 			{hideText && (
 				<View style={styles.reveal}>
 					<TouchableOpacity
@@ -50,7 +55,11 @@ export default function FormField({
 			)}
 			{required && <Text style={styles.required}>*</Text>}
 			<TextInput
-				style={[inputStyle, touched && errors && styles.inputError]}
+				style={[
+					inputStyle,
+					minimalStyle && styles.noteInput,
+					touched && errors && styles.inputError,
+				]}
 				multiline={multiline}
 				placeholder={placeholder}
 				onChangeText={handleChange()}
@@ -59,7 +68,14 @@ export default function FormField({
 				value={value}
 			/>
 			{errors && touched && (
-				<Text style={styles.errorText}>{errors}</Text>
+				<Text
+					style={[
+						styles.errorText,
+						errorPosition && { top: errorPosition },
+					]}
+				>
+					{errors}
+				</Text>
 			)}
 		</View>
 	)

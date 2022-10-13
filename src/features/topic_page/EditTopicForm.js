@@ -1,14 +1,15 @@
-import { View, Text, TextInput } from 'react-native'
+import { View } from 'react-native'
 import styles from '../../utils/styles'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
-import { TopicValidationSchema } from '../../utils/validation-schemas'
+import { CreateTopicValidationSchema } from '../../utils/validation-schemas'
 import { putData } from '../../utils/http-requests'
 import { showStatusMessage } from '../../utils/general-functions'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 import { checkForFalse } from '../../utils/general-functions'
 import React, { useState } from 'react'
+import FormField from '../general_components/FormField'
 
 export default function EditNoteForm({
 	topicId,
@@ -54,7 +55,7 @@ export default function EditNoteForm({
 		<View style={styles.topicEditFormContainer}>
 			<Formik
 				initialValues={initialValues}
-				validationSchema={TopicValidationSchema}
+				validationSchema={CreateTopicValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
 					setWasPressed(true)
@@ -71,56 +72,32 @@ export default function EditNoteForm({
 					values,
 				}) => (
 					<View>
-						<View style={styles.noteContainer}>
-							<TextInput
-								style={[
-									styles.noteInput,
-									touched.topic &&
-										errors &&
-										styles.inputError,
-								]}
-								placeholder={t('topic')}
-								onChangeText={handleChange('topic')}
-								onBlur={handleBlur('topic')}
-								value={values.topic}
-							/>
-							{errors && touched.topic && (
-								<Text
-									style={[
-										styles.errorText,
-										styles.titleErrorText,
-									]}
-								>
-									{errors.topic}
-								</Text>
-							)}
-						</View>
-						<View style={styles.noteContainer}>
-							<TextInput
-								style={[
-									styles.noteInput,
-									styles.highInput,
-									touched.description &&
-										errors &&
-										styles.inputError,
-								]}
-								multiline={true}
-								placeholder={t('description')}
-								onChangeText={handleChange('description')}
-								onBlur={handleBlur('description')}
-								value={values.description}
-							/>
-							{errors && touched.description && (
-								<Text
-									style={[
-										styles.errorText,
-										styles.contentErrorText,
-									]}
-								>
-									{errors.description}
-								</Text>
-							)}
-						</View>
+						<FormField
+							hideText={false}
+							required={false}
+							largeField={false}
+							placeholder={t('topic')}
+							handleChange={() => handleChange('topic')}
+							handleBlur={handleBlur('topic')}
+							errors={errors.topic}
+							touched={touched.topic}
+							value={values.topic}
+							minimalStyle={true}
+							errorPosition={45}
+						/>
+						<FormField
+							hideText={false}
+							required={false}
+							largeField={true}
+							placeholder={t('description')}
+							handleChange={() => handleChange('description')}
+							handleBlur={handleBlur('description')}
+							errors={errors.description}
+							touched={touched.description}
+							value={values.description}
+							minimalStyle={true}
+							errorPosition={85}
+						/>
 						<View style={styles.noteSubmitButton}>
 							<Button
 								title={t('create_note')}

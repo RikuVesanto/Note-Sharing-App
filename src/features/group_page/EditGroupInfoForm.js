@@ -1,4 +1,4 @@
-import { View, Text, TextInput } from 'react-native'
+import { View } from 'react-native'
 import styles from '../../utils/styles'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 import { checkForFalse } from '../../utils/general-functions'
 import React, { useState } from 'react'
+import FormField from '../general_components/FormField'
 
 export default function EditGroupInfoForm({
 	id,
@@ -68,54 +69,30 @@ export default function EditGroupInfoForm({
 				values,
 			}) => (
 				<View>
-					<View style={styles.noteContainer}>
-						<TextInput
-							style={[
-								styles.noteInput,
-								touched.name && errors && styles.inputError,
-							]}
-							placeholder={t('name')}
-							onChangeText={handleChange('name')}
-							onBlur={handleBlur('name')}
-							value={values.name}
-						/>
-						{errors && touched.name && (
-							<Text
-								style={[
-									styles.errorText,
-									styles.titleErrorText,
-								]}
-							>
-								{errors.name}
-							</Text>
-						)}
-					</View>
-					<View style={styles.noteContainer}>
-						<TextInput
-							style={[
-								styles.noteInput,
-								styles.highInput,
-								touched.description &&
-									errors &&
-									styles.inputError,
-							]}
-							multiline={true}
-							placeholder={t('description')}
-							onChangeText={handleChange('description')}
-							onBlur={handleBlur('description')}
-							value={values.description}
-						/>
-						{errors && touched.description && (
-							<Text
-								style={[
-									styles.errorText,
-									styles.contentErrorText,
-								]}
-							>
-								{errors.description}
-							</Text>
-						)}
-					</View>
+					<FormField
+						hideText={false}
+						required={false}
+						largeField={false}
+						placeholder={t('name')}
+						handleChange={() => handleChange('name')}
+						handleBlur={handleBlur('name')}
+						errors={errors.name}
+						touched={touched.name}
+						value={values.name}
+						minimalStyle={true}
+					/>
+					<FormField
+						hideText={false}
+						required={false}
+						largeField={true}
+						placeholder={t('description')}
+						handleChange={() => handleChange('description')}
+						handleBlur={handleBlur('description')}
+						errors={errors.description}
+						touched={touched.description}
+						value={values.description}
+						minimalStyle={true}
+					/>
 					<View style={styles.noteSubmitButton}>
 						<Button
 							title={t('create_note')}
