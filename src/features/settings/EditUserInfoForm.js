@@ -9,8 +9,7 @@ import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
-import AppStorage from '../../utils/secure-store'
-import jwt_decode from 'jwt-decode'
+import { getUserId } from '../../utils/general-functions'
 
 export default function EditUserInfoForm() {
 	const { t } = useTranslation()
@@ -22,10 +21,9 @@ export default function EditUserInfoForm() {
 	}, [])
 
 	const fetchUserData = async () => {
-		let userInfo = await AppStorage.getValueFor('loginInfo')
-		let decoded = jwt_decode(userInfo)
+		let userId = await getUserId()
 
-		await getData(`/users/user/${decoded.id}`, {
+		await getData(`/users/user/${userId}`, {
 			onSuccess: (response) => {
 				//console.log(response.data)
 				setCurrentValues(response.data)
@@ -35,10 +33,9 @@ export default function EditUserInfoForm() {
 	}
 
 	const sendData = async (values) => {
-		let userInfo = await AppStorage.getValueFor('loginInfo')
-		let decoded = jwt_decode(userInfo)
+		let userId = await getUserId()
 		let data = {
-			id: decoded.id,
+			id: userId,
 			email: values.email,
 			username: values.username,
 			name: values.name,

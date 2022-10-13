@@ -8,8 +8,7 @@ import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
-import AppStorage from '../../utils/secure-store'
-import jwt_decode from 'jwt-decode'
+import { getUserId } from '../../utils/general-functions'
 import BackButton from '../general_components/BackButton'
 import { checkForFalse } from '../../utils/general-functions'
 import React, { useState } from 'react'
@@ -19,10 +18,9 @@ export default function EditUserInfoForm({ setChangePassword }) {
 	const [wasPressed, setWasPressed] = useState(false)
 
 	const sendData = async (values) => {
-		let userInfo = await AppStorage.getValueFor('loginInfo')
-		let decoded = jwt_decode(userInfo)
+		let userId = await getUserId()
 		let data = {
-			id: decoded.id,
+			id: userId,
 			oldPassword: values.oldPassword,
 			password: values.password,
 		}

@@ -11,8 +11,7 @@ import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
 import BackButton from '../general_components/BackButton'
 import { useNavigation } from '@react-navigation/native'
-import AppStorage from '../../utils/secure-store'
-import jwt_decode from 'jwt-decode'
+import { getUserId } from '../../utils/general-functions'
 import { checkForFalse } from '../../utils/general-functions'
 
 export default function CreateGroupForm({
@@ -38,11 +37,10 @@ export default function CreateGroupForm({
 	}, [readyToNavigate])
 
 	const sendData = async (values) => {
-		let userInfo = await AppStorage.getValueFor('loginInfo')
-		let decoded = jwt_decode(userInfo)
+		let userId = await getUserId()
 		var data = {
 			name: values.name,
-			creatorId: decoded.id,
+			creatorId: userId,
 		}
 		if (values.password != '') data.password = values.password
 		if (values.description != '') data.description = values.description

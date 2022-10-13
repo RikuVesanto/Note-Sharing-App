@@ -5,13 +5,11 @@ import {
 	ImageBackground,
 	FlatList,
 	Text,
-	SafeAreaView,
 } from 'react-native'
 import styles from '../../utils/styles'
 import { deleteData } from '../../utils/http-requests'
 import { showStatusMessage } from '../../utils/general-functions'
-import AppStorage from '../../utils/secure-store'
-import jwt_decode from 'jwt-decode'
+import { getUserId } from '../../utils/general-functions'
 import { useNavigation } from '@react-navigation/native'
 import { getData } from '../../utils/http-requests'
 import { useTranslation } from 'react-i18next'
@@ -24,9 +22,8 @@ export default function Menu({ id, setRefreshGroups }) {
 	const [users, setUsers] = useState([])
 
 	const leaveGroup = async () => {
-		let userInfo = await AppStorage.getValueFor('loginInfo')
-		let decoded = jwt_decode(userInfo)
-		await deleteData(`/groups/userconnection/${id}/${decoded.id}`, {
+		let userId = await getUserId()
+		await deleteData(`/groups/userconnection/${id}/${userId}`, {
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success', 600)
 				setRefreshGroups(true)

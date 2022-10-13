@@ -15,8 +15,7 @@ import Topic from '../topic_page/Topic'
 import TopicCard from './TopicCard'
 import Menu from './Menu'
 import { getData } from '../../utils/http-requests'
-import AppStorage from '../../utils/secure-store'
-import jwt_decode from 'jwt-decode'
+import { getUserId } from '../../utils/general-functions'
 
 export default function GroupPage({
 	id,
@@ -39,9 +38,8 @@ export default function GroupPage({
 
 	useEffect(() => {
 		async function fetchData() {
-			let userInfo = await AppStorage.getValueFor('loginInfo')
-			let decoded = jwt_decode(userInfo)
-			await getCreator(id, decoded.id)
+			let userId = await getUserId()
+			await getCreator(id, userId)
 		}
 		fetchData()
 	}, [])

@@ -1,4 +1,6 @@
 import { showMessage } from 'react-native-flash-message'
+import AppStorage from '../utils/secure-store'
+import jwt_decode from 'jwt-decode'
 import styles from './styles'
 
 /**
@@ -57,8 +59,19 @@ const checkForFalse = (bool1, bool2) => {
 	}
 }
 
+/**
+ * Retrieves and returns the id of the user that's logged in
+ * @returns {*} user id
+ */
+const getUserId = async () => {
+	let userInfo = await AppStorage.getValueFor('loginInfo')
+	let decoded = jwt_decode(userInfo)
+	return decoded.id
+}
+
 export {
 	addToUseState as addToUseState,
 	showStatusMessage as showStatusMessage,
 	checkForFalse as checkForFalse,
+	getUserId as getUserId,
 }

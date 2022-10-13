@@ -12,9 +12,9 @@ import { getData } from './src/utils/http-requests'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import AppStorage from './src/utils/secure-store'
-import jwt_decode from 'jwt-decode'
 import './src/features/language_select/i18n'
 import { useTranslation } from 'react-i18next'
+import { getUserId } from './src/utils/general-functions'
 
 const Drawer = createDrawerNavigator()
 
@@ -55,9 +55,8 @@ export default function App() {
 	}, [groupScreens])
 
 	const getGroups = async () => {
-		let userInfo = await AppStorage.getValueFor('loginInfo')
-		let decoded = jwt_decode(userInfo)
-		await getData(`/groups/grouplist/${decoded.id}`, {
+		let userId = await getUserId()
+		await getData(`/groups/grouplist/${userId}`, {
 			onSuccess: async (response) => {
 				//console.log(response.data)
 				setGroups(response.data)
