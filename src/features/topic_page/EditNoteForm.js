@@ -13,6 +13,7 @@ import {
 } from '../../utils/general-functions'
 import React, { useState } from 'react'
 import FormField from '../general_components/FormField'
+import CloseButton from '../general_components/closeButton'
 
 export default function EditNoteForm({
 	id,
@@ -52,6 +53,14 @@ export default function EditNoteForm({
 	const initialValues = { title: title, content: content }
 	return (
 		<View style={styles.noteCard}>
+			<CloseButton
+				action={() => {
+					setRefreshNotes(!refreshNotes)
+					let tempArray = notesStatus
+					tempArray[orderCount] = false
+					setNotesStatus(tempArray)
+				}}
+			/>
 			<Formik
 				initialValues={initialValues}
 				validationSchema={NoteValidationSchema}

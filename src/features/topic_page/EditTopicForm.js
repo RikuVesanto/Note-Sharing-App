@@ -13,6 +13,7 @@ import {
 } from '../../utils/general-functions'
 import React, { useState } from 'react'
 import FormField from '../general_components/FormField'
+import CloseButton from '../general_components/closeButton'
 
 export default function EditNoteForm({
 	topicId,
@@ -50,6 +51,7 @@ export default function EditNoteForm({
 	const initialValues = { topic: topic, description: description }
 	return (
 		<View style={styles.topicEditFormContainer}>
+			<CloseButton action={() => setEditTopic(false)} />
 			<Formik
 				initialValues={initialValues}
 				validationSchema={CreateTopicValidationSchema}

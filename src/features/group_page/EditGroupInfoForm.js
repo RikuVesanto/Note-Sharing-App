@@ -13,6 +13,7 @@ import {
 } from '../../utils/general-functions'
 import React, { useState } from 'react'
 import FormField from '../general_components/FormField'
+import CloseButton from '../general_components/closeButton'
 
 export default function EditGroupInfoForm({
 	id,
@@ -46,64 +47,68 @@ export default function EditGroupInfoForm({
 	const initialValues = { name: name, description: description }
 
 	return (
-		<Formik
-			initialValues={initialValues}
-			validationSchema={CreateGroupValidationSchema}
-			validateOnMount={true}
-			onSubmit={(values) => {
-				setWasPressed(true)
-				sendData(values)
-			}}
-		>
-			{({
-				handleChange,
-				handleBlur,
-				handleSubmit,
-				errors,
-				touched,
-				isValid,
-				values,
-			}) => (
-				<View>
-					<FormField
-						hideText={false}
-						required={false}
-						largeField={false}
-						placeholder={t('name')}
-						handleChange={() => handleChange('name')}
-						handleBlur={handleBlur('name')}
-						errors={errors.name}
-						touched={touched.name}
-						value={values.name}
-						minimalStyle={true}
-					/>
-					<FormField
-						hideText={false}
-						required={false}
-						largeField={true}
-						placeholder={t('description')}
-						handleChange={() => handleChange('description')}
-						handleBlur={handleBlur('description')}
-						errors={errors.description}
-						touched={touched.description}
-						value={values.description}
-						minimalStyle={true}
-					/>
-					<View style={styles.noteSubmitButton}>
-						<Button
-							title={t('create_note')}
-							onPress={handleSubmit}
-							disabled={checkForFalse(
-								checkForFalse(!isValid, wasPressed),
-								CheckForShallowObjectEquality(
-									values,
-									initialValues
-								)
-							)}
+		<View>
+			<CloseButton action={() => setEditGroupInfo(false)} />
+
+			<Formik
+				initialValues={initialValues}
+				validationSchema={CreateGroupValidationSchema}
+				validateOnMount={true}
+				onSubmit={(values) => {
+					setWasPressed(true)
+					sendData(values)
+				}}
+			>
+				{({
+					handleChange,
+					handleBlur,
+					handleSubmit,
+					errors,
+					touched,
+					isValid,
+					values,
+				}) => (
+					<View>
+						<FormField
+							hideText={false}
+							required={false}
+							largeField={false}
+							placeholder={t('name')}
+							handleChange={() => handleChange('name')}
+							handleBlur={handleBlur('name')}
+							errors={errors.name}
+							touched={touched.name}
+							value={values.name}
+							minimalStyle={true}
 						/>
+						<FormField
+							hideText={false}
+							required={false}
+							largeField={true}
+							placeholder={t('description')}
+							handleChange={() => handleChange('description')}
+							handleBlur={handleBlur('description')}
+							errors={errors.description}
+							touched={touched.description}
+							value={values.description}
+							minimalStyle={true}
+						/>
+						<View style={styles.noteSubmitButton}>
+							<Button
+								title={t('create_note')}
+								onPress={handleSubmit}
+								disabled={checkForFalse(
+									checkForFalse(!isValid, wasPressed),
+									CheckForShallowObjectEquality(
+										values,
+										initialValues
+									)
+								)}
+							/>
+						</View>
 					</View>
-				</View>
-			)}
-		</Formik>
+				)}
+			</Formik>
+		</View>
 	)
 }

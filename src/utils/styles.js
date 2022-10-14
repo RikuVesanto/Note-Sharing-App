@@ -402,4 +402,8 @@ export default StyleSheet.create({
 		borderWidth: 1,
 		borderRadius: 5,
 	},
+	closeButtonImage: {
+		height: 25,
+		width: 25,
+	},
 })
