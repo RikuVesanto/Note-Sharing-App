@@ -4,7 +4,7 @@ import i18next from 'i18next'
 import AppStorage from '../../utils/secure-store'
 import styles from '../../utils/styles'
 
-export default function ChangeLanguage(props) {
+export default function ChangeLanguage() {
 	const changeLanguage = async (value) => {
 		i18next
 			.changeLanguage(value)

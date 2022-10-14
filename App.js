@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View } from 'react-native'
+import { View, Image } from 'react-native'
 import FlashMessage from 'react-native-flash-message'
 import Register from './src/features/register/Register'
 import Login from './src/features/login/Login'
@@ -81,6 +81,14 @@ export default function App() {
 							refreshGroups={refreshGroups}
 						/>
 					)}
+					options={{
+						drawerIcon: () => (
+							<Image
+								source={require('./assets/group.png')}
+								style={[styles.icon]}
+							/>
+						),
+					}}
 				/>
 			)
 		}
@@ -92,7 +100,17 @@ export default function App() {
 			<Drawer.Navigator>
 				{groupScreens}
 				<Drawer.Screen
-					name={t('group_hub')}
+					name={'Group Hub'}
+					//tab translation not working currently
+					options={{
+						tabBarLabel: t('group_hub'),
+						drawerIcon: () => (
+							<Image
+								source={require('./assets/recruitment.png')}
+								style={[styles.icon]}
+							/>
+						),
+					}}
 					children={() => (
 						<GroupHub
 							refreshGroups={refreshGroups}
@@ -105,7 +123,17 @@ export default function App() {
 					)}
 				/>
 				<Drawer.Screen
-					name={t('settings')}
+					name={'Settings'}
+					//tab translation not working currently
+					options={{
+						tabBarLabel: t('settings'),
+						drawerIcon: () => (
+							<Image
+								source={require('./assets/setting.png')}
+								style={[styles.icon]}
+							/>
+						),
+					}}
 					children={() => <Settings setLogin={setLogin} />}
 				/>
 			</Drawer.Navigator>
