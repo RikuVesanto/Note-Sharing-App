@@ -25,8 +25,10 @@ export default function App() {
 	const [groups, setGroups] = useState([])
 	const [groupScreens, setGroupScreens] = useState([])
 	const [needToNavigate, setNeedToNavigate] = useState(false)
-	const [readyToNavigate, setReadyToNavigate] = useState(false)
 	const [refreshGroups, setRefreshGroups] = useState(false)
+
+	const [navigate, setNavigate] = useState(null)
+	const [readyToNavigate, setReadyToNavigate] = useState(false)
 	useEffect(() => {
 		const getLoginInfo = async () => {
 			let userInfo = await AppStorage.getValueFor('loginInfo')
@@ -50,7 +52,8 @@ export default function App() {
 
 	useEffect(() => {
 		if (needToNavigate) {
-			setReadyToNavigate(true)
+			navigate.navigate()
+			setNeedToNavigate(false)
 		}
 	}, [groupScreens])
 
@@ -58,7 +61,6 @@ export default function App() {
 		let userId = await getUserId()
 		await getData(`/groups/grouplist/${userId}`, {
 			onSuccess: async (response) => {
-				//console.log(response.data)
 				setGroups(response.data)
 			},
 			onError: (error) => {
@@ -79,6 +81,8 @@ export default function App() {
 							{...group}
 							setRefreshGroups={setRefreshGroups}
 							refreshGroups={refreshGroups}
+							setNeedToNavigate={setNeedToNavigate}
+							setNavigate={setNavigate}
 						/>
 					)}
 					options={{
@@ -116,9 +120,8 @@ export default function App() {
 							refreshGroups={refreshGroups}
 							setRefreshGroups={setRefreshGroups}
 							setNeedToNavigate={setNeedToNavigate}
-							readyToNavigate={readyToNavigate}
-							setReadyToNavigate={setReadyToNavigate}
 							groups={groups}
+							setNavigate={setNavigate}
 						/>
 					)}
 				/>

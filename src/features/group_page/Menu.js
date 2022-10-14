@@ -73,12 +73,14 @@ export default function Menu({ id, setRefreshGroups, refreshGroups }) {
 					</TouchableOpacity>
 				</View>
 			</View>
-			<FlatList
-				data={users}
-				renderItem={({ item }) => (
-					<Text style={styles.userListItem}>{item.key}</Text>
-				)}
-			/>
+			<View style={styles.bottomContainer}>
+				<FlatList
+					data={users}
+					renderItem={({ item }) => (
+						<Text style={styles.userListItem}>{item.key}</Text>
+					)}
+				/>
+			</View>
 		</View>
 	)
 }

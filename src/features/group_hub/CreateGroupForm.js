@@ -17,24 +17,13 @@ import { checkForFalse } from '../../utils/general-functions'
 export default function CreateGroupForm({
 	setCreateGroup,
 	setNeedToNavigate,
-	readyToNavigate,
-	setReadyToNavigate,
 	refreshGroups,
 	setRefreshGroups,
+	setNavigate,
 }) {
 	const navigation = useNavigation()
 	const { t } = useTranslation()
 	const [wasPressed, setWasPressed] = useState(false)
-	const [navigationLocation, setNavigationLocation] = useState('')
-
-	useEffect(() => {
-		if (readyToNavigate) {
-			setReadyToNavigate(false)
-			setNeedToNavigate(false)
-			navigation.navigate(navigationLocation)
-			setCreateGroup(false)
-		}
-	}, [readyToNavigate])
 
 	const sendData = async (values) => {
 		let userId = await getUserId()
@@ -49,8 +38,14 @@ export default function CreateGroupForm({
 				//console.log(response.data)
 				showStatusMessage(response.data, 'success')
 				setRefreshGroups(!refreshGroups)
+				let object = {}
+				object.navigate = () => {
+					setNeedToNavigate(false)
+					navigation.navigate(data.name)
+				}
+				setNavigate(object)
 				setNeedToNavigate(true)
-				setNavigationLocation(data.name)
+				setCreateGroup(false)
 			},
 			onError: (error) => {
 				setWasPressed(false)

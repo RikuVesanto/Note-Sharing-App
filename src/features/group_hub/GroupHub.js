@@ -9,8 +9,7 @@ import styles from '../../utils/styles'
 
 export default function GroupHub({
 	setNeedToNavigate,
-	readyToNavigate,
-	setReadyToNavigate,
+	setNavigate,
 	refreshGroups,
 	setRefreshGroups,
 	groups,
@@ -41,8 +40,7 @@ export default function GroupHub({
 					setRefreshGroups={setRefreshGroups}
 					setCreateGroup={setCreateGroup}
 					setNeedToNavigate={setNeedToNavigate}
-					readyToNavigate={readyToNavigate}
-					setReadyToNavigate={setReadyToNavigate}
+					setNavigate={setNavigate}
 				/>
 			)}
 			{joinGroup && (
@@ -51,9 +49,8 @@ export default function GroupHub({
 					refreshGroups={refreshGroups}
 					setRefreshGroups={setRefreshGroups}
 					setNeedToNavigate={setNeedToNavigate}
-					readyToNavigate={readyToNavigate}
-					setReadyToNavigate={setReadyToNavigate}
 					usersGroups={groups}
+					setNavigate={setNavigate}
 				/>
 			)}
 		</ScrollView>

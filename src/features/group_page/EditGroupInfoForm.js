@@ -14,6 +14,7 @@ import {
 import React, { useState } from 'react'
 import FormField from '../general_components/FormField'
 import CloseButton from '../general_components/closeButton'
+import { useNavigation } from '@react-navigation/native'
 
 export default function EditGroupInfoForm({
 	id,
@@ -22,7 +23,10 @@ export default function EditGroupInfoForm({
 	setEditGroupInfo,
 	setRefreshGroups,
 	refreshGroups,
+	setNeedToNavigate,
+	setNavigate,
 }) {
+	const navigation = useNavigation()
 	const { t } = useTranslation()
 	const [wasPressed, setWasPressed] = useState(false)
 	const sendData = async (values) => {
@@ -34,8 +38,15 @@ export default function EditGroupInfoForm({
 		await putData(data, `/groups/group/`, {
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
-				setEditGroupInfo(false)
+				setNeedToNavigate(true)
+				let object = {}
+				object.navigate = () => {
+					setNeedToNavigate(false)
+					navigation.navigate(data.name)
+				}
+				setNavigate(object)
 				setRefreshGroups(!refreshGroups)
+				setEditGroupInfo(false)
 				setWasPressed(false)
 			},
 			onError: (error) => {

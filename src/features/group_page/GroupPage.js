@@ -23,6 +23,8 @@ export default function GroupPage({
 	description,
 	setRefreshGroups,
 	refreshGroups,
+	setNeedToNavigate,
+	setNavigate,
 }) {
 	const { t } = useTranslation()
 
@@ -93,7 +95,7 @@ export default function GroupPage({
 	}
 
 	return (
-		<ScrollView contentContainerStyle={styles.registerContainer}>
+		<View contentContainerStyle={styles.registerContainer}>
 			{topicsNotesVisible ? (
 				<Topic
 					{...activeTopic}
@@ -113,6 +115,8 @@ export default function GroupPage({
 								setEditGroupInfo={setEditGroupInfo}
 								setRefreshGroups={setRefreshGroups}
 								refreshGroups={refreshGroups}
+								setNeedToNavigate={setNeedToNavigate}
+								setNavigate={setNavigate}
 							/>
 						) : (
 							<TouchableOpacity
@@ -146,11 +150,13 @@ export default function GroupPage({
 							refreshGroups={refreshGroups}
 						/>
 					)}
-					{topicCards}
-					<TopicCard
-						title={t('new_topic')}
-						action={setNewTopicFormVisible}
-					/>
+					<ScrollView>
+						{topicCards}
+						<TopicCard
+							title={t('new_topic')}
+							action={setNewTopicFormVisible}
+						/>
+					</ScrollView>
 				</View>
 			)}
 			<NewTopicForm
@@ -160,6 +166,6 @@ export default function GroupPage({
 				refreshTopics={refreshTopics}
 				setRefreshTopics={setRefreshTopics}
 			/>
-		</ScrollView>
+		</View>
 	)
 }

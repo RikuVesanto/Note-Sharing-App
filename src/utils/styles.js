@@ -360,6 +360,7 @@ export default StyleSheet.create({
 		width: '90%',
 		alignSelf: 'center',
 		backgroundColor: '#cccccc',
+		flexDirection: 'column',
 	},
 	leaveGroupButton: {
 		height: 50,
@@ -409,5 +410,9 @@ export default StyleSheet.create({
 	icon: {
 		height: 40,
 		width: 40,
+	},
+	//please change this
+	bottomContainer: {
+		marginTop: 70,
 	},
 })

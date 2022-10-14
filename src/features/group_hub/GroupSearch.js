@@ -17,30 +17,19 @@ import { getUserId } from '../../utils/general-functions'
 export default function GroupSearch({
 	setJoinGroup,
 	setNeedToNavigate,
-	readyToNavigate,
-	setReadyToNavigate,
 	refreshGroups,
 	setRefreshGroups,
 	usersGroups,
+	setNavigate,
 }) {
 	const navigation = useNavigation()
 	const { t } = useTranslation()
 	const [groups, setGroups] = useState('')
 	const [searchResultCards, setSearchResultCards] = useState([])
-	const [navigationLocation, setNavigationLocation] = useState('')
 
 	useEffect(() => {
 		createSearchResultCards()
 	}, [groups])
-
-	useEffect(() => {
-		if (readyToNavigate) {
-			setReadyToNavigate(false)
-			setNeedToNavigate(false)
-			navigation.navigate(navigationLocation)
-			setJoinGroup(false)
-		}
-	}, [readyToNavigate])
 
 	const createSearchResultCards = () => {
 		if (groups) {
@@ -79,8 +68,14 @@ export default function GroupSearch({
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
 				setRefreshGroups(!refreshGroups)
+				let object = {}
+				object.navigate = () => {
+					setNeedToNavigate(false)
+					navigation.navigate(location)
+				}
+				setNavigate(object)
 				setNeedToNavigate(true)
-				setNavigationLocation(location)
+				setJoinGroup(false)
 			},
 			onError: (error) => {
 				showStatusMessage(error.data, 'failure')
