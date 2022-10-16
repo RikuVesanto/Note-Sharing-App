@@ -105,7 +105,6 @@ export default function Topic({
 
 	return (
 		<ScrollView>
-			<BackButton action={setTopicsNotesVisible} />
 			{editTopic ? (
 				<EditTopicForm
 					setEditTopic={setEditTopic}
@@ -117,18 +116,22 @@ export default function Topic({
 					setActiveTopic={setActiveTopic}
 				/>
 			) : (
-				<TouchableOpacity
-					style={styles.columnLayout}
-					onPress={() => setEditTopic(true)}
-				>
-					<View style={styles.titleCardLayout}>
-						<Text style={styles.headerStyle}>{topic}</Text>
-						<Text style={styles.topicDescription}>
+				<View style={styles.rowLayout}>
+					<BackButton action={setTopicsNotesVisible} />
+					<TouchableOpacity
+						style={styles.highWidth}
+						onPress={() => setEditTopic(true)}
+					>
+						<Text style={[styles.mediumHeader, styles.centerText]}>
+							{topic}
+						</Text>
+						<Text style={[styles.text, styles.centerText]}>
 							{description}
 						</Text>
-					</View>
-				</TouchableOpacity>
+					</TouchableOpacity>
+				</View>
 			)}
+
 			<AddNoteForm
 				id={id}
 				refreshNotes={refreshNotes}

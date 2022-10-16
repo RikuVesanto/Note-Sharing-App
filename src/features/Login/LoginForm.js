@@ -77,6 +77,7 @@ export default function LoginForm({ setLogin }) {
 					/>
 					<View style={styles.buttonStyle}>
 						<Button
+							buttonStyle={styles.button}
 							title={t('login')}
 							onPress={handleSubmit}
 							disabled={checkForFalse(!isValid, wasPressed)}

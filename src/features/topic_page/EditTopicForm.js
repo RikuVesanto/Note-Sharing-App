@@ -50,7 +50,7 @@ export default function EditNoteForm({
 
 	const initialValues = { topic: topic, description: description }
 	return (
-		<View style={styles.topicEditFormContainer}>
+		<View style={[styles.headerForm, styles.marginBottom]}>
 			<CloseButton action={() => setEditTopic(false)} />
 			<Formik
 				initialValues={initialValues}
@@ -83,6 +83,7 @@ export default function EditNoteForm({
 							value={values.topic}
 							minimalStyle={true}
 							errorPosition={45}
+							slimInputs={true}
 						/>
 						<FormField
 							hideText={false}
@@ -96,20 +97,25 @@ export default function EditNoteForm({
 							value={values.description}
 							minimalStyle={true}
 							errorPosition={85}
+							slimInputs={true}
 						/>
-						<View style={styles.noteSubmitButton}>
-							<Button
-								title={t('create_note')}
-								onPress={handleSubmit}
-								disabled={checkForFalse(
-									checkForFalse(!isValid, wasPressed),
-									CheckForShallowObjectEquality(
-										values,
-										initialValues
-									)
-								)}
-							/>
-						</View>
+
+						<Button
+							buttonStyle={[
+								styles.button,
+								styles.marginTop,
+								styles.marginBottom,
+							]}
+							title={t('edit_topic')}
+							onPress={handleSubmit}
+							disabled={checkForFalse(
+								checkForFalse(!isValid, wasPressed),
+								CheckForShallowObjectEquality(
+									values,
+									initialValues
+								)
+							)}
+						/>
 					</View>
 				)}
 			</Formik>

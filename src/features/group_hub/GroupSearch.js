@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import styles from '../../utils/styles'
-import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { SearchValidationSchema } from '../../utils/validation-schemas'
 import { useTranslation } from 'react-i18next'
@@ -13,6 +12,7 @@ import FormField from '../general_components/FormField'
 import BackButton from '../general_components/BackButton'
 import { useNavigation } from '@react-navigation/native'
 import { getUserId } from '../../utils/general-functions'
+import { Button } from '@rneui/themed'
 
 export default function GroupSearch({
 	setJoinGroup,
@@ -95,10 +95,12 @@ export default function GroupSearch({
 	}
 
 	return (
-		<View>
+		<ScrollView>
 			<View style={styles.rowLayout}>
 				<BackButton action={setJoinGroup} />
-				<Text style={styles.headerStyle}>{t('group_search')}</Text>
+				<Text style={[styles.mediumHeader, styles.marginLeftBottom]}>
+					{t('group_search')}
+				</Text>
 			</View>
 			<Formik
 				initialValues={{
@@ -133,6 +135,7 @@ export default function GroupSearch({
 						/>
 						<View style={styles.buttonStyle}>
 							<Button
+								buttonStyle={styles.button}
 								title={t('search')}
 								onPress={handleSubmit}
 								disabled={!isValid}
@@ -142,6 +145,6 @@ export default function GroupSearch({
 				)}
 			</Formik>
 			{searchResultCards}
-		</View>
+		</ScrollView>
 	)
 }

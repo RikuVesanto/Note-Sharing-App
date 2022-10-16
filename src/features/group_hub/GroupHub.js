@@ -18,9 +18,9 @@ export default function GroupHub({
 	const [createGroup, setCreateGroup] = useState(false)
 	const [joinGroup, setJoinGroup] = useState(false)
 	return (
-		<ScrollView contentContainerStyle={styles.registerContainer}>
+		<ScrollView contentContainerStyle={styles.mainContainer}>
 			{!joinGroup && !createGroup && (
-				<Text style={styles.headerStyle}>{t('group_hub')}</Text>
+				<Text style={styles.largeHeader}>{t('group_hub')}</Text>
 			)}
 			{!createGroup && !joinGroup && (
 				<View>

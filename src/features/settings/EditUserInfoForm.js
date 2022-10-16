@@ -118,6 +118,7 @@ export default function EditUserInfoForm() {
 					/>
 					<View style={styles.buttonStyle}>
 						<Button
+							buttonStyle={styles.button}
 							name="button"
 							title={t('edit')}
 							onPress={handleSubmit}

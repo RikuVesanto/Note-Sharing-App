@@ -58,7 +58,7 @@ export default function EditGroupInfoForm({
 	const initialValues = { name: name, description: description }
 
 	return (
-		<View>
+		<View style={styles.headerForm}>
 			<CloseButton action={() => setEditGroupInfo(false)} />
 
 			<Formik
@@ -104,19 +104,18 @@ export default function EditGroupInfoForm({
 							value={values.description}
 							minimalStyle={true}
 						/>
-						<View style={styles.noteSubmitButton}>
-							<Button
-								title={t('create_note')}
-								onPress={handleSubmit}
-								disabled={checkForFalse(
-									checkForFalse(!isValid, wasPressed),
-									CheckForShallowObjectEquality(
-										values,
-										initialValues
-									)
-								)}
-							/>
-						</View>
+						<Button
+							buttonStyle={[styles.button, styles.marginBottom]}
+							title={t('edit_group_name')}
+							onPress={handleSubmit}
+							disabled={checkForFalse(
+								checkForFalse(!isValid, wasPressed),
+								CheckForShallowObjectEquality(
+									values,
+									initialValues
+								)
+							)}
+						/>
 					</View>
 				)}
 			</Formik>

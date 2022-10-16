@@ -103,6 +103,7 @@ export default function NewTopicForm({
 							/>
 							<View style={styles.buttonStyle}>
 								<Button
+									buttonStyle={styles.button}
 									title={t('create_topic')}
 									onPress={handleSubmit}
 									disabled={checkForFalse(

@@ -8,8 +8,8 @@ export default function Login({ setLoginPage, setLogin }) {
 	const { t } = useTranslation()
 
 	return (
-		<ScrollView contentContainerStyle={styles.registerContainer}>
-			<Text style={styles.headerStyle}>{t('login')}</Text>
+		<ScrollView contentContainerStyle={styles.mainContainer}>
+			<Text style={styles.largeHeader}>{t('login')}</Text>
 			<LoginForm setLogin={setLogin} />
 			<TouchableOpacity onPress={() => setLoginPage(false)}>
 				<Text style={styles.hyperlink}>{t('gotoregister')}</Text>

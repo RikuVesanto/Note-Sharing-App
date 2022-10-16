@@ -20,6 +20,7 @@ export default function FormField({
 	value = '',
 	minimalStyle = false,
 	errorPosition = null,
+	whiteText = false,
 }) {
 	const [hidden, setHidden] = useState(hideText)
 
@@ -57,6 +58,7 @@ export default function FormField({
 			<TextInput
 				style={[
 					inputStyle,
+					whiteText && styles.whiteText,
 					minimalStyle && styles.noteInput,
 					touched && errors && styles.inputError,
 				]}

@@ -8,7 +8,7 @@ export default function TopicCard({ title, description, action }) {
 			style={styles.topicButton}
 			onPress={() => action(true)}
 		>
-			<Text style={styles.newTopicTitle}>{title}</Text>
+			<Text style={[styles.topicTitle, styles.marginTop]}>{title}</Text>
 			<Text style={styles.topicDescription}>{description}</Text>
 		</TouchableOpacity>
 	)

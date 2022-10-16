@@ -106,6 +106,7 @@ export default function RegisterForm({ setLoginPage }) {
 					/>
 					<View style={styles.buttonStyle}>
 						<Button
+							buttonStyle={styles.button}
 							name="button"
 							title={t('register')}
 							onPress={handleSubmit}

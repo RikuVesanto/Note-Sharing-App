@@ -3,23 +3,45 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
 	appContainer: {
 		flex: 1,
-		/*alignItems: 'center',
-    justifyContent: 'center',*/
 	},
-	imageBackground: {
-		//opacity isn't lowered
-		backgroundColor: 'rgba(0,0,0,0.5)',
-		width: '100%',
+	mainContainer: {
+		backgroundColor: '#fceecb',
 		height: '100%',
-	},
-	registerContainer: {
 		paddingTop: 60,
 	},
-	headerStyle: {
-		fontSize: 32,
+	largeHeader: {
+		width: '90%',
+		fontSize: 50,
+		alignSelf: 'center',
 		textAlign: 'center',
-		fontWeight: 'bold',
-		marginBottom: 20,
+		marginBottom: 40,
+		color: '#8cbbf1',
+		/*backgroundColor: '#ffffff',
+		borderColor: '#d7dde9',
+		borderWidth: 1,
+		borderRadius: 5,*/
+	},
+	mediumHeader: {
+		width: '90%',
+		fontSize: 36,
+		color: '#8cbbf1',
+	},
+	smallHeader: {
+		width: '90%',
+		fontSize: 24,
+		color: '#8cbbf1',
+	},
+	text: {
+		width: '90%',
+		fontSize: 16,
+		color: '#8cbbf1',
+	},
+	centerText: {
+		alignSelf: 'center',
+		textAlign: 'center',
+	},
+	highWidth: {
+		width: '75%',
 	},
 	hyperlink: {
 		fontSize: 14,
@@ -33,18 +55,24 @@ export default StyleSheet.create({
 		height: 70,
 		alignSelf: 'center',
 	},
+	slimInputContainer: {
+		height: 40,
+		width: '60%',
+	},
 	required: {
 		position: 'absolute',
 		zIndex: 99,
-		right: 6,
+		right: 25,
 		top: 4,
 	},
 	input: {
-		backgroundColor: '#fff',
+		alignSelf: 'center',
+		backgroundColor: '#ffffff',
 		height: 40,
-		width: '100%',
+		width: '90%',
 		borderColor: '#777',
-		borderWidth: 1,
+		color: '#8cbbf1',
+		borderWidth: 0,
 		borderRadius: 5,
 		paddingLeft: 10,
 		paddingRight: 10,
@@ -59,9 +87,14 @@ export default StyleSheet.create({
 		fontSize: 12,
 		paddingLeft: 10,
 	},
-	buttonStyle: {
-		width: '80%',
+	button: {
+		width: '40%',
 		alignSelf: 'center',
+		color: '#ffffff',
+		backgroundColor: '#8cbbf1',
+		borderColor: '#d7dde9',
+		borderWidth: 1,
+		borderRadius: 10,
 	},
 	formFieldImage: {
 		height: 50,
@@ -75,22 +108,16 @@ export default StyleSheet.create({
 	},
 
 	//language select
-	languageSelectTitle: {
-		fontSize: 20,
-		fontWeight: 'bold',
-		marginTop: 30,
-		marginLeft: 135,
-	},
 	languageButtonContainer: {
 		marginTop: 25,
-		marginLeft: 125,
+		marginLeft: 135,
 		flexDirection: 'row',
 	},
 	leftLanguageButton: {
 		alignSelf: 'center',
 		height: 50,
 		width: 50,
-		marginRight: 30,
+		marginRight: 25,
 	},
 	rightLanguageButton: {
 		alignSelf: 'center',
@@ -99,19 +126,21 @@ export default StyleSheet.create({
 	},
 	//Large Button
 	largeButton: {
-		backgroundColor: '#8eddfa',
+		backgroundColor: '#8cbbf1',
+		borderColor: '#d7dde9',
+		borderWidth: 1,
+		borderRadius: 10,
 		padding: 10,
 		marginTop: 50,
 		marginLeft: '15%',
 		width: '70%',
 		height: 125,
-		borderRadius: 5,
-	},
-	largeButtonTitle: {
 		textAlign: 'center',
 		marginTop: 35,
-		fontWeight: 'bold',
-		fontSize: 24,
+	},
+	largeButtonText: {
+		color: '#ffffff',
+		fontSize: 28,
 	},
 	highInput: {
 		height: 70,
@@ -123,41 +152,37 @@ export default StyleSheet.create({
 	},
 	//topic buttons
 	topicButton: {
-		backgroundColor: '#8eddfa',
+		backgroundColor: '#8cbbf1',
 		marginLeft: '10%',
 		marginTop: 30,
 		width: '80%',
 		height: 100,
-		borderRadius: 5,
+		borderRadius: 10,
+	},
+	marginTop: {
+		marginTop: 35,
 	},
 	topicTitle: {
 		textAlign: 'center',
 		marginTop: 10,
-		fontWeight: 'bold',
-		fontSize: 18,
+		fontSize: 20,
+		color: '#ffffff',
 	},
 	topicDescription: {
 		textAlign: 'center',
 		marginTop: 10,
 		fontSize: 14,
+		color: '#ffffff',
 	},
 	formTitle: {
 		textAlign: 'center',
-		fontWeight: 'bold',
 		fontSize: 24,
 		marginTop: 5,
 		marginBottom: 40,
 	},
-	newTopicTitle: {
-		textAlign: 'center',
-		marginTop: 35,
-		fontWeight: 'bold',
-		fontSize: 18,
-	},
 	//back button
 	backButton: {
-		marginLeft: 30,
-		marginRight: 5,
+		marginLeft: 10,
 		marginBottom: 10,
 		height: 50,
 		width: 50,
@@ -178,7 +203,8 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		marginTop: 30,
 		marginBottom: 30,
-		fontSize: 18,
+		fontSize: 20,
+		color: '#8cbbf1',
 	},
 	//search result card
 	groupCard: {
@@ -186,9 +212,10 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		flexDirection: 'row',
-		backgroundColor: '#d1c9c9',
+		backgroundColor: '#8cbbf1',
 		margin: 30,
 		height: 150,
+		borderRadius: 10,
 	},
 	groupCardLeft: {
 		width: '50%',
@@ -202,19 +229,19 @@ export default StyleSheet.create({
 		width: '50%',
 	},
 	joinGroupButton: {
-		backgroundColor: '#8eddfa',
+		backgroundColor: '#ffc14d',
 		marginTop: 10,
 		marginBottom: 10,
 		marginLeft: 20,
 		width: 130,
 		height: 60,
-		borderRadius: 5,
+		borderRadius: 15,
 	},
 	joinGroupButtonTitle: {
 		textAlign: 'center',
 		marginTop: 15,
-		fontWeight: 'bold',
 		fontSize: 24,
+		color: '#ffffff',
 	},
 	alreadyJoinedColor: {
 		backgroundColor: '#66ff66',
@@ -222,13 +249,14 @@ export default StyleSheet.create({
 	},
 	groupCardTitle: {
 		textAlign: 'center',
-		fontWeight: 'bold',
 		fontSize: 18,
+		color: '#ffffff',
 	},
 	groupCardDescription: {
 		textAlign: 'center',
 		marginTop: 10,
 		fontSize: 16,
+		color: '#ffffff',
 	},
 	columnLayout: {
 		flexDirection: 'column',
@@ -236,35 +264,26 @@ export default StyleSheet.create({
 	},
 	//modal
 	modal: {
-		borderColor: '#bfbfbf',
+		borderColor: '#d7dde9',
 		borderWidth: 2,
 		borderRadius: 5,
-		backgroundColor: 'white',
 		marginLeft: '10%',
 		width: '80%',
 		marginTop: '20%',
 		height: '50%',
+		backgroundColor: '#fceecb',
 	},
 	//topic page title view
-	titleCardLayout: {
-		width: '80%',
-		height: 150,
-		backgroundColor: '#8eddfa',
-		borderColor: '#777',
-		borderWidth: 1,
-		borderRadius: 5,
-	},
 	noteCard: {
 		padding: 5,
 		marginTop: 20,
 		marginBottom: 20,
-		marginLeft: '10%',
+		alignSelf: 'center',
 		width: '80%',
-		textAlign: 'center',
-		backgroundColor: '#b3e0ff',
+		backgroundColor: '#8cbbf1',
 		borderColor: '#777',
 		borderWidth: 1,
-		borderRadius: 5,
+		borderRadius: 10,
 	},
 	//info messages
 	successInfoMessage: {
@@ -278,7 +297,6 @@ export default StyleSheet.create({
 		color: 'black',
 	},
 	infoMessageTitle: {
-		fontWeight: 'bold',
 		fontSize: 16,
 	},
 	infoMessageFontColorNeutral: {
@@ -305,11 +323,7 @@ export default StyleSheet.create({
 		position: 'absolute',
 		top: 85,
 	},
-	noteSubmitButton: {
-		marginTop: 40,
-		width: '80%',
-		alignSelf: 'center',
-	},
+
 	logoutButton: {
 		alignSelf: 'center',
 		height: 50,
@@ -335,24 +349,11 @@ export default StyleSheet.create({
 		height: 50,
 		width: 50,
 	},
-	topicHeader: {
-		fontSize: 26,
-		textAlign: 'center',
-		fontWeight: 'bold',
-	},
-	topicHeaderDescription: {
-		textAlign: 'center',
-		fontSize: 18,
-	},
-	topicHeaderLayout: {
-		flexDirection: 'row',
-		alignSelf: 'center',
-		width: '90%',
-		backgroundColor: '#cccccc',
-	},
 	menuButton: {
-		alignSelf: 'center',
-		marginTop: 10,
+		position: 'absolute',
+		zIndex: 99,
+		right: 40,
+		top: -35,
 		height: 25,
 		width: 25,
 	},
@@ -370,7 +371,6 @@ export default StyleSheet.create({
 	userListTitle: {
 		fontSize: 26,
 		textAlign: 'center',
-		fontWeight: 'bold',
 		fontSize: 26,
 		marginRight: 20,
 	},
@@ -394,14 +394,12 @@ export default StyleSheet.create({
 	headerViewRight: {
 		width: '25%',
 	},
-	topicEditFormContainer: {
-		marginLeft: '10%',
+	headerForm: {
 		width: '80%',
-		height: 250,
-		backgroundColor: '#8eddfa',
+		alignSelf: 'center',
+		backgroundColor: '#ffffff',
 		borderColor: '#777',
 		borderWidth: 1,
-		borderRadius: 5,
 	},
 	closeButtonImage: {
 		height: 25,
@@ -414,5 +412,21 @@ export default StyleSheet.create({
 	//please change this
 	bottomContainer: {
 		marginTop: 70,
+	},
+	marginLeftBottom: {
+		marginLeft: 15,
+		marginBottom: 40,
+	},
+	marginTop: {
+		marginTop: 20,
+	},
+	marginBottom: {
+		marginBottom: 25,
+	},
+	whiteText: {
+		color: '#ffffff',
+	},
+	alternateButton: {
+		backgroundColor: '#ffc14d',
 	},
 })

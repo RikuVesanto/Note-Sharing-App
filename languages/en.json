@@ -22,7 +22,7 @@
 	"register_username_validation_long": "Username must have at most 32 characters",
 	"join_group": "Join Group",
 	"create_group": "Create Group",
-	"group_hub": "Group Hub",
+	"group_hub": "GROUP HUB",
 	"name_short_validation": "Name has to be at least 4 characters long",
 	"name_long_validation": "Name can't be more than 48 characters long",
 	"name_required_validation": "Name can't be empty",
@@ -34,7 +34,7 @@
 	"new_topic": "Create a new topic",
 	"topic": "Topic",
 	"create_topic": "Create Topic",
-	"create_note": "Luo merkintä",
+	"create_note": "Create Note",
 	"search": "Search",
 	"results_found": "results found",
 	"group_search": "Group Search",
@@ -48,5 +48,7 @@
 	"edit": "Edit",
 	"change_password": "Change Password",
 	"old_password": "Old Password",
-	"user_list": "User List"
+	"user_list": "User List",
+	"edit_group_name": "Edit Group Name",
+	"edit_topic": "Edit Topic"
 }

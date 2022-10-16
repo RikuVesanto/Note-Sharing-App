@@ -19,12 +19,20 @@ export default function Settings({ setLogin }) {
 	const [changePassword, setChangePassword] = useState(false)
 
 	return (
-		<ScrollView contentContainerStyle={styles.registerContainer}>
+		<ScrollView contentContainerStyle={styles.mainContainer}>
 			{changePassword ? (
 				<ChangePasswordForm setChangePassword={setChangePassword} />
 			) : (
 				<View>
-					<Text style={styles.headerStyle}>{t('settings')}</Text>
+					<Text
+						style={[
+							styles.mediumHeader,
+							styles.centerText,
+							styles.marginBottom,
+						]}
+					>
+						{t('settings')}
+					</Text>
 					<TouchableOpacity
 						onPress={() => {
 							AppStorage.save('loginInfo', '')

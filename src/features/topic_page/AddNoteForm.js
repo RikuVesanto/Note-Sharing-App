@@ -74,6 +74,7 @@ export default function AddNoteForm({
 							value={values.title}
 							minimalStyle={true}
 							errorPosition={45}
+							whiteText={true}
 						/>
 						<FormField
 							hideText={false}
@@ -87,14 +88,18 @@ export default function AddNoteForm({
 							value={values.content}
 							minimalStyle={true}
 							errorPosition={85}
+							whiteText={true}
 						/>
-						<View style={styles.noteSubmitButton}>
-							<Button
-								title={t('create_note')}
-								onPress={handleSubmit}
-								disabled={checkForFalse(!isValid, wasPressed)}
-							/>
-						</View>
+						<Button
+							buttonStyle={[
+								styles.button,
+								styles.alternateButton,
+								styles.marginTop,
+							]}
+							title={t('create_note')}
+							onPress={handleSubmit}
+							disabled={checkForFalse(!isValid, wasPressed)}
+						/>
 					</View>
 				)}
 			</Formik>

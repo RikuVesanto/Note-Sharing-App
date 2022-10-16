@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { View, Text } from 'react-native'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
@@ -58,7 +58,9 @@ export default function CreateGroupForm({
 		<View>
 			<View style={styles.rowLayout}>
 				<BackButton action={setCreateGroup} />
-				<Text style={styles.headerStyle}>{t('create_group')}</Text>
+				<Text style={[styles.mediumHeader, styles.marginLeftBottom]}>
+					{t('create_group')}
+				</Text>
 			</View>
 			<Formik
 				initialValues={{
@@ -116,13 +118,13 @@ export default function CreateGroupForm({
 							touched={touched.password}
 							value={values.password}
 						/>
-						<View style={styles.buttonStyle}>
-							<Button
-								title={t('create_group')}
-								onPress={handleSubmit}
-								disabled={checkForFalse(!isValid, wasPressed)}
-							/>
-						</View>
+
+						<Button
+							buttonStyle={styles.button}
+							title={t('create_group')}
+							onPress={handleSubmit}
+							disabled={checkForFalse(!isValid, wasPressed)}
+						/>
 					</View>
 				)}
 			</Formik>

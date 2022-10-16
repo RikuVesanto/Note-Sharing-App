@@ -95,7 +95,7 @@ export default function GroupPage({
 	}
 
 	return (
-		<View contentContainerStyle={styles.registerContainer}>
+		<View style={styles.mainContainer}>
 			{topicsNotesVisible ? (
 				<Topic
 					{...activeTopic}
@@ -106,43 +106,53 @@ export default function GroupPage({
 				/>
 			) : (
 				<View>
-					<View style={styles.topicHeaderLayout}>
-						{EditGroupInfo && !menu && admin ? (
-							<EditGroupInfoForm
-								id={id}
-								name={name}
-								description={description}
-								setEditGroupInfo={setEditGroupInfo}
-								setRefreshGroups={setRefreshGroups}
-								refreshGroups={refreshGroups}
-								setNeedToNavigate={setNeedToNavigate}
-								setNavigate={setNavigate}
-							/>
-						) : (
-							<TouchableOpacity
-								onPress={() => setEditGroupInfo(true)}
-								style={styles.columnLayout}
-							>
-								<Text style={styles.topicHeader}>{name}</Text>
-								<Text style={styles.topicHeaderDescription}>
-									{description}
-								</Text>
-							</TouchableOpacity>
-						)}
+					<TouchableOpacity
+						title="open"
+						onPress={() => {
+							setEditGroupInfo(false)
+							setMenu(!menu)
+						}}
+					>
+						<ImageBackground
+							style={styles.menuButton}
+							source={require('../../../assets/menu.png')}
+							resizeMode="center"
+						></ImageBackground>
+					</TouchableOpacity>
+
+					{EditGroupInfo && !menu && admin ? (
+						<EditGroupInfoForm
+							id={id}
+							name={name}
+							description={description}
+							setEditGroupInfo={setEditGroupInfo}
+							setRefreshGroups={setRefreshGroups}
+							refreshGroups={refreshGroups}
+							setNeedToNavigate={setNeedToNavigate}
+							setNavigate={setNavigate}
+						/>
+					) : (
 						<TouchableOpacity
-							title="open"
-							onPress={() => {
-								setEditGroupInfo(false)
-								setMenu(!menu)
-							}}
+							onPress={() => setEditGroupInfo(true)}
+							style={styles.columnLayout}
 						>
-							<ImageBackground
-								style={styles.menuButton}
-								source={require('../../../assets/menu.png')}
-								resizeMode="center"
-							></ImageBackground>
+							<Text
+								style={[styles.mediumHeader, styles.centerText]}
+							>
+								{name}
+							</Text>
+							<Text
+								style={[
+									styles.text,
+									styles.centerText,
+									styles.marginBottom,
+								]}
+							>
+								{description}
+							</Text>
 						</TouchableOpacity>
-					</View>
+					)}
+
 					{menu && (
 						<Menu
 							id={id}

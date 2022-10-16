@@ -24,11 +24,10 @@ export default function App() {
 	const [login, setLogin] = useState(false)
 	const [groups, setGroups] = useState([])
 	const [groupScreens, setGroupScreens] = useState([])
-	const [needToNavigate, setNeedToNavigate] = useState(false)
-	const [refreshGroups, setRefreshGroups] = useState(false)
 
+	const [refreshGroups, setRefreshGroups] = useState(false)
 	const [navigate, setNavigate] = useState(null)
-	const [readyToNavigate, setReadyToNavigate] = useState(false)
+	const [needToNavigate, setNeedToNavigate] = useState(false)
 	useEffect(() => {
 		const getLoginInfo = async () => {
 			let userInfo = await AppStorage.getValueFor('loginInfo')
@@ -101,7 +100,16 @@ export default function App() {
 
 	let loggedInScreen = (
 		<NavigationContainer>
-			<Drawer.Navigator>
+			<Drawer.Navigator
+				screenOptions={{
+					drawerActiveTintColor: '#ffffff',
+					drawerInactiveTintColor: '#ffffff',
+					drawerStyle: {
+						backgroundColor: '#8cbbf1',
+						width: '65%',
+					},
+				}}
+			>
 				{groupScreens}
 				<Drawer.Screen
 					name={'Group Hub'}

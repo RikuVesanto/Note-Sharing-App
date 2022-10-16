@@ -1,16 +1,13 @@
-import { TouchableOpacity, Text, View } from 'react-native'
+import { Button } from '@rneui/themed'
 import styles from '../../utils/styles'
 
 export default function LargeButton({ title, action }) {
 	return (
-		<View>
-			<TouchableOpacity
-				style={styles.largeButton}
-				title={title}
-				onPress={() => action(true)}
-			>
-				<Text style={styles.largeButtonTitle}>{title}</Text>
-			</TouchableOpacity>
-		</View>
+		<Button
+			buttonStyle={styles.largeButton}
+			titleStyle={styles.largeButtonText}
+			title={title}
+			onPress={() => action(true)}
+		/>
 	)
 }

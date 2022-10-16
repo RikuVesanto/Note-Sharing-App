@@ -42,7 +42,9 @@ export default function EditUserInfoForm({ setChangePassword }) {
 		<View>
 			<View style={styles.rowLayout}>
 				<BackButton action={setChangePassword} />
-				<Text style={styles.headerStyle}>{t('change_password')}</Text>
+				<Text style={[styles.mediumHeader, styles.marginBottom]}>
+					{t('change_password')}
+				</Text>
 			</View>
 			<Formik
 				initialValues={{
@@ -90,6 +92,7 @@ export default function EditUserInfoForm({ setChangePassword }) {
 						/>
 						<View style={styles.buttonStyle}>
 							<Button
+								buttonStyle={styles.button}
 								name="button"
 								title={t('edit')}
 								onPress={handleSubmit}

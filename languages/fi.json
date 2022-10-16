@@ -22,7 +22,7 @@
 	"register_username_validation_long": "Käyttjänimen täytyy olla enintään 32 kirjainta pitkä",
 	"join_group": "Liity Ryhmään",
 	"create_group": "Luo Ryhmä",
-	"group_hub": "Ryhmätila",
+	"group_hub": "RYHMÄTILA",
 	"name_short_validation": "Nimen täytyy olla vähintään 4 kirjainta pitkä",
 	"name_long_validation": "Nimi ei saa olla yli 48 kirjainta pitkä",
 	"name_required_validation": "Nimi ei saa olla tyhjä",
@@ -48,5 +48,7 @@
 	"edit_info": "Muokkaa",
 	"change_password": "Vaihda Salasanaa",
 	"old_password": "Vanha Salasana",
-	"user_list": "User List"
+	"user_list": "User List",
+	"edit_group_name": "Vaihda Ryhmän Nimeä",
+	"edit_topic": "Muokkaa Aihetta"
 }

@@ -14,7 +14,15 @@ export default function ChangeLanguage() {
 
 	return (
 		<View>
-			<Text style={styles.languageSelectTitle}>{i18n.t('language')}</Text>
+			<Text
+				style={[
+					styles.smallHeader,
+					styles.centerText,
+					styles.marginTop,
+				]}
+			>
+				{i18n.t('language')}
+			</Text>
 			<View style={styles.languageButtonContainer}>
 				<TouchableOpacity
 					title="FI"
