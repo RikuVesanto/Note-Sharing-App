@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import styles from '../../utils/styles'
+import localStyles from './groupSearch.style'
 import { Formik } from 'formik'
 import { SearchValidationSchema } from '../../utils/validation-schemas'
 import { useTranslation } from 'react-i18next'
@@ -50,7 +51,7 @@ export default function GroupSearch({
 			}
 
 			screens.unshift(
-				<Text key="results" style={styles.resultsText}>
+				<Text key="results" style={localStyles.resultsText}>
 					{results + ' ' + t('results_found')}
 				</Text>
 			)

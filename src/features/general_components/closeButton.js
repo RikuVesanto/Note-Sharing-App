@@ -1,11 +1,11 @@
 import { TouchableOpacity, ImageBackground } from 'react-native'
-import styles from '../../utils/styles'
+import localStyles from './closeButton.style'
 
 export default function CloseButton({ action }) {
 	return (
 		<TouchableOpacity title="close" onPress={() => action()}>
 			<ImageBackground
-				style={styles.closeButtonImage}
+				style={localStyles.closeButtonImage}
 				source={require('../../../assets/close.png')}
 				resizeMode="center"
 			></ImageBackground>

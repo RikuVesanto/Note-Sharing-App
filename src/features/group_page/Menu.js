@@ -7,6 +7,7 @@ import {
 	Text,
 } from 'react-native'
 import styles from '../../utils/styles'
+import localStyles from './menu.style'
 import { deleteData } from '../../utils/http-requests'
 import { showStatusMessage } from '../../utils/general-functions'
 import { getUserId } from '../../utils/general-functions'
@@ -54,12 +55,14 @@ export default function Menu({ id, setRefreshGroups, refreshGroups }) {
 	}, [])
 
 	return (
-		<View style={styles.menu}>
-			<View style={styles.headerView}>
-				<View style={styles.headerViewLeft}>
-					<Text style={styles.userListTitle}>{t('user_list')}</Text>
+		<View style={localStyles.menu}>
+			<View style={localStyles.headerView}>
+				<View style={localStyles.headerViewLeft}>
+					<Text style={localStyles.userListTitle}>
+						{t('user_list')}
+					</Text>
 				</View>
-				<View style={styles.headerViewRight}>
+				<View style={localStyles.headerViewRight}>
 					<TouchableOpacity
 						onPress={() => {
 							leaveGroup()
@@ -73,11 +76,11 @@ export default function Menu({ id, setRefreshGroups, refreshGroups }) {
 					</TouchableOpacity>
 				</View>
 			</View>
-			<View style={styles.bottomContainer}>
+			<View style={localStyles.bottomContainer}>
 				<FlatList
 					data={users}
 					renderItem={({ item }) => (
-						<Text style={styles.userListItem}>{item.key}</Text>
+						<Text style={localStyles.userListItem}>{item.key}</Text>
 					)}
 				/>
 			</View>

@@ -103,7 +103,7 @@ export default function EditNoteForm({
 						<Button
 							buttonStyle={[
 								styles.button,
-								styles.marginTop,
+								styles.largeMarginTop,
 								styles.marginBottom,
 							]}
 							title={t('edit_topic')}

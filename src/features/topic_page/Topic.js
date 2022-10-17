@@ -1,5 +1,6 @@
 import { Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import styles from '../../utils/styles'
+import localStyles from './topic.style'
 import React, { useState, useEffect } from 'react'
 import AddNoteForm from '../topic_page/AddNoteForm'
 import EditNoteForm from '../topic_page/EditNoteForm'
@@ -119,7 +120,7 @@ export default function Topic({
 				<View style={styles.rowLayout}>
 					<BackButton action={setTopicsNotesVisible} />
 					<TouchableOpacity
-						style={styles.highWidth}
+						style={localStyles.highWidth}
 						onPress={() => setEditTopic(true)}
 					>
 						<Text style={[styles.mediumHeader, styles.centerText]}>

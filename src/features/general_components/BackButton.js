@@ -1,5 +1,5 @@
 import { TouchableOpacity, ImageBackground } from 'react-native'
-import styles from '../../utils/styles'
+import localStyles from './backButton.style'
 
 export default function BackButton({ action }) {
 	var backArrow = require('../../../assets/left-arrow.png')
@@ -9,7 +9,7 @@ export default function BackButton({ action }) {
 			<ImageBackground
 				source={backArrow}
 				resizeMode="cover"
-				style={styles.backButton}
+				style={localStyles.backButton}
 			/>
 		</TouchableOpacity>
 	)

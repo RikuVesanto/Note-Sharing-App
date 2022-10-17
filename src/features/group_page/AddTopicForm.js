@@ -2,6 +2,7 @@ import { View, Text, Modal } from 'react-native'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
+import localStyles from './addTopicForm.style'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { CreateTopicValidationSchema } from '../../utils/validation-schemas'
@@ -52,10 +53,10 @@ export default function NewTopicForm({
 			transparent={true}
 			hasBackdrop={false}
 		>
-			<View style={styles.modal}>
+			<View style={localStyles.modal}>
 				<View style={styles.rowLayout}>
 					<BackButton action={setNewTopicFormVisible} />
-					<Text style={styles.formTitle}>{t('new_topic')}</Text>
+					<Text style={localStyles.formTitle}>{t('new_topic')}</Text>
 				</View>
 				<Formik
 					initialValues={{

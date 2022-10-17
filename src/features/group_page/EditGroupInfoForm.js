@@ -91,6 +91,7 @@ export default function EditGroupInfoForm({
 							touched={touched.name}
 							value={values.name}
 							minimalStyle={true}
+							errorPosition={45}
 						/>
 						<FormField
 							hideText={false}
@@ -103,9 +104,14 @@ export default function EditGroupInfoForm({
 							touched={touched.description}
 							value={values.description}
 							minimalStyle={true}
+							errorPosition={85}
 						/>
 						<Button
-							buttonStyle={[styles.button, styles.marginBottom]}
+							buttonStyle={[
+								styles.button,
+								styles.marginBottom,
+								styles.largeMarginTop,
+							]}
 							title={t('edit_group_name')}
 							onPress={handleSubmit}
 							disabled={checkForFalse(

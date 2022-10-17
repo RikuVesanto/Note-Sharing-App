@@ -2,6 +2,7 @@ import { TouchableOpacity, Text, View, ImageBackground } from 'react-native'
 import i18n from './i18n'
 import i18next from 'i18next'
 import AppStorage from '../../utils/secure-store'
+import localStyles from './changeLanguage.style'
 import styles from '../../utils/styles'
 
 export default function ChangeLanguage() {
@@ -23,13 +24,13 @@ export default function ChangeLanguage() {
 			>
 				{i18n.t('language')}
 			</Text>
-			<View style={styles.languageButtonContainer}>
+			<View style={localStyles.languageButtonContainer}>
 				<TouchableOpacity
 					title="FI"
 					onPress={() => changeLanguage('fi')}
 				>
 					<ImageBackground
-						style={styles.leftLanguageButton}
+						style={localStyles.leftLanguageButton}
 						source={require('../../../assets/finnish_flag.png')}
 						resizeMode="center"
 					></ImageBackground>
@@ -40,7 +41,7 @@ export default function ChangeLanguage() {
 					onPress={() => changeLanguage('en')}
 				>
 					<ImageBackground
-						style={styles.rightLanguageButton}
+						style={localStyles.rightLanguageButton}
 						source={require('../../../assets/english_flag.png')}
 						resizeMode="center"
 					></ImageBackground>

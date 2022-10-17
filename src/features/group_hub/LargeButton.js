@@ -1,11 +1,11 @@
 import { Button } from '@rneui/themed'
-import styles from '../../utils/styles'
+import localStyles from './largeButton.style'
 
 export default function LargeButton({ title, action }) {
 	return (
 		<Button
-			buttonStyle={styles.largeButton}
-			titleStyle={styles.largeButtonText}
+			buttonStyle={localStyles.largeButton}
+			titleStyle={localStyles.largeButtonText}
 			title={title}
 			onPress={() => action(true)}
 		/>

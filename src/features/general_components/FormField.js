@@ -6,7 +6,7 @@ import {
 	ImageBackground,
 } from 'react-native'
 import React, { useState } from 'react'
-import styles from '../../utils/styles'
+import localStyles from './formField.style'
 
 export default function FormField({
 	hideText,
@@ -29,38 +29,38 @@ export default function FormField({
 		: require('../../../assets/eye-fill.png')
 
 	var inputStyle = largeField
-		? [styles.input, styles.highInput]
-		: styles.input
+		? [localStyles.input, localStyles.highInput]
+		: localStyles.input
 	var multiline = largeField ? true : false
 
 	return (
 		<View
 			style={[
-				styles.inputContainer,
-				largeField && styles.highInputContainer,
+				localStyles.inputContainer,
+				largeField && localStyles.highInputContainer,
 			]}
 		>
 			{hideText && (
-				<View style={styles.reveal}>
+				<View style={localStyles.reveal}>
 					<TouchableOpacity
 						title="reveal"
 						onPress={() => setHidden(!hidden)}
 					>
 						<ImageBackground
-							style={styles.formFieldImage}
+							style={localStyles.formFieldImage}
 							source={source}
 							resizeMode="center"
 						></ImageBackground>
 					</TouchableOpacity>
 				</View>
 			)}
-			{required && <Text style={styles.required}>*</Text>}
+			{required && <Text style={localStyles.required}>*</Text>}
 			<TextInput
 				style={[
 					inputStyle,
-					whiteText && styles.whiteText,
-					minimalStyle && styles.noteInput,
-					touched && errors && styles.inputError,
+					whiteText && localStyles.whiteText,
+					minimalStyle && localStyles.noteInput,
+					touched && errors && localStyles.inputError,
 				]}
 				multiline={multiline}
 				placeholder={placeholder}
@@ -72,7 +72,7 @@ export default function FormField({
 			{errors && touched && (
 				<Text
 					style={[
-						styles.errorText,
+						localStyles.errorText,
 						errorPosition && { top: errorPosition },
 					]}
 				>

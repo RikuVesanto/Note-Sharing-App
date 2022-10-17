@@ -1,5 +1,6 @@
 import { TouchableOpacity, ImageBackground, Text, View } from 'react-native'
 import styles from '../../utils/styles'
+import localStyles from './noteCard.style'
 import { showStatusMessage } from '../../utils/general-functions'
 import { deleteData } from '../../utils/http-requests'
 
@@ -28,10 +29,10 @@ export default function SearchResultCard({
 		<View style={styles.noteCard}>
 			{title ? <Text style={styles.topicTitle}>{title}</Text> : null}
 			<Text style={styles.topicDescription}>{content}</Text>
-			<View style={styles.buttonContainer}>
+			<View style={localStyles.buttonContainer}>
 				<TouchableOpacity title="delete" onPress={() => deleteNote(id)}>
 					<ImageBackground
-						style={styles.deleteButton}
+						style={localStyles.deleteButton}
 						source={require('../../../assets/delete.png')}
 						resizeMode="center"
 					></ImageBackground>
@@ -44,7 +45,7 @@ export default function SearchResultCard({
 					}}
 				>
 					<ImageBackground
-						style={styles.editButton}
+						style={localStyles.editButton}
 						source={require('../../../assets/edit.png')}
 						resizeMode="center"
 					></ImageBackground>

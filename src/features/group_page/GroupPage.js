@@ -9,7 +9,8 @@ import {
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
-import NewTopicForm from './AddTopicForm'
+import localStyles from './groupPage.style'
+import AddTopicForm from './AddTopicForm'
 import EditGroupInfoForm from './EditGroupInfoForm'
 import Topic from '../topic_page/Topic'
 import TopicCard from './TopicCard'
@@ -114,7 +115,7 @@ export default function GroupPage({
 						}}
 					>
 						<ImageBackground
-							style={styles.menuButton}
+							style={localStyles.menuButton}
 							source={require('../../../assets/menu.png')}
 							resizeMode="center"
 						></ImageBackground>
@@ -169,7 +170,7 @@ export default function GroupPage({
 					</ScrollView>
 				</View>
 			)}
-			<NewTopicForm
+			<AddTopicForm
 				newTopicFormVisible={newTopicFormVisible}
 				setNewTopicFormVisible={setNewTopicFormVisible}
 				groupId={id}
