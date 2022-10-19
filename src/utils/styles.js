@@ -1,13 +1,13 @@
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
+	//core global styles
 	appContainer: {
 		flex: 1,
 	},
 	mainContainer: {
 		backgroundColor: '#fceecb',
 		height: '100%',
-		paddingTop: 60,
 	},
 	largeHeader: {
 		width: '90%',
@@ -16,20 +16,18 @@ export default StyleSheet.create({
 		textAlign: 'center',
 		marginBottom: 40,
 		color: '#8cbbf1',
-		/*backgroundColor: '#ffffff',
-		borderColor: '#d7dde9',
-		borderWidth: 1,
-		borderRadius: 5,*/
+		marginTop: 30,
 	},
 	mediumHeader: {
-		width: '90%',
 		fontSize: 36,
 		color: '#8cbbf1',
+		marginTop: 10,
 	},
 	smallHeader: {
 		width: '90%',
 		fontSize: 24,
 		color: '#8cbbf1',
+		marginTop: 10,
 	},
 	text: {
 		width: '90%',
@@ -78,6 +76,7 @@ export default StyleSheet.create({
 		flexDirection: 'column',
 		alignItems: 'center',
 	},
+	//more niche global styles
 	noteCard: {
 		padding: 5,
 		marginTop: 20,
@@ -88,23 +87,6 @@ export default StyleSheet.create({
 		borderColor: '#777',
 		borderWidth: 1,
 		borderRadius: 10,
-	},
-	//info messages
-	successInfoMessage: {
-		backgroundColor: '#4dff88',
-	},
-	failureInfoMessage: {
-		backgroundColor: '#ff4d4d',
-	},
-	neutralInfoMessage: {
-		backgroundColor: '#b3ffff',
-		color: 'black',
-	},
-	infoMessageTitle: {
-		fontSize: 16,
-	},
-	infoMessageFontColorNeutral: {
-		color: '#000000',
 	},
 	logoutButton: {
 		alignSelf: 'center',
@@ -132,8 +114,28 @@ export default StyleSheet.create({
 	marginBottom: {
 		marginBottom: 25,
 	},
+	largeMarginRight: {
+		marginRight: 60,
+	},
 	alternateButton: {
 		backgroundColor: '#ffc14d',
+	},
+	//info messages
+	successInfoMessage: {
+		backgroundColor: '#4dff88',
+	},
+	failureInfoMessage: {
+		backgroundColor: '#ff4d4d',
+	},
+	neutralInfoMessage: {
+		backgroundColor: '#b3ffff',
+		color: 'black',
+	},
+	infoMessageTitle: {
+		fontSize: 16,
+	},
+	infoMessageFontColorNeutral: {
+		color: '#000000',
 	},
 	//App.js style
 	icon: {

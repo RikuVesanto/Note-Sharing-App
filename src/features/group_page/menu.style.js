@@ -2,16 +2,20 @@ import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
 	menu: {
-		width: '90%',
+		width: '82%',
 		alignSelf: 'center',
-		backgroundColor: '#cccccc',
+		backgroundColor: '#d7dde9',
 		flexDirection: 'column',
+		zIndex: 1,
+		elevation: 1,
+		position: 'absolute',
+		top: 20,
+		borderRadius: 15,
 	},
 	userListTitle: {
 		fontSize: 26,
 		textAlign: 'center',
 		fontSize: 26,
-		marginRight: 20,
 	},
 	userListItem: {
 		marginLeft: '10%',
@@ -32,9 +36,5 @@ export default StyleSheet.create({
 	},
 	headerViewRight: {
 		width: '25%',
-	},
-	//please change this
-	bottomContainer: {
-		marginTop: 70,
 	},
 })

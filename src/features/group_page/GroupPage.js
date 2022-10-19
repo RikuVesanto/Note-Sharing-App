@@ -108,6 +108,7 @@ export default function GroupPage({
 			) : (
 				<View>
 					<TouchableOpacity
+						style={localStyles.menuButton}
 						title="open"
 						onPress={() => {
 							setEditGroupInfo(false)
@@ -115,7 +116,7 @@ export default function GroupPage({
 						}}
 					>
 						<ImageBackground
-							style={localStyles.menuButton}
+							style={localStyles.menuButtonImage}
 							source={require('../../../assets/menu.png')}
 							resizeMode="center"
 						></ImageBackground>

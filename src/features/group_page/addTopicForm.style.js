@@ -10,12 +10,12 @@ export default StyleSheet.create({
 	},
 	modal: {
 		borderColor: '#d7dde9',
-		borderWidth: 2,
-		borderRadius: 5,
-		marginLeft: '10%',
-		width: '80%',
+		borderWidth: 3,
+		borderRadius: 0,
+		marginLeft: '5%',
+		width: '90%',
 		marginTop: '20%',
-		height: '50%',
+		height: '60%',
 		backgroundColor: '#fceecb',
 	},
 })

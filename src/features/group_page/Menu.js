@@ -69,14 +69,18 @@ export default function Menu({ id, setRefreshGroups, refreshGroups }) {
 						}}
 					>
 						<ImageBackground
-							style={styles.logoutButton}
+							style={[
+								styles.logoutButton,
+								styles.marginTop,
+								styles.largeMarginRight,
+							]}
 							source={require('../../../assets/logout.png')}
 							resizeMode="center"
 						></ImageBackground>
 					</TouchableOpacity>
 				</View>
 			</View>
-			<View style={localStyles.bottomContainer}>
+			<View>
 				<FlatList
 					data={users}
 					renderItem={({ item }) => (

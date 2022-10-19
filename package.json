@@ -40,8 +40,36 @@
 	"devDependencies": {
 		"@babel/core": "^7.12.9",
 		"eslint": "^8.23.1",
+		"eslint-plugin-import": "^2.26.0",
 		"eslint-plugin-react": "^7.31.8",
 		"eslint-plugin-react-native": "^4.0.0"
+	},
+	"eslintConfig": {
+		"import/order": [
+			"error",
+			{
+				"groups": [
+					"builtin",
+					"external",
+					"internal"
+				],
+				"pathGroups": [
+					{
+						"pattern": "react",
+						"group": "external",
+						"position": "before"
+					}
+				],
+				"pathGroupsExcludedImportTypes": [
+					"react"
+				],
+				"newlines-between": "always",
+				"alphabetize": {
+					"order": "asc",
+					"caseInsensitive": true
+				}
+			}
+		]
 	},
 	"private": true
 }

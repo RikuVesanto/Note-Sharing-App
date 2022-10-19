@@ -25,14 +25,12 @@ module.exports = {
 			.max(32, i18n.t('register_username_validation_long'))
 			.required(i18n.t('username_validation')),
 		name: Yup.string(),
-		school: Yup.string(),
 	}),
 	CreateGroupValidationSchema: Yup.object().shape({
 		name: Yup.string()
 			.min(4, i18n.t('name_short_validation'))
 			.max(48, i18n.t('name_long_validation'))
 			.required(i18n.t('name_required_validation')),
-		class: Yup.string().max(48, i18n.t('class_long_validation')),
 		description: Yup.string().max(
 			100,
 			i18n.t('description_long_validation')
@@ -66,7 +64,6 @@ module.exports = {
 			.max(32, i18n.t('register_username_validation_long'))
 			.required(i18n.t('username_validation')),
 		name: Yup.string(),
-		school: Yup.string(),
 	}),
 	ChangePasswordValidationSchema: Yup.object().shape({
 		oldPassword: Yup.string()
