@@ -20,9 +20,14 @@ export default StyleSheet.create({
 	userListItem: {
 		marginLeft: '10%',
 		width: '80%',
-		backgroundColor: '#b3e0ff',
+		backgroundColor: '#8cbbf1',
 		padding: 15,
 		marginBottom: 5,
+	},
+	itemText: {
+		fontSize: 20,
+		color: '#ffffff',
+		marginRight: 8,
 	},
 	headerView: {
 		flex: 1,
@@ -36,5 +41,9 @@ export default StyleSheet.create({
 	},
 	headerViewRight: {
 		width: '25%',
+	},
+	deleteButton: {
+		width: 45,
+		height: 45,
 	},
 })

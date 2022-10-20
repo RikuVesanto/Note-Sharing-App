@@ -16,11 +16,18 @@ import { getData } from '../../utils/http-requests'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 
-export default function Menu({ id, setRefreshGroups, refreshGroups }) {
+export default function Menu({
+	id,
+	setRefreshGroups,
+	refreshGroups,
+	userId,
+	admin,
+}) {
 	const { t } = useTranslation()
 	const navigation = useNavigation()
 
 	const [users, setUsers] = useState([])
+	const [refreshUsers, setRefreshUsers] = useState(false)
 
 	const leaveGroup = async () => {
 		let userId = await getUserId()
@@ -36,13 +43,26 @@ export default function Menu({ id, setRefreshGroups, refreshGroups }) {
 		})
 	}
 
+	const removeFromGroup = async (userId) => {
+		await deleteData(`/groups/userconnection/${id}/${userId}`, {
+			onSuccess: async (response) => {
+				showStatusMessage('Removed user', 'success', 600)
+				setRefreshUsers(!refreshUsers)
+			},
+			onError: (error) => {
+				showStatusMessage(error.data, 'failure')
+			},
+		})
+	}
+
 	useEffect(() => {
 		async function getUsers() {
 			await getData(`/groups/userlist/${id}`, {
 				onSuccess: async (response) => {
+					console.log(response.data)
 					setUsers(
 						response.data.map((user) => {
-							return { key: user.username }
+							return { username: user.username, id: user.id }
 						})
 					)
 				},
@@ -52,7 +72,7 @@ export default function Menu({ id, setRefreshGroups, refreshGroups }) {
 			})
 		}
 		getUsers()
-	}, [])
+	}, [refreshUsers])
 
 	return (
 		<View style={localStyles.menu}>
@@ -84,7 +104,26 @@ export default function Menu({ id, setRefreshGroups, refreshGroups }) {
 				<FlatList
 					data={users}
 					renderItem={({ item }) => (
-						<Text style={localStyles.userListItem}>{item.key}</Text>
+						<View
+							style={[styles.rowLayout, localStyles.userListItem]}
+						>
+							<Text style={localStyles.itemText}>
+								{item.username}
+							</Text>
+							{admin && userId != item.id && (
+								<TouchableOpacity
+									onPress={() => {
+										removeFromGroup(item.id)
+									}}
+								>
+									<ImageBackground
+										style={[localStyles.deleteButton]}
+										source={require('../../../assets/delete.png')}
+										resizeMode="center"
+									></ImageBackground>
+								</TouchableOpacity>
+							)}
+						</View>
 					)}
 				/>
 			</View>

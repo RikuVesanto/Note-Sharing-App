@@ -38,11 +38,13 @@ export default function GroupPage({
 	const [menu, setMenu] = useState(false)
 	const [EditGroupInfo, setEditGroupInfo] = useState(false)
 	const [admin, setAdmin] = useState(false)
+	const [userId, setUserId] = useState(false)
 
 	useEffect(() => {
 		async function fetchData() {
-			let userId = await getUserId()
-			await getCreator(id, userId)
+			let tempId = await getUserId()
+			setUserId(tempId)
+			await getCreator(id, tempId)
 		}
 		fetchData()
 	}, [])
@@ -160,6 +162,8 @@ export default function GroupPage({
 							id={id}
 							setRefreshGroups={setRefreshGroups}
 							refreshGroups={refreshGroups}
+							userId={userId}
+							admin={admin}
 						/>
 					)}
 					<ScrollView>
