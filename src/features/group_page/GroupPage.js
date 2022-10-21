@@ -138,7 +138,7 @@ export default function GroupPage({
 					) : (
 						<TouchableOpacity
 							onPress={() => setEditGroupInfo(true)}
-							style={styles.columnLayout}
+							style={localStyles.headerButton}
 						>
 							<Text
 								style={[styles.mediumHeader, styles.centerText]}
@@ -164,6 +164,7 @@ export default function GroupPage({
 							refreshGroups={refreshGroups}
 							userId={userId}
 							admin={admin}
+							getCreator={getCreator}
 						/>
 					)}
 					<ScrollView>

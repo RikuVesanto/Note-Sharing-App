@@ -115,7 +115,7 @@ export default StyleSheet.create({
 		marginBottom: 25,
 	},
 	largeMarginRight: {
-		marginRight: 60,
+		marginRight: 100,
 	},
 	alternateButton: {
 		backgroundColor: '#ffc14d',

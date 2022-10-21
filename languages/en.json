@@ -50,5 +50,7 @@
 	"old_password": "Old Password",
 	"user_list": "User List",
 	"edit_group_name": "Edit Group Name",
-	"edit_topic": "Edit Topic"
+	"edit_topic": "Edit Topic",
+	"removeAdminTitle": "Are your sure you want remove your admin rights?",
+	"removeAdminDescription": "This decision cannot be undone after!"
 }

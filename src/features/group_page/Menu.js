@@ -5,6 +5,7 @@ import {
 	ImageBackground,
 	FlatList,
 	Text,
+	Alert,
 } from 'react-native'
 import styles from '../../utils/styles'
 import localStyles from './menu.style'
@@ -12,7 +13,7 @@ import { deleteData } from '../../utils/http-requests'
 import { showStatusMessage } from '../../utils/general-functions'
 import { getUserId } from '../../utils/general-functions'
 import { useNavigation } from '@react-navigation/native'
-import { getData } from '../../utils/http-requests'
+import { getData, putData } from '../../utils/http-requests'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 
@@ -22,6 +23,7 @@ export default function Menu({
 	refreshGroups,
 	userId,
 	admin,
+	getCreator,
 }) {
 	const { t } = useTranslation()
 	const navigation = useNavigation()
@@ -46,7 +48,7 @@ export default function Menu({
 	const removeFromGroup = async (userId) => {
 		await deleteData(`/groups/userconnection/${id}/${userId}`, {
 			onSuccess: async (response) => {
-				showStatusMessage('Removed user', 'success', 600)
+				showStatusMessage('Removed user', 'success')
 				setRefreshUsers(!refreshUsers)
 			},
 			onError: (error) => {
@@ -55,11 +57,33 @@ export default function Menu({
 		})
 	}
 
+	const giveAdmin = async (newAdminid) => {
+		Alert.alert(t('removeAdminTitle'), t('removeAdminDescription'), [
+			{
+				text: 'Yes',
+				onPress: async () => {
+					const data = { groupId: id, userId: newAdminid }
+					await putData(data, `/groups/creator`, {
+						onSuccess: async (response) => {
+							showStatusMessage(response.data, 'success')
+							getCreator(userId, id)
+						},
+						onError: (error) => {
+							showStatusMessage(error.data, 'failure')
+						},
+					})
+				},
+			},
+			{
+				text: 'No',
+			},
+		])
+	}
+
 	useEffect(() => {
 		async function getUsers() {
 			await getData(`/groups/userlist/${id}`, {
 				onSuccess: async (response) => {
-					console.log(response.data)
 					setUsers(
 						response.data.map((user) => {
 							return { username: user.username, id: user.id }
@@ -85,7 +109,14 @@ export default function Menu({
 				<View style={localStyles.headerViewRight}>
 					<TouchableOpacity
 						onPress={() => {
-							leaveGroup()
+							if (!admin) {
+								leaveGroup()
+							} else {
+								showStatusMessage(
+									'Remove your admin rights before leaving',
+									'failure'
+								)
+							}
 						}}
 					>
 						<ImageBackground
@@ -107,21 +138,36 @@ export default function Menu({
 						<View
 							style={[styles.rowLayout, localStyles.userListItem]}
 						>
-							<Text style={localStyles.itemText}>
-								{item.username}
-							</Text>
+							<View>
+								<Text style={localStyles.itemText}>
+									{item.username}
+								</Text>
+							</View>
 							{admin && userId != item.id && (
-								<TouchableOpacity
-									onPress={() => {
-										removeFromGroup(item.id)
-									}}
-								>
-									<ImageBackground
-										style={[localStyles.deleteButton]}
-										source={require('../../../assets/delete.png')}
-										resizeMode="center"
-									></ImageBackground>
-								</TouchableOpacity>
+								<View style={styles.rowLayout}>
+									<TouchableOpacity
+										onPress={() => {
+											removeFromGroup(item.id)
+										}}
+									>
+										<ImageBackground
+											style={[localStyles.button]}
+											source={require('../../../assets/delete.png')}
+											resizeMode="center"
+										></ImageBackground>
+									</TouchableOpacity>
+									<TouchableOpacity
+										onPress={() => {
+											giveAdmin(item.id)
+										}}
+									>
+										<ImageBackground
+											style={[localStyles.button]}
+											source={require('../../../assets/add.png')}
+											resizeMode="center"
+										></ImageBackground>
+									</TouchableOpacity>
+								</View>
 							)}
 						</View>
 					)}

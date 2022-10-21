@@ -50,5 +50,7 @@
 	"old_password": "Vanha Salasana",
 	"user_list": "User List",
 	"edit_group_name": "Vaihda Ryhmän Nimeä",
-	"edit_topic": "Muokkaa Aihetta"
+	"edit_topic": "Muokkaa Aihetta",
+	"removeAdminTitle": "Haluatko varmasti luovuttaa hallitsijan oikeutesi?",
+	"removeAdminDescription": "Et voi purkaa päätöstä enää myöhemmin!"
 }

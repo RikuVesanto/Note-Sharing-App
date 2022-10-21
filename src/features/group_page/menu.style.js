@@ -22,12 +22,12 @@ export default StyleSheet.create({
 		width: '80%',
 		backgroundColor: '#8cbbf1',
 		padding: 15,
-		marginBottom: 5,
+		marginBottom: 10,
 	},
 	itemText: {
 		fontSize: 20,
 		color: '#ffffff',
-		marginRight: 8,
+		marginRight: 15,
 	},
 	headerView: {
 		flex: 1,
@@ -42,8 +42,10 @@ export default StyleSheet.create({
 	headerViewRight: {
 		width: '25%',
 	},
-	deleteButton: {
+	button: {
 		width: 45,
 		height: 45,
+		marginRight: 15,
+		marginTop: -15,
 	},
 })
