@@ -50,7 +50,7 @@ export default StyleSheet.create({
 		position: 'absolute',
 		zIndex: 99,
 		right: 5,
-		top: -4,
+		top: 2,
 	},
 	noteInput: {
 		backgroundColor: 'transparent',

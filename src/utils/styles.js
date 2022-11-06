@@ -97,9 +97,10 @@ export default StyleSheet.create({
 	headerForm: {
 		width: '80%',
 		alignSelf: 'center',
-		backgroundColor: '#ffffff',
+		backgroundColor: '#d7dde9',
 		borderColor: '#777',
 		borderWidth: 1,
+		borderRadius: 5,
 	},
 	marginLeftBottom: {
 		marginLeft: 15,
