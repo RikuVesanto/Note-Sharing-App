@@ -18,15 +18,14 @@ export default function EditUserInfoForm({ setChangePassword }) {
 	const [wasPressed, setWasPressed] = useState(false)
 
 	const sendData = async (values) => {
-		let userId = await getUserId()
-		let data = {
+		const userId = await getUserId()
+		const data = {
 			id: userId,
 			oldPassword: values.oldPassword,
 			password: values.password,
 		}
 		await putData(data, '/users/user/password', {
 			onSuccess: async (response) => {
-				console.log(response.data)
 				showStatusMessage(response.data, 'success')
 				setChangePassword(false)
 				setWasPressed(false)

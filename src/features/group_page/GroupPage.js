@@ -42,7 +42,7 @@ export default function GroupPage({
 
 	useEffect(() => {
 		async function fetchData() {
-			let tempId = await getUserId()
+			const tempId = await getUserId()
 			setUserId(tempId)
 			await getCreator(id, tempId)
 		}
@@ -80,7 +80,7 @@ export default function GroupPage({
 	}
 
 	const createTopicCards = () => {
-		let cards = []
+		const cards = []
 		for (let topic of topics) {
 			cards.push(
 				<TopicCard
@@ -140,17 +140,11 @@ export default function GroupPage({
 							onPress={() => setEditGroupInfo(true)}
 							style={localStyles.headerButton}
 						>
-							<Text
-								style={[styles.mediumHeader, styles.centerText]}
-							>
+							<Text style={[styles.mediumHeader, styles.centerText]}>
 								{name}
 							</Text>
 							<Text
-								style={[
-									styles.text,
-									styles.centerText,
-									styles.marginBottom,
-								]}
+								style={[styles.text, styles.centerText, styles.marginBottom]}
 							>
 								{description}
 							</Text>
@@ -169,10 +163,7 @@ export default function GroupPage({
 					)}
 					<ScrollView>
 						{topicCards}
-						<TopicCard
-							title={t('new_topic')}
-							action={setNewTopicFormVisible}
-						/>
+						<TopicCard title={t('new_topic')} action={setNewTopicFormVisible} />
 					</ScrollView>
 				</View>
 			)}

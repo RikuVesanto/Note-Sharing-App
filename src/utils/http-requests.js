@@ -34,7 +34,7 @@ async function executeRequestCallbacks(request, callbacks) {
  * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
 async function postData(data, requestUrl, callbacks) {
-	let token = await AppStorage.getValueFor('loginInfo')
+	const token = await AppStorage.getValueFor('loginInfo')
 	await executeRequestCallbacks(
 		axios.post(url + requestUrl, data, {
 			headers: {
@@ -51,7 +51,7 @@ async function postData(data, requestUrl, callbacks) {
  * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
 async function getData(requestUrl, callbacks) {
-	let token = await AppStorage.getValueFor('loginInfo')
+	const token = await AppStorage.getValueFor('loginInfo')
 	await executeRequestCallbacks(
 		axios.get(url + requestUrl, {
 			headers: {
@@ -69,7 +69,7 @@ async function getData(requestUrl, callbacks) {
  * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
 async function putData(data, requestUrl, callbacks) {
-	let token = await AppStorage.getValueFor('loginInfo')
+	const token = await AppStorage.getValueFor('loginInfo')
 	await executeRequestCallbacks(
 		axios.put(url + requestUrl, data, {
 			headers: {
@@ -86,7 +86,7 @@ async function putData(data, requestUrl, callbacks) {
  * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
 async function deleteData(requestUrl, callbacks) {
-	let token = await AppStorage.getValueFor('loginInfo')
+	const token = await AppStorage.getValueFor('loginInfo')
 	await executeRequestCallbacks(
 		axios.delete(url + requestUrl, {
 			headers: {

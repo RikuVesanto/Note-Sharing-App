@@ -38,7 +38,7 @@ export default function EditNoteForm({
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
 				setRefreshNotes(!refreshNotes)
-				let tempArray = notesStatus
+				const tempArray = notesStatus
 				tempArray[orderCount] = false
 				setNotesStatus(tempArray)
 				setWasPressed(false)
@@ -56,7 +56,7 @@ export default function EditNoteForm({
 			<CloseButton
 				action={() => {
 					setRefreshNotes(!refreshNotes)
-					let tempArray = notesStatus
+					const tempArray = notesStatus
 					tempArray[orderCount] = false
 					setNotesStatus(tempArray)
 				}}
@@ -118,10 +118,7 @@ export default function EditNoteForm({
 							onPress={handleSubmit}
 							disabled={checkForFalse(
 								checkForFalse(!isValid, wasPressed),
-								CheckForShallowObjectEquality(
-									values,
-									initialValues
-								)
+								CheckForShallowObjectEquality(values, initialValues)
 							)}
 						/>
 					</View>

@@ -32,7 +32,7 @@ export default function Menu({
 	const [refreshUsers, setRefreshUsers] = useState(false)
 
 	const leaveGroup = async () => {
-		let userId = await getUserId()
+		const userId = await getUserId()
 		await deleteData(`/groups/userconnection/${id}/${userId}`, {
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success', 600)
@@ -102,9 +102,7 @@ export default function Menu({
 		<View style={localStyles.menu}>
 			<View style={localStyles.headerView}>
 				<View style={localStyles.headerViewLeft}>
-					<Text style={localStyles.userListTitle}>
-						{t('user_list')}
-					</Text>
+					<Text style={localStyles.userListTitle}>{t('user_list')}</Text>
 				</View>
 				<View style={localStyles.headerViewRight}>
 					<TouchableOpacity
@@ -135,13 +133,9 @@ export default function Menu({
 				<FlatList
 					data={users}
 					renderItem={({ item }) => (
-						<View
-							style={[styles.rowLayout, localStyles.userListItem]}
-						>
+						<View style={[styles.rowLayout, localStyles.userListItem]}>
 							<View>
-								<Text style={localStyles.itemText}>
-									{item.username}
-								</Text>
+								<Text style={localStyles.itemText}>{item.username}</Text>
 							</View>
 							{admin && userId != item.id && (
 								<View style={styles.rowLayout}>

@@ -24,7 +24,7 @@ export default function EditUserInfoForm() {
 	}, [])
 
 	const fetchUserData = async () => {
-		let userId = await getUserId()
+		const userId = await getUserId()
 
 		await getData(`/users/user/${userId}`, {
 			onSuccess: (response) => {
@@ -36,8 +36,8 @@ export default function EditUserInfoForm() {
 	}
 
 	const sendData = async (values) => {
-		let userId = await getUserId()
-		let data = {
+		const userId = await getUserId()
+		const data = {
 			id: userId,
 			email: values.email,
 			username: values.username,
@@ -125,10 +125,7 @@ export default function EditUserInfoForm() {
 							disabled={checkForFalse(
 								checkForFalse(
 									!isValid,
-									CheckForShallowObjectEquality(
-										values,
-										initialValues
-									)
+									CheckForShallowObjectEquality(values, initialValues)
 								),
 								wasPressed
 							)}

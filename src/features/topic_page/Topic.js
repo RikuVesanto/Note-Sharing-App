@@ -55,7 +55,7 @@ export default function Topic({
 	}
 	const addToUseStateSlot = (item, slot) => {
 		closeNoteForms()
-		var tempArray = notesStatus
+		const tempArray = notesStatus
 		tempArray[slot] = item
 		setNotesStatus(tempArray)
 		if (item == true) {
@@ -64,15 +64,12 @@ export default function Topic({
 	}
 
 	const createNoteBlocks = () => {
-		let blocks = []
+		const blocks = []
 		let i = 0
 		for (let note of notes) {
 			//using i later defaults to the last value during the for loop since it's defined outside of it
 			note.count = i
-			if (
-				notesStatus[note.count] != true &&
-				notesStatus[note.count] != false
-			) {
+			if (notesStatus[note.count] != true && notesStatus[note.count] != false) {
 				addToUseStateSlot(false, note.count)
 			}
 
@@ -126,9 +123,7 @@ export default function Topic({
 						<Text style={[styles.mediumHeader, styles.centerText]}>
 							{topic}
 						</Text>
-						<Text style={[styles.text, styles.centerText]}>
-							{description}
-						</Text>
+						<Text style={[styles.text, styles.centerText]}>{description}</Text>
 					</TouchableOpacity>
 				</View>
 			)}

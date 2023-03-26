@@ -39,7 +39,7 @@ export default function EditGroupInfoForm({
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
 				setNeedToNavigate(true)
-				let object = {}
+				const object = {}
 				object.navigate = () => {
 					setNeedToNavigate(false)
 					navigation.navigate(data.name)
@@ -116,10 +116,7 @@ export default function EditGroupInfoForm({
 							onPress={handleSubmit}
 							disabled={checkForFalse(
 								checkForFalse(!isValid, wasPressed),
-								CheckForShallowObjectEquality(
-									values,
-									initialValues
-								)
+								CheckForShallowObjectEquality(values, initialValues)
 							)}
 						/>
 					</View>

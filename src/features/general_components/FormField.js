@@ -24,14 +24,14 @@ export default function FormField({
 }) {
 	const [hidden, setHidden] = useState(hideText)
 
-	var source = hidden
+	const source = hidden
 		? require('../../../assets/eye-off-fill.png')
 		: require('../../../assets/eye-fill.png')
 
-	var inputStyle = largeField
+	const inputStyle = largeField
 		? [localStyles.input, localStyles.highInput]
 		: localStyles.input
-	var multiline = largeField ? true : false
+	const multiline = largeField ? true : false
 
 	return (
 		<View
@@ -42,10 +42,7 @@ export default function FormField({
 		>
 			{hideText && (
 				<View style={localStyles.reveal}>
-					<TouchableOpacity
-						title="reveal"
-						onPress={() => setHidden(!hidden)}
-					>
+					<TouchableOpacity title="reveal" onPress={() => setHidden(!hidden)}>
 						<ImageBackground
 							style={localStyles.formFieldImage}
 							source={source}

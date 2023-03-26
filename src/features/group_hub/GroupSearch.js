@@ -60,7 +60,7 @@ export default function GroupSearch({
 	}
 
 	const joinGroup = async (groupId, location) => {
-		let userId = await getUserId()
+		const userId = await getUserId()
 		const values = {
 			userId: userId,
 			groupId: groupId,
@@ -69,7 +69,7 @@ export default function GroupSearch({
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
 				setRefreshGroups(!refreshGroups)
-				let object = {}
+				const object = {}
 				object.navigate = () => {
 					setNeedToNavigate(false)
 					navigation.navigate(location)

@@ -30,7 +30,7 @@ export default function App() {
 	const [needToNavigate, setNeedToNavigate] = useState(false)
 	useEffect(() => {
 		const getLoginInfo = async () => {
-			let userInfo = await AppStorage.getValueFor('loginInfo')
+			const userInfo = await AppStorage.getValueFor('loginInfo')
 			if (userInfo) {
 				setLogin(true)
 			}
@@ -57,7 +57,7 @@ export default function App() {
 	}, [groupScreens])
 
 	const getGroups = async () => {
-		let userId = await getUserId()
+		const userId = await getUserId()
 		await getData(`/groups/grouplist/${userId}`, {
 			onSuccess: async (response) => {
 				setGroups(response.data)
@@ -69,7 +69,7 @@ export default function App() {
 	}
 
 	const createGroupScreens = () => {
-		let screens = []
+		const screens = []
 		for (let group of groups) {
 			screens.push(
 				<Drawer.Screen
@@ -98,7 +98,7 @@ export default function App() {
 		setGroupScreens(screens)
 	}
 
-	let loggedInScreen = (
+	const loggedInScreen = (
 		<NavigationContainer>
 			<Drawer.Navigator
 				screenOptions={{

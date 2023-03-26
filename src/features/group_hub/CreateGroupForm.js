@@ -26,7 +26,7 @@ export default function CreateGroupForm({
 	const [wasPressed, setWasPressed] = useState(false)
 
 	const sendData = async (values) => {
-		let userId = await getUserId()
+		const userId = await getUserId()
 		var data = {
 			name: values.name,
 			creatorId: userId,

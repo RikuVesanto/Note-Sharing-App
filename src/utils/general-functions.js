@@ -10,8 +10,8 @@ import styles from './styles'
  * @param {*} setItemArray Setter for updating the state array.
  */
 const addToUseState = (item, itemArray, setItemArray) => {
-	//just adding more json data to the state variable doesn't cause a re render
-	var tempArray = itemArray.slice()
+	//just adding more data to the state variable doesn't cause a re render
+	const tempArray = [...itemArray]
 	tempArray.push(item)
 	setItemArray(tempArray)
 }
@@ -63,8 +63,8 @@ const checkForFalse = (bool1, bool2) => {
  * @returns {*} user id
  */
 const getUserId = async () => {
-	let userInfo = await AppStorage.getValueFor('loginInfo')
-	let decoded = jwt_decode(userInfo)
+	const userInfo = await AppStorage.getValueFor('loginInfo')
+	const decoded = jwt_decode(userInfo)
 	return decoded.id
 }
 
