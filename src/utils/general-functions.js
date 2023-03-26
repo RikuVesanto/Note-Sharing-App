@@ -24,13 +24,13 @@ const addToUseState = (item, itemArray, setItemArray) => {
  */
 const showStatusMessage = (message, status, duration = 1850) => {
 	const style =
-		status == 'success'
+		status === 'success'
 			? styles.successInfoMessage
-			: status == 'failure'
+			: status === 'failure'
 			? styles.failureInfoMessage
 			: styles.neutralInfoMessage
 	const titleStyle =
-		status == 'neutral'
+		status === 'neutral'
 			? (styles.infoMessageTitle, styles.infoMessageFontColorNeutral)
 			: styles.infoMessageTitle
 	showMessage({
@@ -51,7 +51,7 @@ const showStatusMessage = (message, status, duration = 1850) => {
  * @returns {*} false if both values are false otherwise true
  */
 const checkForFalse = (bool1, bool2) => {
-	if (bool1 == false && bool2 == false) {
+	if (bool1 === false && bool2 === false) {
 		return false
 	} else {
 		return true

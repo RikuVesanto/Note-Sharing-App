@@ -58,7 +58,7 @@ export default function Topic({
 		const tempArray = notesStatus
 		tempArray[slot] = item
 		setNotesStatus(tempArray)
-		if (item == true) {
+		if (item === true) {
 			setRefreshBlocks(!refreshBlocks)
 		}
 	}

@@ -11,15 +11,13 @@ export default function SearchResultCard({
 	usersGroups,
 }) {
 	const { t } = useTranslation()
-	const alreadyJoined = usersGroups.filter((g) => g.name == name).length > 0
+	const alreadyJoined = usersGroups.filter((g) => g.name === name).length > 0
 
 	return (
 		<View style={localStyles.groupCard}>
 			<View style={localStyles.groupCardLeft}>
 				<Text style={localStyles.groupCardTitle}>{name}</Text>
-				<Text style={localStyles.groupCardDescription}>
-					{description}
-				</Text>
+				<Text style={localStyles.groupCardDescription}>{description}</Text>
 			</View>
 			<View style={localStyles.groupCardRight}>
 				<TouchableOpacity
