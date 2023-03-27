@@ -69,32 +69,29 @@ export default function App() {
 	}
 
 	const createGroupScreens = () => {
-		const screens = []
-		for (let group of groups) {
-			screens.push(
-				<Drawer.Screen
-					key={group.id}
-					name={group.name}
-					children={() => (
-						<GroupPage
-							{...group}
-							setRefreshGroups={setRefreshGroups}
-							refreshGroups={refreshGroups}
-							setNeedToNavigate={setNeedToNavigate}
-							setNavigate={setNavigate}
+		const screens = groups.map((group) => (
+			<Drawer.Screen
+				key={group.id}
+				name={group.name}
+				children={() => (
+					<GroupPage
+						{...group}
+						setRefreshGroups={setRefreshGroups}
+						refreshGroups={refreshGroups}
+						setNeedToNavigate={setNeedToNavigate}
+						setNavigate={setNavigate}
+					/>
+				)}
+				options={{
+					drawerIcon: () => (
+						<Image
+							source={require('./assets/group.png')}
+							style={[styles.icon]}
 						/>
-					)}
-					options={{
-						drawerIcon: () => (
-							<Image
-								source={require('./assets/group.png')}
-								style={[styles.icon]}
-							/>
-						),
-					}}
-				/>
-			)
-		}
+					),
+				}}
+			/>
+		))
 		setGroupScreens(screens)
 	}
 

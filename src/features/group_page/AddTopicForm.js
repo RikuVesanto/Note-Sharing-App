@@ -11,6 +11,7 @@ import { showStatusMessage } from '../../utils/general-functions'
 import BackButton from '../general_components/BackButton'
 import FormField from '../general_components/FormField'
 import { checkForFalse } from '../../utils/general-functions'
+import { filterObject } from '../../utils/object-functions'
 import React, { useState } from 'react'
 
 export default function NewTopicForm({
@@ -23,12 +24,14 @@ export default function NewTopicForm({
 	const { t } = useTranslation()
 	const [wasPressed, setWasPressed] = useState(false)
 	const sendData = async (values) => {
-		var data = {
-			topic: values.topic,
-			groupId: groupId,
-		}
-		if (values.description != '') data.description = values.description
-		await postData(data, '/topics/topic', {
+		const topicData = filterObject(
+			{
+				...values,
+				groupId: groupId,
+			},
+			(value) => value !== ''
+		)
+		await postData(topicData, '/topics/topic', {
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
 				setRefreshTopics(!refreshTopics)
@@ -107,10 +110,7 @@ export default function NewTopicForm({
 									buttonStyle={styles.button}
 									title={t('create_topic')}
 									onPress={handleSubmit}
-									disabled={checkForFalse(
-										!isValid,
-										wasPressed
-									)}
+									disabled={checkForFalse(!isValid, wasPressed)}
 								/>
 							</View>
 						</View>

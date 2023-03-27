@@ -63,19 +63,17 @@ export default function Topic({
 		}
 	}
 
+	//remove reliance on global variable addToUseStateSlot
 	const createNoteBlocks = () => {
-		const blocks = []
-		let i = 0
-		for (let note of notes) {
-			//using i later defaults to the last value during the for loop since it's defined outside of it
-			note.count = i
-			if (notesStatus[note.count] != true && notesStatus[note.count] != false) {
-				addToUseStateSlot(false, note.count)
+		notes.forEach((element, index) => {
+			if (notesStatus[index] != true && notesStatus[index] != false) {
+				addToUseStateSlot(false, index)
 			}
-
-			blocks.push(
+		})
+		const blocks = notes.map((note, index) => {
+			return (
 				<View key={note.id}>
-					{notesStatus[note.count] ? (
+					{notesStatus[index] ? (
 						<EditNoteForm
 							id={note.id}
 							title={note.title}
@@ -84,11 +82,12 @@ export default function Topic({
 							setRefreshNotes={setRefreshNotes}
 							notesStatus={notesStatus}
 							setNotesStatus={setNotesStatus}
-							orderCount={note.count}
+							orderCount={index}
 						/>
 					) : (
 						<NoteCard
 							{...note}
+							count={index}
 							addToUseStateSlot={addToUseStateSlot}
 							setRefreshNotes={setRefreshNotes}
 							refreshNotes={refreshNotes}
@@ -96,8 +95,7 @@ export default function Topic({
 					)}
 				</View>
 			)
-			i++
-		}
+		})
 		setNoteBlocks(blocks)
 	}
 

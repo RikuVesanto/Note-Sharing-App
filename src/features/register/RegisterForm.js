@@ -10,19 +10,20 @@ import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
 import { checkForFalse } from '../../utils/general-functions'
+import { filterObject } from '../../utils/object-functions'
 
 export default function RegisterForm({ setLoginPage }) {
 	const { t } = useTranslation()
 	const [wasPressed, setWasPressed] = useState(false)
 
 	const sendData = async (values) => {
-		var data = {
-			email: values.email,
-			password: values.password,
-			username: values.username,
-		}
-		if (values.name != '') data.name = values.name
-		await postData(data, '/users/user', {
+		const userData = filterObject(
+			{
+				...values,
+			},
+			(value) => value !== ''
+		)
+		await postData(userData, '/users/user', {
 			onSuccess: async (response) => {
 				console.log(response.data)
 				showStatusMessage(response.data, 'success')

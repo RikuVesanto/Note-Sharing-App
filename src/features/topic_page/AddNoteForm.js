@@ -8,6 +8,7 @@ import { showStatusMessage } from '../../utils/general-functions'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 import { checkForFalse } from '../../utils/general-functions'
+import { filterObject } from '../../utils/object-functions'
 import React, { useState } from 'react'
 import FormField from '../general_components/FormField'
 
@@ -21,12 +22,14 @@ export default function AddNoteForm({
 	const [wasPressed, setWasPressed] = useState(false)
 
 	const sendData = async (values) => {
-		var data = {
-			content: values.content,
-			topicId: id,
-		}
-		if (values.title != '') data.title = values.title
-		await postData(data, '/notes/note/', {
+		const noteData = filterObject(
+			{
+				...values,
+				topicId: id,
+			},
+			(value) => value !== ''
+		)
+		await postData(noteData, '/notes/note/', {
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
 				setRefreshNotes(!refreshNotes)

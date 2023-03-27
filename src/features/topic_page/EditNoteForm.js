@@ -5,6 +5,7 @@ import { Formik } from 'formik'
 import { NoteValidationSchema } from '../../utils/validation-schemas'
 import { putData } from '../../utils/http-requests'
 import { showStatusMessage } from '../../utils/general-functions'
+import { filterObject } from '../../utils/object-functions'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 import {
@@ -29,12 +30,14 @@ export default function EditNoteForm({
 	const [wasPressed, setWasPressed] = useState(false)
 
 	const sendData = async (values) => {
-		var data = {
-			content: values.content,
-			noteId: id,
-		}
-		if (values.title != '') data.title = values.title
-		await putData(data, `/notes/note/${id}`, {
+		const noteData = filterObject(
+			{
+				...values,
+				noteId: id,
+			},
+			(value) => value !== ''
+		)
+		await putData(noteData, `/notes/note/${id}`, {
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
 				setRefreshNotes(!refreshNotes)

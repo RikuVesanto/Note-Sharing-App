@@ -11,6 +11,7 @@ import {
 	checkForFalse,
 	CheckForShallowObjectEquality,
 } from '../../utils/general-functions'
+import { filterObject } from '../../utils/object-functions'
 import React, { useState } from 'react'
 import FormField from '../general_components/FormField'
 import CloseButton from '../general_components/closeButton'
@@ -30,12 +31,14 @@ export default function EditGroupInfoForm({
 	const { t } = useTranslation()
 	const [wasPressed, setWasPressed] = useState(false)
 	const sendData = async (values) => {
-		var data = {
-			name: values.name,
-			groupId: id,
-		}
-		if (values.description != '') data.description = values.description
-		await putData(data, `/groups/group/`, {
+		const groupData = filterObject(
+			{
+				...values,
+				groupId: id,
+			},
+			(value) => value !== ''
+		)
+		await putData(groupData, `/groups/group/`, {
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
 				setNeedToNavigate(true)

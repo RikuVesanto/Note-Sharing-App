@@ -11,6 +11,7 @@ import {
 	checkForFalse,
 	CheckForShallowObjectEquality,
 } from '../../utils/general-functions'
+import { filterObject } from '../../utils/object-functions'
 import React, { useState } from 'react'
 import FormField from '../general_components/FormField'
 import CloseButton from '../general_components/closeButton'
@@ -28,17 +29,19 @@ export default function EditNoteForm({
 	const [wasPressed, setWasPressed] = useState(false)
 
 	const sendData = async (values) => {
-		var data = {
-			topic: values.topic,
-			id: topicId,
-		}
-		if (values.description != '') data.description = values.description
-		await putData(data, `/topics/topic/`, {
+		const topicData = filterObject(
+			{
+				...values,
+				id: topicId,
+			},
+			(value) => value !== ''
+		)
+		await putData(topicData, `/topics/topic/`, {
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
 				setRefreshTopics(!refreshTopics)
 				setEditTopic(false)
-				setActiveTopic(data)
+				setActiveTopic(topicData)
 				setWasPressed(false)
 			},
 			onError: (error) => {
@@ -110,10 +113,7 @@ export default function EditNoteForm({
 							onPress={handleSubmit}
 							disabled={checkForFalse(
 								checkForFalse(!isValid, wasPressed),
-								CheckForShallowObjectEquality(
-									values,
-									initialValues
-								)
+								CheckForShallowObjectEquality(values, initialValues)
 							)}
 						/>
 					</View>

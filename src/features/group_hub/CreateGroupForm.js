@@ -13,6 +13,7 @@ import BackButton from '../general_components/BackButton'
 import { useNavigation } from '@react-navigation/native'
 import { getUserId } from '../../utils/general-functions'
 import { checkForFalse } from '../../utils/general-functions'
+import { filterObject } from '../../utils/object-functions'
 
 export default function CreateGroupForm({
 	setCreateGroup,
@@ -27,21 +28,21 @@ export default function CreateGroupForm({
 
 	const sendData = async (values) => {
 		const userId = await getUserId()
-		var data = {
-			name: values.name,
-			creatorId: userId,
-		}
-		if (values.password != '') data.password = values.password
-		if (values.description != '') data.description = values.description
-		await postData(data, '/groups/group', {
+		const groupData = filterObject(
+			{
+				...values,
+				creatorId: userId,
+			},
+			(value) => value !== ''
+		)
+		await postData(groupData, '/groups/group', {
 			onSuccess: async (response) => {
-				//console.log(response.data)
 				showStatusMessage(response.data, 'success')
 				setRefreshGroups(!refreshGroups)
 				let object = {}
 				object.navigate = () => {
 					setNeedToNavigate(false)
-					navigation.navigate(data.name)
+					navigation.navigate(values.name)
 				}
 				setNavigate(object)
 				setNeedToNavigate(true)

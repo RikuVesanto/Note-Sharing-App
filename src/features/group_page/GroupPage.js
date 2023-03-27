@@ -80,20 +80,17 @@ export default function GroupPage({
 	}
 
 	const createTopicCards = () => {
-		const cards = []
-		for (let topic of topics) {
-			cards.push(
-				<TopicCard
-					key={topic.id}
-					title={topic.topic}
-					description={topic.description}
-					action={() => {
-						setActiveTopic(topic)
-						setTopicsNotesVisible(true)
-					}}
-				/>
-			)
-		}
+		const cards = topics.map((topic) => (
+			<TopicCard
+				key={topic.id}
+				title={topic.topic}
+				description={topic.description}
+				action={() => {
+					setActiveTopic(topic)
+					setTopicsNotesVisible(true)
+				}}
+			/>
+		))
 		setTopicCards(cards)
 	}
 

@@ -34,28 +34,24 @@ export default function GroupSearch({
 
 	const createSearchResultCards = () => {
 		if (groups) {
-			let screens = []
-			let results = 0
-			for (var group of groups) {
-				screens.push(
-					<SearchResultCard
-						key={group.id}
-						name={group.name}
-						description={group.description}
-						action={joinGroup}
-						groupId={group.id}
-						usersGroups={usersGroups}
-					/>
-				)
-				results++
-			}
-
-			screens.unshift(
+			const results = groups.length
+			const screens = groups.map((group) => (
+				<SearchResultCard
+					key={group.id}
+					name={group.name}
+					description={group.description}
+					action={joinGroup}
+					groupId={group.id}
+					usersGroups={usersGroups}
+				/>
+			))
+			const resultAndScreens = [
 				<Text key="results" style={localStyles.resultsText}>
 					{results + ' ' + t('results_found')}
-				</Text>
-			)
-			setSearchResultCards(screens)
+				</Text>,
+				...screens,
+			]
+			setSearchResultCards(resultAndScreens)
 		}
 	}
 
