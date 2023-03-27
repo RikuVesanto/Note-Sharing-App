@@ -92,6 +92,9 @@ const getUserId = async () => {
 const CheckForShallowObjectEquality = (object1, object2) => {
 	const keys1 = Object.keys(object1)
 	const keys2 = Object.keys(object2)
+	if (keys1.length !== keys2.length) {
+		return false
+	}
 	const hasSameKeys = (key, index) => key === keys2[index]
 	return keys1.every(hasSameKeys)
 }
