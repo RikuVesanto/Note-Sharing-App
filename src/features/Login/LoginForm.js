@@ -3,19 +3,19 @@ import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { LoginValidationSchema } from '../../utils/validation-schemas'
 import { getData } from '../../utils/http-requests'
-import { showStatusMessage, checkForFalse } from '../../utils/general-functions'
+import { showStatusMessage, doOnce } from '../../utils/general-functions'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
 import AppStorage from '../../utils/secure-store'
-import React, { useState } from 'react'
+import React from 'react'
 
 export default function LoginForm({ setLogin }) {
 	const { t } = useTranslation()
-	const [wasPressed, setWasPressed] = useState(false)
+	let sendDataOnce = doOnce(sendData)
 
-	const sendData = async (values) => {
+	async function sendData(values) {
 		await getData(`/users/user/${values.username}/${values.password}`, {
 			onSuccess: async (response) => {
 				showStatusMessage('Login successful', 'success', 600)
@@ -23,7 +23,7 @@ export default function LoginForm({ setLogin }) {
 				setLogin(true)
 			},
 			onError: (error) => {
-				setWasPressed(false)
+				sendDataOnce = doOnce(sendData)
 				console.log(error.status, error.data.message)
 				showStatusMessage(error.data.message, 'failure')
 			},
@@ -39,8 +39,7 @@ export default function LoginForm({ setLogin }) {
 			validationSchema={LoginValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
-				setWasPressed(true)
-				sendData(values)
+				sendDataOnce(values)
 			}}
 		>
 			{({
@@ -80,7 +79,7 @@ export default function LoginForm({ setLogin }) {
 							buttonStyle={styles.button}
 							title={t('login')}
 							onPress={handleSubmit}
-							disabled={checkForFalse(!isValid, wasPressed)}
+							disabled={!isValid}
 						/>
 					</View>
 				</View>

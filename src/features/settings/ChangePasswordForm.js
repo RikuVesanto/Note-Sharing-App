@@ -8,16 +8,15 @@ import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
-import { getUserId } from '../../utils/general-functions'
+import { getUserId, doOnce } from '../../utils/general-functions'
 import BackButton from '../general_components/BackButton'
-import { checkForFalse } from '../../utils/general-functions'
-import React, { useState } from 'react'
+import React from 'react'
 
 export default function EditUserInfoForm({ setChangePassword }) {
 	const { t } = useTranslation()
-	const [wasPressed, setWasPressed] = useState(false)
+	let sendDataOnce = doOnce(sendData)
 
-	const sendData = async (values) => {
+	async function sendData(values) {
 		const userId = await getUserId()
 		const data = {
 			id: userId,
@@ -28,10 +27,9 @@ export default function EditUserInfoForm({ setChangePassword }) {
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
 				setChangePassword(false)
-				setWasPressed(false)
 			},
 			onError: (error) => {
-				setWasPressed(false)
+				sendDataOnce = doOnce(sendData)
 				showStatusMessage(error.data, 'failure')
 			},
 		})
@@ -53,8 +51,7 @@ export default function EditUserInfoForm({ setChangePassword }) {
 				validationSchema={ChangePasswordValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
-					setWasPressed(true)
-					sendData(values)
+					sendDataOnce(values)
 				}}
 			>
 				{({
@@ -95,7 +92,7 @@ export default function EditUserInfoForm({ setChangePassword }) {
 								name="button"
 								title={t('edit')}
 								onPress={handleSubmit}
-								disabled={checkForFalse(!isValid, wasPressed)}
+								disabled={!isValid}
 							/>
 						</View>
 					</View>

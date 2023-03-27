@@ -4,6 +4,21 @@ import jwt_decode from 'jwt-decode'
 import styles from './styles'
 
 /**
+ * Returns a function that executes the given function but only once
+ * @param {*} fn The function to be executed
+ * @returns {*} A function that executes the given function but only once
+ */
+const doOnce = (fn) => {
+	let done = false
+	return (...args) => {
+		if (!done) {
+			done = true
+			fn(...args)
+		}
+	}
+}
+
+/**
  * Adds an item to the end of a usestate array.
  * @param {*} item the item to be added to the array.
  * @param {*} itemArray The contents of the current state array.
@@ -97,4 +112,5 @@ export {
 	checkForFalse as checkForFalse,
 	getUserId as getUserId,
 	CheckForShallowObjectEquality as CheckForShallowObjectEquality,
+	doOnce as doOnce,
 }

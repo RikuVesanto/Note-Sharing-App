@@ -4,12 +4,11 @@ import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { NoteValidationSchema } from '../../utils/validation-schemas'
 import { postData } from '../../utils/http-requests'
-import { showStatusMessage } from '../../utils/general-functions'
+import { showStatusMessage, doOnce } from '../../utils/general-functions'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
-import { checkForFalse } from '../../utils/general-functions'
 import { filterObject } from '../../utils/object-functions'
-import React, { useState } from 'react'
+import React from 'react'
 import FormField from '../general_components/FormField'
 
 export default function AddNoteForm({
@@ -19,9 +18,9 @@ export default function AddNoteForm({
 	closeNoteForms,
 }) {
 	const { t } = useTranslation()
-	const [wasPressed, setWasPressed] = useState(false)
+	let sendDataOnce = doOnce(sendData)
 
-	const sendData = async (values) => {
+	async function sendData(values) {
 		const noteData = filterObject(
 			{
 				...values,
@@ -34,10 +33,10 @@ export default function AddNoteForm({
 				showStatusMessage(response.data, 'success')
 				setRefreshNotes(!refreshNotes)
 				closeNoteForms()
-				setWasPressed(false)
+				sendDataOnce = doOnce(sendData)
 			},
 			onError: (error) => {
-				setWasPressed(false)
+				sendDataOnce = doOnce(sendData)
 				showStatusMessage(error.data.message, 'failure')
 			},
 		})
@@ -50,8 +49,7 @@ export default function AddNoteForm({
 				validationSchema={NoteValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values, actions) => {
-					setWasPressed(true)
-					sendData(values)
+					sendDataOnce(values)
 					actions.setValues(emptyValues)
 				}}
 			>
@@ -101,7 +99,7 @@ export default function AddNoteForm({
 							]}
 							title={t('create_note')}
 							onPress={handleSubmit}
-							disabled={checkForFalse(!isValid, wasPressed)}
+							disabled={!isValid}
 						/>
 					</View>
 				)}

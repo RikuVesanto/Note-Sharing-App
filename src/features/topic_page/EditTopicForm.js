@@ -8,11 +8,12 @@ import { showStatusMessage } from '../../utils/general-functions'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 import {
-	checkForFalse,
+	doOnce,
 	CheckForShallowObjectEquality,
+	checkForFalse,
 } from '../../utils/general-functions'
 import { filterObject } from '../../utils/object-functions'
-import React, { useState } from 'react'
+import React from 'react'
 import FormField from '../general_components/FormField'
 import CloseButton from '../general_components/closeButton'
 
@@ -26,9 +27,9 @@ export default function EditNoteForm({
 	setActiveTopic,
 }) {
 	const { t } = useTranslation()
-	const [wasPressed, setWasPressed] = useState(false)
+	const sendDataOnce = doOnce(sendData)
 
-	const sendData = async (values) => {
+	async function sendData(values) {
 		const topicData = filterObject(
 			{
 				...values,
@@ -42,10 +43,8 @@ export default function EditNoteForm({
 				setRefreshTopics(!refreshTopics)
 				setEditTopic(false)
 				setActiveTopic(topicData)
-				setWasPressed(false)
 			},
 			onError: (error) => {
-				setWasPressed(false)
 				showStatusMessage(error.data, 'failure')
 			},
 		})
@@ -60,8 +59,7 @@ export default function EditNoteForm({
 				validationSchema={CreateTopicValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
-					setWasPressed(true)
-					sendData(values)
+					sendDataOnce(values)
 				}}
 			>
 				{({
@@ -112,7 +110,7 @@ export default function EditNoteForm({
 							title={t('edit_topic')}
 							onPress={handleSubmit}
 							disabled={checkForFalse(
-								checkForFalse(!isValid, wasPressed),
+								!isValid,
 								CheckForShallowObjectEquality(values, initialValues)
 							)}
 						/>

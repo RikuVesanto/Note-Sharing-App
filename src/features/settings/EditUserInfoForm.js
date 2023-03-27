@@ -4,20 +4,22 @@ import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { EditUserInfoValidationSchema } from '../../utils/validation-schemas'
 import { getData, putData } from '../../utils/http-requests'
-import { showStatusMessage, checkForFalse } from '../../utils/general-functions'
+import {
+	showStatusMessage,
+	getUserId,
+	CheckForShallowObjectEquality,
+	checkForFalse,
+	doOnce,
+} from '../../utils/general-functions'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
-import {
-	getUserId,
-	CheckForShallowObjectEquality,
-} from '../../utils/general-functions'
 
 export default function EditUserInfoForm() {
 	const { t } = useTranslation()
+	let sendDataOnce = doOnce(sendData)
 	const [currentValues, setCurrentValues] = useState([])
-	const [wasPressed, setWasPressed] = useState(false)
 
 	useEffect(() => {
 		fetchUserData()
@@ -35,7 +37,7 @@ export default function EditUserInfoForm() {
 		})
 	}
 
-	const sendData = async (values) => {
+	async function sendData(values) {
 		const userId = await getUserId()
 		const data = {
 			id: userId,
@@ -47,10 +49,10 @@ export default function EditUserInfoForm() {
 			onSuccess: async (response) => {
 				showStatusMessage(response.data, 'success')
 				fetchUserData()
-				setWasPressed(false)
+				sendDataOnce = doOnce(sendData)
 			},
 			onError: (error) => {
-				setWasPressed(false)
+				sendDataOnce = doOnce(sendData)
 				showStatusMessage(error.data, 'failure')
 			},
 		})
@@ -69,8 +71,7 @@ export default function EditUserInfoForm() {
 			validationSchema={EditUserInfoValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
-				setWasPressed(true)
-				sendData(values)
+				sendDataOnce(values)
 			}}
 		>
 			{({
@@ -123,11 +124,8 @@ export default function EditUserInfoForm() {
 							title={t('edit')}
 							onPress={handleSubmit}
 							disabled={checkForFalse(
-								checkForFalse(
-									!isValid,
-									CheckForShallowObjectEquality(values, initialValues)
-								),
-								wasPressed
+								!isValid,
+								CheckForShallowObjectEquality(values, initialValues)
 							)}
 						/>
 					</View>

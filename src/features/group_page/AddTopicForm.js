@@ -7,12 +7,11 @@ import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { CreateTopicValidationSchema } from '../../utils/validation-schemas'
 import { postData } from '../../utils/http-requests'
-import { showStatusMessage } from '../../utils/general-functions'
+import { showStatusMessage, doOnce } from '../../utils/general-functions'
 import BackButton from '../general_components/BackButton'
 import FormField from '../general_components/FormField'
-import { checkForFalse } from '../../utils/general-functions'
 import { filterObject } from '../../utils/object-functions'
-import React, { useState } from 'react'
+import React from 'react'
 
 export default function NewTopicForm({
 	newTopicFormVisible,
@@ -22,8 +21,9 @@ export default function NewTopicForm({
 	setRefreshTopics,
 }) {
 	const { t } = useTranslation()
-	const [wasPressed, setWasPressed] = useState(false)
-	const sendData = async (values) => {
+	let sendDataOnce = doOnce(sendData)
+
+	async function sendData(values) {
 		const topicData = filterObject(
 			{
 				...values,
@@ -36,10 +36,10 @@ export default function NewTopicForm({
 				showStatusMessage(response.data, 'success')
 				setRefreshTopics(!refreshTopics)
 				setNewTopicFormVisible(false)
-				setWasPressed(false)
+				sendDataOnce = doOnce(sendData)
 			},
 			onError: (error) => {
-				setWasPressed(false)
+				sendDataOnce = doOnce(sendData)
 				showStatusMessage(error.data.message, 'failure')
 			},
 		})
@@ -69,8 +69,7 @@ export default function NewTopicForm({
 					validationSchema={CreateTopicValidationSchema}
 					validateOnMount={true}
 					onSubmit={(values) => {
-						setWasPressed(true)
-						sendData(values)
+						sendDataOnce(values)
 					}}
 				>
 					{({
@@ -110,7 +109,7 @@ export default function NewTopicForm({
 									buttonStyle={styles.button}
 									title={t('create_topic')}
 									onPress={handleSubmit}
-									disabled={checkForFalse(!isValid, wasPressed)}
+									disabled={!isValid}
 								/>
 							</View>
 						</View>

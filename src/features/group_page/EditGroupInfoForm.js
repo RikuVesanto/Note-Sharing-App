@@ -4,7 +4,7 @@ import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { CreateGroupValidationSchema } from '../../utils/validation-schemas'
 import { putData } from '../../utils/http-requests'
-import { showStatusMessage } from '../../utils/general-functions'
+import { showStatusMessage, doOnce } from '../../utils/general-functions'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 import {
@@ -29,8 +29,9 @@ export default function EditGroupInfoForm({
 }) {
 	const navigation = useNavigation()
 	const { t } = useTranslation()
-	const [wasPressed, setWasPressed] = useState(false)
-	const sendData = async (values) => {
+	let sendDataOnce = doOnce(sendData)
+
+	async function sendData(values) {
 		const groupData = filterObject(
 			{
 				...values,
@@ -50,10 +51,10 @@ export default function EditGroupInfoForm({
 				setNavigate(object)
 				setRefreshGroups(!refreshGroups)
 				setEditGroupInfo(false)
-				setWasPressed(false)
+				sendDataOnce = doOnce(sendData)
 			},
 			onError: (error) => {
-				setWasPressed(false)
+				sendDataOnce = doOnce(sendData)
 				showStatusMessage(error.data, 'failure')
 			},
 		})
@@ -69,8 +70,7 @@ export default function EditGroupInfoForm({
 				validationSchema={CreateGroupValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
-					setWasPressed(true)
-					sendData(values)
+					sendDataOnce(values)
 				}}
 			>
 				{({
@@ -118,7 +118,7 @@ export default function EditGroupInfoForm({
 							title={t('edit_group_name')}
 							onPress={handleSubmit}
 							disabled={checkForFalse(
-								checkForFalse(!isValid, wasPressed),
+								!isValid,
 								CheckForShallowObjectEquality(values, initialValues)
 							)}
 						/>

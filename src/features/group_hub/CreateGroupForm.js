@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Text } from 'react-native'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { CreateGroupValidationSchema } from '../../utils/validation-schemas'
 import { postData } from '../../utils/http-requests'
-import { showStatusMessage } from '../../utils/general-functions'
+import { showStatusMessage, doOnce } from '../../utils/general-functions'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
@@ -24,9 +24,9 @@ export default function CreateGroupForm({
 }) {
 	const navigation = useNavigation()
 	const { t } = useTranslation()
-	const [wasPressed, setWasPressed] = useState(false)
+	let sendDataOnce = doOnce(sendData)
 
-	const sendData = async (values) => {
+	async function sendData(values) {
 		const userId = await getUserId()
 		const groupData = filterObject(
 			{
@@ -72,8 +72,7 @@ export default function CreateGroupForm({
 				validationSchema={CreateGroupValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
-					setWasPressed(true)
-					sendData(values)
+					sendDataOnce(values)
 				}}
 			>
 				{({
@@ -124,7 +123,7 @@ export default function CreateGroupForm({
 							buttonStyle={styles.button}
 							title={t('create_group')}
 							onPress={handleSubmit}
-							disabled={checkForFalse(!isValid, wasPressed)}
+							disabled={!isValid}
 						/>
 					</View>
 				)}

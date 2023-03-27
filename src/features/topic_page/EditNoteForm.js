@@ -9,10 +9,11 @@ import { filterObject } from '../../utils/object-functions'
 import { useTranslation } from 'react-i18next'
 import '../language_select/i18n'
 import {
+	doOnce,
 	checkForFalse,
 	CheckForShallowObjectEquality,
 } from '../../utils/general-functions'
-import React, { useState } from 'react'
+import React from 'react'
 import FormField from '../general_components/FormField'
 import CloseButton from '../general_components/closeButton'
 
@@ -27,9 +28,9 @@ export default function EditNoteForm({
 	orderCount,
 }) {
 	const { t } = useTranslation()
-	const [wasPressed, setWasPressed] = useState(false)
+	const sendDataOnce = doOnce(sendData)
 
-	const sendData = async (values) => {
+	async function sendData(values) {
 		const noteData = filterObject(
 			{
 				...values,
@@ -44,10 +45,8 @@ export default function EditNoteForm({
 				const tempArray = notesStatus
 				tempArray[orderCount] = false
 				setNotesStatus(tempArray)
-				setWasPressed(false)
 			},
 			onError: (error) => {
-				setWasPressed(false)
 				showStatusMessage(error.data, 'failure')
 			},
 		})
@@ -69,8 +68,7 @@ export default function EditNoteForm({
 				validationSchema={NoteValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
-					setWasPressed(true)
-					sendData(values)
+					sendDataOnce(values)
 				}}
 			>
 				{({
@@ -120,7 +118,7 @@ export default function EditNoteForm({
 							title={t('create_note')}
 							onPress={handleSubmit}
 							disabled={checkForFalse(
-								checkForFalse(!isValid, wasPressed),
+								!isValid,
 								CheckForShallowObjectEquality(values, initialValues)
 							)}
 						/>

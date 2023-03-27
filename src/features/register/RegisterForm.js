@@ -1,22 +1,21 @@
 import { View } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { RegisterValidationSchema } from '../../utils/validation-schemas'
 import { postData } from '../../utils/http-requests'
-import { showStatusMessage } from '../../utils/general-functions'
+import { showStatusMessage, doOnce } from '../../utils/general-functions'
 import '../language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../utils/styles'
 import FormField from '../general_components/FormField'
-import { checkForFalse } from '../../utils/general-functions'
 import { filterObject } from '../../utils/object-functions'
 
 export default function RegisterForm({ setLoginPage }) {
 	const { t } = useTranslation()
-	const [wasPressed, setWasPressed] = useState(false)
+	let sendDataOnce = doOnce(sendData)
 
-	const sendData = async (values) => {
+	async function sendData(values) {
 		const userData = filterObject(
 			{
 				...values,
@@ -25,12 +24,11 @@ export default function RegisterForm({ setLoginPage }) {
 		)
 		await postData(userData, '/users/user', {
 			onSuccess: async (response) => {
-				console.log(response.data)
 				showStatusMessage(response.data, 'success')
 				setLoginPage(true)
 			},
 			onError: (error) => {
-				setWasPressed(false)
+				sendDataOnce = doOnce(sendData)
 				showStatusMessage(error.data, 'failure')
 			},
 		})
@@ -47,8 +45,7 @@ export default function RegisterForm({ setLoginPage }) {
 			validationSchema={RegisterValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
-				setWasPressed(!wasPressed)
-				sendData(values)
+				sendDataOnce(values)
 			}}
 		>
 			{({
@@ -111,7 +108,7 @@ export default function RegisterForm({ setLoginPage }) {
 							name="button"
 							title={t('register')}
 							onPress={handleSubmit}
-							disabled={checkForFalse(!isValid, wasPressed)}
+							disabled={!isValid}
 						/>
 					</View>
 				</View>
