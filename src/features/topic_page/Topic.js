@@ -30,12 +30,20 @@ export default function Topic({
 	}, [refreshNotes])
 
 	useEffect(() => {
-		createNoteBlocks()
-	}, [notes])
-
-	useEffect(() => {
-		createNoteBlocks()
-	}, [refreshBlocks])
+		notes.forEach((element, index) => {
+			if (notesStatus[index] != true && notesStatus[index] != false) {
+				addToUseStateSlot(false, index)
+			}
+			const noteBlock = createNoteBlock(
+				refreshNotes,
+				setRefreshNotes,
+				notesStatus,
+				setNotesStatus,
+				addToUseStateSlot
+			)
+			setNoteBlocks(notes.map(noteBlock))
+		})
+	}, [notes, refreshBlocks])
 
 	const getNotes = async () => {
 		await getData(`/notes/notelist/${id}`, {
@@ -53,6 +61,7 @@ export default function Topic({
 			notesStatus[i] = false
 		}
 	}
+
 	const addToUseStateSlot = (item, slot) => {
 		closeNoteForms()
 		const tempArray = notesStatus
@@ -63,14 +72,15 @@ export default function Topic({
 		}
 	}
 
-	//remove reliance on global variable addToUseStateSlot
-	const createNoteBlocks = () => {
-		notes.forEach((element, index) => {
-			if (notesStatus[index] != true && notesStatus[index] != false) {
-				addToUseStateSlot(false, index)
-			}
-		})
-		const blocks = notes.map((note, index) => {
+	const createNoteBlock =
+		(
+			refreshNotes,
+			setRefreshNotes,
+			notesStatus,
+			setNotesStatus,
+			addToUseStateSlot
+		) =>
+		(note, index) => {
 			return (
 				<View key={note.id}>
 					{notesStatus[index] ? (
@@ -95,9 +105,7 @@ export default function Topic({
 					)}
 				</View>
 			)
-		})
-		setNoteBlocks(blocks)
-	}
+		}
 
 	return (
 		<ScrollView>

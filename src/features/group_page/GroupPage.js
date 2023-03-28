@@ -54,7 +54,14 @@ export default function GroupPage({
 	}, [refreshTopics])
 
 	useEffect(() => {
-		createTopicCards()
+		setTopicCards(
+			topics.map((topic) =>
+				topicCard(topic, () => {
+					setActiveTopic(topic)
+					setTopicsNotesVisible(true)
+				})
+			)
+		)
 	}, [topics])
 
 	const getCreator = async (groupId, userId) => {
@@ -79,19 +86,15 @@ export default function GroupPage({
 		})
 	}
 
-	const createTopicCards = () => {
-		const cards = topics.map((topic) => (
+	const topicCard = (topic, action) => {
+		return (
 			<TopicCard
 				key={topic.id}
 				title={topic.topic}
 				description={topic.description}
-				action={() => {
-					setActiveTopic(topic)
-					setTopicsNotesVisible(true)
-				}}
+				action={action}
 			/>
-		))
-		setTopicCards(cards)
+		)
 	}
 
 	return (

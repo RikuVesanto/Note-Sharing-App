@@ -29,30 +29,32 @@ export default function GroupSearch({
 	const [searchResultCards, setSearchResultCards] = useState([])
 
 	useEffect(() => {
-		createSearchResultCards()
+		if (groups) {
+			const resultCount = groups.length
+			const resultCards = groups.map((group) =>
+				createSearchResultCard(group, joinGroup)
+			)
+			const resultCountAndCards = [
+				<Text key="results" style={localStyles.resultsText}>
+					{resultCount + ' ' + t('results_found')}
+				</Text>,
+				...resultCards,
+			]
+			setSearchResultCards(resultCountAndCards)
+		}
 	}, [groups])
 
-	const createSearchResultCards = () => {
-		if (groups) {
-			const results = groups.length
-			const screens = groups.map((group) => (
-				<SearchResultCard
-					key={group.id}
-					name={group.name}
-					description={group.description}
-					action={joinGroup}
-					groupId={group.id}
-					usersGroups={usersGroups}
-				/>
-			))
-			const resultAndScreens = [
-				<Text key="results" style={localStyles.resultsText}>
-					{results + ' ' + t('results_found')}
-				</Text>,
-				...screens,
-			]
-			setSearchResultCards(resultAndScreens)
-		}
+	const createSearchResultCard = (group, action) => {
+		return (
+			<SearchResultCard
+				key={group.id}
+				name={group.name}
+				description={group.description}
+				action={action}
+				groupId={group.id}
+				usersGroups={usersGroups}
+			/>
+		)
 	}
 
 	const joinGroup = async (groupId, location) => {
