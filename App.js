@@ -15,6 +15,7 @@ import AppStorage from './src/utils/secure-store'
 import './src/features/language_select/i18n'
 import { useTranslation } from 'react-i18next'
 import { getUserId } from './src/utils/general-functions'
+import { NavigationWrapper } from './src/navigation_components/NavigationWrapper'
 
 const Drawer = createDrawerNavigator()
 
@@ -23,7 +24,7 @@ export default function App() {
 	const [loginPage, setLoginPage] = useState(true)
 	const [login, setLogin] = useState(false)
 	const [groups, setGroups] = useState([])
-	const [groupScreens, setGroupScreens] = useState([])
+	const [loggedInScreen, setLoggedInScreen] = useState([])
 
 	const [refreshGroups, setRefreshGroups] = useState(false)
 	const [navigate, setNavigate] = useState(null)
@@ -46,7 +47,11 @@ export default function App() {
 	}, [login, refreshGroups])
 
 	useEffect(() => {
-		createGroupScreens()
+		setLoggedInScreen(
+			<NavigationWrapper
+				screens={groups.map(createGroupScreen).concat(staticScreens())}
+			/>
+		)
 	}, [groups])
 
 	useEffect(() => {
@@ -54,7 +59,7 @@ export default function App() {
 			navigate.navigate()
 			setNeedToNavigate(false)
 		}
-	}, [groupScreens])
+	}, [loggedInScreen])
 
 	const getGroups = async () => {
 		const userId = await getUserId()
@@ -68,8 +73,8 @@ export default function App() {
 		})
 	}
 
-	const createGroupScreens = () => {
-		const screens = groups.map((group) => (
+	function createGroupScreen(group) {
+		return (
 			<Drawer.Screen
 				key={group.id}
 				name={group.name}
@@ -91,23 +96,12 @@ export default function App() {
 					),
 				}}
 			/>
-		))
-		setGroupScreens(screens)
+		)
 	}
 
-	const loggedInScreen = (
-		<NavigationContainer>
-			<Drawer.Navigator
-				screenOptions={{
-					drawerActiveTintColor: '#ffffff',
-					drawerInactiveTintColor: '#ffffff',
-					drawerStyle: {
-						backgroundColor: '#8cbbf1',
-						width: '65%',
-					},
-				}}
-			>
-				{groupScreens}
+	function staticScreens() {
+		return (
+			<React.Fragment key="fragment">
 				<Drawer.Screen
 					name={'Group Hub'}
 					//tab translation not working currently
@@ -144,9 +138,9 @@ export default function App() {
 					}}
 					children={() => <Settings setLogin={setLogin} />}
 				/>
-			</Drawer.Navigator>
-		</NavigationContainer>
-	)
+			</React.Fragment>
+		)
+	}
 
 	const loginScreen = loginPage ? (
 		<View>
