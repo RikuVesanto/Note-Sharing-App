@@ -138,7 +138,6 @@ export default StyleSheet.create({
 	infoMessageFontColorNeutral: {
 		color: '#000000',
 	},
-	//App.js style
 	icon: {
 		height: 40,
 		width: 40,

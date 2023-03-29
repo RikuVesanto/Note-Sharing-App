@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import i18n from '../features/language_select/i18n'
+import i18n from '../components/features/language_select/i18n'
 
 module.exports = {
 	LoginValidationSchema: Yup.object().shape({
@@ -31,10 +31,7 @@ module.exports = {
 			.min(4, i18n.t('name_short_validation'))
 			.max(48, i18n.t('name_long_validation'))
 			.required(i18n.t('name_required_validation')),
-		description: Yup.string().max(
-			100,
-			i18n.t('description_long_validation')
-		),
+		description: Yup.string().max(100, i18n.t('description_long_validation')),
 		password: Yup.string()
 			.min(8, i18n.t('register_password_validation_short'))
 			.max(256, i18n.t('register_password_validation_long')),
@@ -43,10 +40,7 @@ module.exports = {
 		topic: Yup.string()
 			.max(48, i18n.t('topic_long_validation'))
 			.required(i18n.t('topic_required_validation')),
-		description: Yup.string().max(
-			100,
-			i18n.t('description_long_validation')
-		),
+		description: Yup.string().max(100, i18n.t('description_long_validation')),
 	}),
 	NoteValidationSchema: Yup.object().shape({
 		title: Yup.string().max(48, i18n.t('title_long_validation')),
