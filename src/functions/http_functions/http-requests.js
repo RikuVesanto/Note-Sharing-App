@@ -4,26 +4,17 @@ import AppStorage from '../../utils/secure-store'
 url = 'http://192.168.1.193:3000'
 
 /**
- * Execute the callbacks on axios HTTP request promise. Should not be used separately.
+ * Takes an axios HTTP request promise and handles its response and returns it
  * @param {*} request Request promise
- * @param {*} callbacks Callbacks object with onSuccess, onError and onCompletion functions
+ * @returns {*} Response to the request
  */
-async function executeRequestCallbacks(request, callbacks) {
+async function executeRequest(request) {
 	return request
 		.then((response) => {
-			try {
-				callbacks.onSuccess(response)
-			} catch (callbackError) {}
+			return response
 		})
 		.catch((error) => {
-			try {
-				callbacks.onError(error.response)
-			} catch (callbackError) {}
-		})
-		.then(() => {
-			try {
-				callbacks.onCompletion()
-			} catch (error) {}
+			return error.response
 		})
 }
 
@@ -33,15 +24,14 @@ async function executeRequestCallbacks(request, callbacks) {
  * @param {*} requestUrl The specific route that the request is made to.
  * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
-async function postData(data, requestUrl, callbacks) {
+async function postData(data, requestUrl) {
 	const token = await AppStorage.getValueFor('loginInfo')
-	await executeRequestCallbacks(
+	return await executeRequest(
 		axios.post(url + requestUrl, data, {
 			headers: {
 				authorization: token,
 			},
-		}),
-		callbacks
+		})
 	)
 }
 
@@ -50,15 +40,14 @@ async function postData(data, requestUrl, callbacks) {
  * @param {*} requestUrl The specific route that the request is made to.
  * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
-async function getData(requestUrl, callbacks) {
+async function getData(requestUrl) {
 	const token = await AppStorage.getValueFor('loginInfo')
-	await executeRequestCallbacks(
+	return await executeRequest(
 		axios.get(url + requestUrl, {
 			headers: {
 				authorization: token,
 			},
-		}),
-		callbacks
+		})
 	)
 }
 
@@ -68,15 +57,14 @@ async function getData(requestUrl, callbacks) {
  * @param {*} requestUrl The specific route that the request is made to.
  * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
-async function putData(data, requestUrl, callbacks) {
+async function putData(data, requestUrl) {
 	const token = await AppStorage.getValueFor('loginInfo')
-	await executeRequestCallbacks(
+	return await executeRequest(
 		axios.put(url + requestUrl, data, {
 			headers: {
 				authorization: token,
 			},
-		}),
-		callbacks
+		})
 	)
 }
 
@@ -85,15 +73,14 @@ async function putData(data, requestUrl, callbacks) {
  * @param {*} requestUrl The specific route that the request is made to.
  * @param {*} callbacks Object with optional callback functions named onSuccess, onError and onCompletion.
  */
-async function deleteData(requestUrl, callbacks) {
+async function deleteData(requestUrl) {
 	const token = await AppStorage.getValueFor('loginInfo')
-	await executeRequestCallbacks(
+	return await executeRequest(
 		axios.delete(url + requestUrl, {
 			headers: {
 				authorization: token,
 			},
-		}),
-		callbacks
+		})
 	)
 }
 

@@ -1,8 +1,6 @@
 import { TouchableOpacity, ImageBackground, Text, View } from 'react-native'
 import styles from '../../../utils/styles'
 import localStyles from './noteCard.style'
-import { showStatusMessage } from '../../../functions/general-functions'
-import { deleteData } from '../../../functions/http_functions/http-requests'
 
 export default function SearchResultCard({
 	title,
@@ -10,27 +8,14 @@ export default function SearchResultCard({
 	id,
 	count,
 	addToUseStateSlot,
-	setRefreshNotes,
-	refreshNotes,
+	action,
 }) {
-	const deleteNote = async (id) => {
-		await deleteData(`/notes/note/${id}`, {
-			onSuccess: async (response) => {
-				showStatusMessage(response.data, 'success')
-				setRefreshNotes(!refreshNotes)
-			},
-			onError: (error) => {
-				showStatusMessage(error.data, 'failure')
-			},
-		})
-	}
-
 	return (
 		<View style={styles.noteCard}>
 			{title ? <Text style={styles.topicTitle}>{title}</Text> : null}
 			<Text style={styles.topicDescription}>{content}</Text>
 			<View style={localStyles.buttonContainer}>
-				<TouchableOpacity title="delete" onPress={() => deleteNote(id)}>
+				<TouchableOpacity title="delete" onPress={() => action(id)}>
 					<ImageBackground
 						style={localStyles.deleteButton}
 						source={require('../../../../assets/delete.png')}

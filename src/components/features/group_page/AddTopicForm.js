@@ -1,49 +1,21 @@
 import { View, Text, Modal } from 'react-native'
-import '../language_select/i18n'
+import '../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../../utils/styles'
 import localStyles from './addTopicForm.style'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { CreateTopicValidationSchema } from '../../../utils/validation-schemas'
-import { postData } from '../../../functions/http_functions/http-requests'
-import { showStatusMessage, doOnce } from '../../../functions/general-functions'
 import BackButton from '../../general_components/BackButton'
 import FormField from '../../general_components/FormField'
-import { filterObject } from '../../../functions/object-functions'
 import React from 'react'
 
 export default function NewTopicForm({
 	newTopicFormVisible,
 	setNewTopicFormVisible,
-	groupId,
-	refreshTopics,
-	setRefreshTopics,
+	action,
 }) {
 	const { t } = useTranslation()
-	let sendDataOnce = doOnce(sendData)
-
-	async function sendData(values) {
-		const topicData = filterObject(
-			{
-				...values,
-				groupId: groupId,
-			},
-			(value) => value !== ''
-		)
-		await postData(topicData, '/topics/topic', {
-			onSuccess: async (response) => {
-				showStatusMessage(response.data, 'success')
-				setRefreshTopics(!refreshTopics)
-				setNewTopicFormVisible(false)
-				sendDataOnce = doOnce(sendData)
-			},
-			onError: (error) => {
-				sendDataOnce = doOnce(sendData)
-				showStatusMessage(error.data.message, 'failure')
-			},
-		})
-	}
 
 	return (
 		<Modal
@@ -69,7 +41,7 @@ export default function NewTopicForm({
 					validationSchema={CreateTopicValidationSchema}
 					validateOnMount={true}
 					onSubmit={(values) => {
-						sendDataOnce(values)
+						action(values)
 					}}
 				>
 					{({

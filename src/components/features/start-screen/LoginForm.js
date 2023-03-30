@@ -2,33 +2,15 @@ import { View } from 'react-native'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { LoginValidationSchema } from '../../../utils/validation-schemas'
-import { getData } from '../../../functions/http_functions/http-requests'
-import { showStatusMessage, doOnce } from '../../../functions/general-functions'
-import '../language_select/i18n'
+import '../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../../utils/styles'
 import FormField from '../../general_components/FormField'
-import AppStorage from '../../../utils/secure-store'
+
 import React from 'react'
 
-export default function LoginForm({ setLogin }) {
+export default function LoginForm({ action }) {
 	const { t } = useTranslation()
-	let sendDataOnce = doOnce(sendData)
-
-	async function sendData(values) {
-		await getData(`/users/user/${values.username}/${values.password}`, {
-			onSuccess: async (response) => {
-				showStatusMessage('Login successful', 'success', 600)
-				AppStorage.save('loginInfo', response.data)
-				setLogin(true)
-			},
-			onError: (error) => {
-				sendDataOnce = doOnce(sendData)
-				console.log(error.status, error.data.message)
-				showStatusMessage(error.data.message, 'failure')
-			},
-		})
-	}
 
 	return (
 		<Formik
@@ -39,7 +21,7 @@ export default function LoginForm({ setLogin }) {
 			validationSchema={LoginValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
-				sendDataOnce(values)
+				action(values)
 			}}
 		>
 			{({

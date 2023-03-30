@@ -6,17 +6,24 @@ import {
 	TouchableOpacity,
 	ImageBackground,
 } from 'react-native'
-import '../language_select/i18n'
+import '../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../../utils/styles'
 import localStyles from './groupPage.style'
 import AddTopicForm from './AddTopicForm'
 import EditGroupInfoForm from './EditGroupInfoForm'
-import Topic from '../topic_page/Topic'
+import Topic from '../topic-page/Topic'
 import TopicCard from './TopicCard'
-import Menu from './Menu'
-import { getData } from '../../../functions/http_functions/http-requests'
+import Menu from '../group-menu/Menu'
 import { getUserId } from '../../../functions/general-functions'
+import {
+	getTopics,
+	getGroupsCreator,
+} from '../../../functions/http_functions/get-calls'
+import { addTopic } from '../../../functions/http_functions/post-calls'
+import { changeGroupInfo } from '../../../functions/http_functions/put-calls'
+import { showStatusMessage, doOnce } from '../../../functions/general-functions'
+import { useNavigation } from '@react-navigation/native'
 
 export default function GroupPage({
 	id,
@@ -32,7 +39,6 @@ export default function GroupPage({
 	const [newTopicFormVisible, setNewTopicFormVisible] = useState(false)
 	const [topicsNotesVisible, setTopicsNotesVisible] = useState(false)
 	const [topicCards, setTopicCards] = useState([])
-	const [topics, setTopics] = useState([])
 	const [activeTopic, setActiveTopic] = useState([])
 	const [refreshTopics, setRefreshTopics] = useState(false)
 	const [menu, setMenu] = useState(false)
@@ -40,51 +46,37 @@ export default function GroupPage({
 	const [admin, setAdmin] = useState(false)
 	const [userId, setUserId] = useState(false)
 
+	const navigation = useNavigation()
+	let submitEditGroupInfoFormOnce = doOnce(submitEditGroupInfoForm)
+	let submitTopicFormOnce = doOnce(submitTopicForm)
+
 	useEffect(() => {
-		async function fetchData() {
+		;(async () => {
 			const tempId = await getUserId()
 			setUserId(tempId)
-			await getCreator(id, tempId)
-		}
-		fetchData()
+			const response = await getGroupsCreator(id, tempId)
+			if (response.status === 200) {
+				setAdmin(response.data)
+			}
+		})()
 	}, [])
 
 	useEffect(() => {
-		getTopics()
+		;(async () => {
+			const response = await getTopics(id)
+			if (response.status === 200) {
+				const topics = response.data
+				setTopicCards(
+					topics.map((topic) =>
+						topicCard(topic, () => {
+							setActiveTopic(topic)
+							setTopicsNotesVisible(true)
+						})
+					)
+				)
+			}
+		})()
 	}, [refreshTopics])
-
-	useEffect(() => {
-		setTopicCards(
-			topics.map((topic) =>
-				topicCard(topic, () => {
-					setActiveTopic(topic)
-					setTopicsNotesVisible(true)
-				})
-			)
-		)
-	}, [topics])
-
-	const getCreator = async (groupId, userId) => {
-		await getData(`/groups/group/creator/${groupId}/${userId}`, {
-			onSuccess: async (response) => {
-				setAdmin(response.data)
-			},
-			onError: (error) => {
-				console.log(error)
-			},
-		})
-	}
-
-	const getTopics = async () => {
-		await getData(`/topics/topiclist/${id}`, {
-			onSuccess: async (response) => {
-				setTopics(response.data)
-			},
-			onError: (error) => {
-				console.log(error)
-			},
-		})
-	}
 
 	const topicCard = (topic, action) => {
 		return (
@@ -95,6 +87,35 @@ export default function GroupPage({
 				action={action}
 			/>
 		)
+	}
+
+	async function submitEditGroupInfoForm(values) {
+		const response = await changeGroupInfo(values, id)
+		if (response.status === 200) {
+			showStatusMessage(response.data, 'success')
+			setNeedToNavigate(true)
+			const object = {}
+			object.navigate = () => {
+				setNeedToNavigate(false)
+				navigation.navigate(values.name)
+			}
+			setNavigate(object)
+			setRefreshGroups(!refreshGroups)
+			setEditGroupInfo(false)
+		} else {
+			showStatusMessage(response.data, 'failure')
+		}
+	}
+
+	async function submitTopicForm(values) {
+		const response = await addTopic(values, id)
+		if (response.status === 201) {
+			showStatusMessage(response.data, 'success')
+			setRefreshTopics(!refreshTopics)
+			setNewTopicFormVisible(false)
+		} else {
+			showStatusMessage(error.data.message, 'failure')
+		}
 	}
 
 	return (
@@ -124,16 +145,12 @@ export default function GroupPage({
 						></ImageBackground>
 					</TouchableOpacity>
 
-					{EditGroupInfo && !menu && admin ? (
+					{EditGroupInfo && !menu ? (
 						<EditGroupInfoForm
-							id={id}
 							name={name}
 							description={description}
 							setEditGroupInfo={setEditGroupInfo}
-							setRefreshGroups={setRefreshGroups}
-							refreshGroups={refreshGroups}
-							setNeedToNavigate={setNeedToNavigate}
-							setNavigate={setNavigate}
+							action={submitEditGroupInfoFormOnce}
 						/>
 					) : (
 						<TouchableOpacity
@@ -158,7 +175,7 @@ export default function GroupPage({
 							refreshGroups={refreshGroups}
 							userId={userId}
 							admin={admin}
-							getCreator={getCreator}
+							setAdmin={setAdmin}
 						/>
 					)}
 					<ScrollView>
@@ -170,9 +187,7 @@ export default function GroupPage({
 			<AddTopicForm
 				newTopicFormVisible={newTopicFormVisible}
 				setNewTopicFormVisible={setNewTopicFormVisible}
-				groupId={id}
-				refreshTopics={refreshTopics}
-				setRefreshTopics={setRefreshTopics}
+				action={submitTopicFormOnce}
 			/>
 		</View>
 	)

@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text, View } from 'react-native'
 import localStyles from './searchResultCard.style'
-import '../language_select/i18n'
+import '../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 
 export default function SearchResultCard({

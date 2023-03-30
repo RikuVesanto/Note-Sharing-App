@@ -1,8 +1,8 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import en from '../../../../languages/en.json'
-import fi from '../../../../languages/fi.json'
-import AppStorage from '../../../utils/secure-store'
+import en from '../../languages/en.json'
+import fi from '../../languages/fi.json'
+import AppStorage from './secure-store'
 
 i18n.use(initReactI18next).init({
 	compatibilityJSON: 'v3',

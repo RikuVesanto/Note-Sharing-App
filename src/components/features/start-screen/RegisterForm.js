@@ -3,36 +3,13 @@ import React from 'react'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { RegisterValidationSchema } from '../../../utils/validation-schemas'
-import { postData } from '../../../functions/http_functions/http-requests'
-import { showStatusMessage, doOnce } from '../../../functions/general-functions'
-import '../language_select/i18n'
+import '../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../../utils/styles'
 import FormField from '../../general_components/FormField'
-import { filterObject } from '../../../functions/object-functions'
 
-export default function RegisterForm({ setLoginPage }) {
+export default function RegisterForm({ action }) {
 	const { t } = useTranslation()
-	let sendDataOnce = doOnce(sendData)
-
-	async function sendData(values) {
-		const userData = filterObject(
-			{
-				...values,
-			},
-			(value) => value !== ''
-		)
-		await postData(userData, '/users/user', {
-			onSuccess: async (response) => {
-				showStatusMessage(response.data, 'success')
-				setLoginPage(true)
-			},
-			onError: (error) => {
-				sendDataOnce = doOnce(sendData)
-				showStatusMessage(error.data, 'failure')
-			},
-		})
-	}
 
 	return (
 		<Formik
@@ -45,7 +22,7 @@ export default function RegisterForm({ setLoginPage }) {
 			validationSchema={RegisterValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
-				sendDataOnce(values)
+				action(values)
 			}}
 		>
 			{({

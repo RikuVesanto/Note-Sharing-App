@@ -2,41 +2,15 @@ import { View, Text } from 'react-native'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { ChangePasswordValidationSchema } from '../../../utils/validation-schemas'
-import { putData } from '../../../functions/http_functions/http-requests'
-import '../language_select/i18n'
+import '../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../../utils/styles'
 import FormField from '../../general_components/FormField'
-import {
-	getUserId,
-	doOnce,
-	showStatusMessage,
-} from '../../../functions/general-functions'
 import BackButton from '../../general_components/BackButton'
 import React from 'react'
 
-export default function EditUserInfoForm({ setChangePassword }) {
+export default function EditUserInfoForm({ setChangePassword, action }) {
 	const { t } = useTranslation()
-	let sendDataOnce = doOnce(sendData)
-
-	async function sendData(values) {
-		const userId = await getUserId()
-		const data = {
-			id: userId,
-			oldPassword: values.oldPassword,
-			password: values.password,
-		}
-		await putData(data, '/users/user/password', {
-			onSuccess: async (response) => {
-				showStatusMessage(response.data, 'success')
-				setChangePassword(false)
-			},
-			onError: (error) => {
-				sendDataOnce = doOnce(sendData)
-				showStatusMessage(error.data, 'failure')
-			},
-		})
-	}
 
 	return (
 		<View>
@@ -54,7 +28,7 @@ export default function EditUserInfoForm({ setChangePassword }) {
 				validationSchema={ChangePasswordValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
-					sendDataOnce(values)
+					action(values)
 				}}
 			>
 				{({

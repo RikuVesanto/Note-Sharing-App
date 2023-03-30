@@ -1,65 +1,19 @@
 import { View } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { EditUserInfoValidationSchema } from '../../../utils/validation-schemas'
 import {
-	getData,
-	putData,
-} from '../../../functions/http_functions/http-requests'
-import {
-	showStatusMessage,
-	getUserId,
 	CheckForShallowObjectEquality,
 	checkForFalse,
-	doOnce,
 } from '../../../functions/general-functions'
-import '../language_select/i18n'
+import '../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../../utils/styles'
 import FormField from '../../general_components/FormField'
 
-export default function EditUserInfoForm() {
+export default function EditUserInfoForm({ currentValues, action }) {
 	const { t } = useTranslation()
-	let sendDataOnce = doOnce(sendData)
-	const [currentValues, setCurrentValues] = useState([])
-
-	useEffect(() => {
-		fetchUserData()
-	}, [])
-
-	const fetchUserData = async () => {
-		const userId = await getUserId()
-
-		await getData(`/users/user/${userId}`, {
-			onSuccess: (response) => {
-				//console.log(response.data)
-				setCurrentValues(response.data)
-			},
-			onError: (error) => {},
-		})
-	}
-
-	async function sendData(values) {
-		const userId = await getUserId()
-		const data = {
-			id: userId,
-			email: values.email,
-			username: values.username,
-			name: values.name,
-		}
-		await putData(data, '/users/user', {
-			onSuccess: async (response) => {
-				showStatusMessage(response.data, 'success')
-				fetchUserData()
-				sendDataOnce = doOnce(sendData)
-			},
-			onError: (error) => {
-				sendDataOnce = doOnce(sendData)
-				showStatusMessage(error.data, 'failure')
-			},
-		})
-	}
 
 	const initialValues = {
 		email: currentValues.email,
@@ -74,7 +28,7 @@ export default function EditUserInfoForm() {
 			validationSchema={EditUserInfoValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
-				sendDataOnce(values)
+				action(values)
 			}}
 		>
 			{({

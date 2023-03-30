@@ -3,59 +3,14 @@ import { View, Text } from 'react-native'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { CreateGroupValidationSchema } from '../../../utils/validation-schemas'
-import { postData } from '../../../functions/http_functions/http-requests'
-import '../language_select/i18n'
+import '../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../../utils/styles'
 import FormField from '../../general_components/FormField'
 import BackButton from '../../general_components/BackButton'
-import { useNavigation } from '@react-navigation/native'
-import {
-	getUserId,
-	showStatusMessage,
-	doOnce,
-} from '../../../functions/general-functions'
-import { filterObject } from '../../../functions/object-functions'
 
-export default function CreateGroupForm({
-	setCreateGroup,
-	setNeedToNavigate,
-	refreshGroups,
-	setRefreshGroups,
-	setNavigate,
-}) {
-	const navigation = useNavigation()
+export default function CreateGroupForm({ setCreateGroup, action }) {
 	const { t } = useTranslation()
-	let sendDataOnce = doOnce(sendData)
-
-	async function sendData(values) {
-		const userId = await getUserId()
-		const groupData = filterObject(
-			{
-				...values,
-				creatorId: userId,
-			},
-			(value) => value !== ''
-		)
-		await postData(groupData, '/groups/group', {
-			onSuccess: async (response) => {
-				showStatusMessage(response.data, 'success')
-				setRefreshGroups(!refreshGroups)
-				let object = {}
-				object.navigate = () => {
-					setNeedToNavigate(false)
-					navigation.navigate(values.name)
-				}
-				setNavigate(object)
-				setNeedToNavigate(true)
-				setCreateGroup(false)
-			},
-			onError: (error) => {
-				setWasPressed(false)
-				showStatusMessage(error.data, 'failure')
-			},
-		})
-	}
 
 	return (
 		<View>
@@ -74,7 +29,7 @@ export default function CreateGroupForm({
 				validationSchema={CreateGroupValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
-					sendDataOnce(values)
+					action(values)
 				}}
 			>
 				{({

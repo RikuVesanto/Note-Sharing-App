@@ -3,9 +3,16 @@ import React, { useState } from 'react'
 import CreateGroupForm from './CreateGroupForm'
 import GroupSearch from './GroupSearch'
 import LargeButton from './LargeButton'
-import '../language_select/i18n'
+import '../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../../utils/styles'
+import { useNavigation } from '@react-navigation/native'
+import {
+	getUserId,
+	showStatusMessage,
+	doOnce,
+} from '../../../functions/general-functions'
+import { addGroup } from '../../../functions/http_functions/post-calls'
 
 export default function GroupHub({
 	setNeedToNavigate,
@@ -17,6 +24,28 @@ export default function GroupHub({
 	const { t } = useTranslation()
 	const [createGroup, setCreateGroup] = useState(false)
 	const [joinGroup, setJoinGroup] = useState(false)
+	const navigation = useNavigation()
+	let sendDataOnce = doOnce(submitGroupForm)
+
+	async function submitGroupForm(values) {
+		const userId = await getUserId()
+		const response = await addGroup(values, userId)
+		if (response.status === 201) {
+			showStatusMessage(response.data, 'success')
+			setRefreshGroups(!refreshGroups)
+			let object = {}
+			object.navigate = () => {
+				setNeedToNavigate(false)
+				navigation.navigate(values.name)
+			}
+			setNavigate(object)
+			setNeedToNavigate(true)
+			setCreateGroup(false)
+		} else {
+			showStatusMessage(response.data, 'failure')
+		}
+	}
+
 	return (
 		<ScrollView contentContainerStyle={styles.mainContainer}>
 			{!joinGroup && !createGroup && (
@@ -30,11 +59,8 @@ export default function GroupHub({
 			)}
 			{createGroup && (
 				<CreateGroupForm
-					refreshGroups={refreshGroups}
-					setRefreshGroups={setRefreshGroups}
 					setCreateGroup={setCreateGroup}
-					setNeedToNavigate={setNeedToNavigate}
-					setNavigate={setNavigate}
+					action={sendDataOnce}
 				/>
 			)}
 			{joinGroup && (

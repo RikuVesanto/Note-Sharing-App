@@ -95,7 +95,7 @@ const CheckForShallowObjectEquality = (object1, object2) => {
 	if (keys1.length !== keys2.length) {
 		return false
 	}
-	const hasSameKeys = (key, index) => key === keys2[index]
+	const hasSameKeys = (key) => object1[key] === object2[key]
 	return keys1.every(hasSameKeys)
 }
 

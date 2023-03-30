@@ -3,52 +3,23 @@ import styles from '../../../utils/styles'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { CreateTopicValidationSchema } from '../../../utils/validation-schemas'
-import { putData } from '../../../functions/http_functions/http-requests'
 import { useTranslation } from 'react-i18next'
-import '../language_select/i18n'
+import '../../../utils/i18n'
 import {
-	doOnce,
 	CheckForShallowObjectEquality,
 	checkForFalse,
-	showStatusMessage,
 } from '../../../functions/general-functions'
-import { filterObject } from '../../../functions/object-functions'
 import React from 'react'
 import FormField from '../../general_components/FormField'
-import CloseButton from '../../general_components/closeButton'
+import CloseButton from '../../general_components/CloseButton'
 
 export default function EditNoteForm({
-	topicId,
 	topic,
 	description,
-	setRefreshTopics,
-	refreshTopics,
 	setEditTopic,
-	setActiveTopic,
+	action,
 }) {
 	const { t } = useTranslation()
-	const sendDataOnce = doOnce(sendData)
-
-	async function sendData(values) {
-		const topicData = filterObject(
-			{
-				...values,
-				id: topicId,
-			},
-			(value) => value !== ''
-		)
-		await putData(topicData, `/topics/topic/`, {
-			onSuccess: async (response) => {
-				showStatusMessage(response.data, 'success')
-				setRefreshTopics(!refreshTopics)
-				setEditTopic(false)
-				setActiveTopic(topicData)
-			},
-			onError: (error) => {
-				showStatusMessage(error.data, 'failure')
-			},
-		})
-	}
 
 	const initialValues = { topic: topic, description: description }
 	return (
@@ -59,7 +30,7 @@ export default function EditNoteForm({
 				validationSchema={CreateTopicValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
-					sendDataOnce(values)
+					action(values)
 				}}
 			>
 				{({

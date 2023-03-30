@@ -1,5 +1,5 @@
 import * as Yup from 'yup'
-import i18n from '../components/features/language_select/i18n'
+import i18n from './i18n'
 
 module.exports = {
 	LoginValidationSchema: Yup.object().shape({

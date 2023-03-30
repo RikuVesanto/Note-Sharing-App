@@ -3,63 +3,24 @@ import styles from '../../../utils/styles'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { CreateGroupValidationSchema } from '../../../utils/validation-schemas'
-import { putData } from '../../../functions/http_functions/http-requests'
 import { useTranslation } from 'react-i18next'
-import '../language_select/i18n'
+import '../../../utils/i18n'
 import {
 	checkForFalse,
 	CheckForShallowObjectEquality,
-	showStatusMessage,
-	doOnce,
 } from '../../../functions/general-functions'
-import { filterObject } from '../../../functions/object-functions'
 import React from 'react'
 import FormField from '../../general_components/FormField'
-import CloseButton from '../../general_components/closeButton'
-import { useNavigation } from '@react-navigation/native'
+import CloseButton from '../../general_components/CloseButton'
 
 export default function EditGroupInfoForm({
-	id,
 	name,
 	description,
 	setEditGroupInfo,
-	setRefreshGroups,
-	refreshGroups,
-	setNeedToNavigate,
-	setNavigate,
+	action,
 }) {
-	const navigation = useNavigation()
 	const { t } = useTranslation()
-	let sendDataOnce = doOnce(sendData)
 
-	async function sendData(values) {
-		const groupData = filterObject(
-			{
-				...values,
-				groupId: id,
-			},
-			(value) => value !== ''
-		)
-		await putData(groupData, `/groups/group/`, {
-			onSuccess: async (response) => {
-				showStatusMessage(response.data, 'success')
-				setNeedToNavigate(true)
-				const object = {}
-				object.navigate = () => {
-					setNeedToNavigate(false)
-					navigation.navigate(data.name)
-				}
-				setNavigate(object)
-				setRefreshGroups(!refreshGroups)
-				setEditGroupInfo(false)
-				sendDataOnce = doOnce(sendData)
-			},
-			onError: (error) => {
-				sendDataOnce = doOnce(sendData)
-				showStatusMessage(error.data, 'failure')
-			},
-		})
-	}
 	const initialValues = { name: name, description: description }
 
 	return (
@@ -71,7 +32,7 @@ export default function EditGroupInfoForm({
 				validationSchema={CreateGroupValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
-					sendDataOnce(values)
+					action(values)
 				}}
 			>
 				{({

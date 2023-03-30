@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { View, Image } from 'react-native'
 import FlashMessage from 'react-native-flash-message'
-import Register from './src/components/features/register/Register'
-import Login from './src/components/features/login/Login'
-import ChangeLanguage from './src/components/features/language_select/ChangeLanguage'
+import Register from './src/components/features/start-screen/Register'
+import Login from './src/components/features/start-screen/Login'
+import ChangeLanguage from './src/components/general_components/ChangeLanguage'
 import GroupHub from './src/components/features/group_hub/GroupHub'
 import GroupPage from './src/components/features/group_page/GroupPage'
 import Settings from './src/components/features/settings/Settings'
 import styles from './src/utils/styles'
-import { getData } from './src/functions/http_functions/http-requests'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import AppStorage from './src/utils/secure-store'
-import './src/components/features/language_select/i18n'
+import './src/utils/i18n'
 import { useTranslation } from 'react-i18next'
 import { getUserId } from './src/functions/general-functions'
 import { NavigationWrapper } from './src/components/navigation_components/NavigationWrapper'
+import { getUsersGroups } from './src/functions/http_functions/get-calls'
 
 const Drawer = createDrawerNavigator()
 
@@ -22,36 +22,11 @@ export default function App() {
 	const { t } = useTranslation()
 	const [loginPage, setLoginPage] = useState(true)
 	const [login, setLogin] = useState(false)
-	const [groups, setGroups] = useState([])
 	const [loggedInScreen, setLoggedInScreen] = useState([])
 
 	const [refreshGroups, setRefreshGroups] = useState(false)
 	const [navigate, setNavigate] = useState(null)
 	const [needToNavigate, setNeedToNavigate] = useState(false)
-	useEffect(() => {
-		const getLoginInfo = async () => {
-			const userInfo = await AppStorage.getValueFor('loginInfo')
-			if (userInfo) {
-				setLogin(true)
-			}
-		}
-
-		getLoginInfo()
-	}, [])
-
-	useEffect(() => {
-		if (login) {
-			getGroups()
-		}
-	}, [login, refreshGroups])
-
-	useEffect(() => {
-		setLoggedInScreen(
-			<NavigationWrapper
-				screens={groups.map(createGroupScreen).concat(staticScreens())}
-			/>
-		)
-	}, [groups])
 
 	useEffect(() => {
 		if (needToNavigate) {
@@ -60,17 +35,30 @@ export default function App() {
 		}
 	}, [loggedInScreen])
 
-	const getGroups = async () => {
-		const userId = await getUserId()
-		await getData(`/groups/grouplist/${userId}`, {
-			onSuccess: async (response) => {
-				setGroups(response.data)
-			},
-			onError: (error) => {
-				console.log(error)
-			},
-		})
-	}
+	useEffect(() => {
+		;(async () => {
+			const userInfo = await AppStorage.getValueFor('loginInfo')
+			if (userInfo) {
+				setLogin(true)
+			}
+		})()
+	}, [])
+
+	useEffect(() => {
+		if (login) {
+			;(async () => {
+				const userId = await getUserId()
+				const groups = (await getUsersGroups(userId)).data
+				setLoggedInScreen(
+					<NavigationWrapper
+						screens={groups
+							.map(createGroupScreen)
+							.concat(staticScreens(groups))}
+					/>
+				)
+			})()
+		}
+	}, [login, refreshGroups])
 
 	function createGroupScreen(group) {
 		return (
@@ -98,7 +86,7 @@ export default function App() {
 		)
 	}
 
-	function staticScreens() {
+	function staticScreens(groups) {
 		return (
 			<React.Fragment key="fragment">
 				<Drawer.Screen

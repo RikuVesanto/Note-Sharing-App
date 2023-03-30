@@ -3,22 +3,18 @@ import styles from '../../../utils/styles'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { NoteValidationSchema } from '../../../utils/validation-schemas'
-import { putData } from '../../../functions/http_functions/http-requests'
-import { filterObject } from '../../../functions/object-functions'
 import { useTranslation } from 'react-i18next'
-import '../language_select/i18n'
+import '../../../utils/i18n'
 import {
-	doOnce,
 	checkForFalse,
 	CheckForShallowObjectEquality,
-	showStatusMessage,
 } from '../../../functions/general-functions'
 import React from 'react'
 import FormField from '../../general_components/FormField'
-import CloseButton from '../../general_components/closeButton'
+import CloseButton from '../../general_components/CloseButton'
 
 export default function EditNoteForm({
-	id,
+	noteId,
 	title,
 	content,
 	refreshNotes,
@@ -26,33 +22,12 @@ export default function EditNoteForm({
 	notesStatus,
 	setNotesStatus,
 	orderCount,
+	action,
 }) {
 	const { t } = useTranslation()
-	const sendDataOnce = doOnce(sendData)
-
-	async function sendData(values) {
-		const noteData = filterObject(
-			{
-				...values,
-				noteId: id,
-			},
-			(value) => value !== ''
-		)
-		await putData(noteData, `/notes/note/${id}`, {
-			onSuccess: async (response) => {
-				showStatusMessage(response.data, 'success')
-				setRefreshNotes(!refreshNotes)
-				const tempArray = notesStatus
-				tempArray[orderCount] = false
-				setNotesStatus(tempArray)
-			},
-			onError: (error) => {
-				showStatusMessage(error.data, 'failure')
-			},
-		})
-	}
 
 	const initialValues = { title: title, content: content }
+
 	return (
 		<View style={styles.noteCard}>
 			<CloseButton
@@ -68,7 +43,7 @@ export default function EditNoteForm({
 				validationSchema={NoteValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
-					sendDataOnce(values)
+					action(values, noteId, orderCount)
 				}}
 			>
 				{({

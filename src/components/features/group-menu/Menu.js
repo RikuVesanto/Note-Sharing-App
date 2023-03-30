@@ -14,13 +14,11 @@ import {
 	getUserId,
 } from '../../../functions/general-functions'
 import { useNavigation } from '@react-navigation/native'
-import {
-	getData,
-	putData,
-	deleteData,
-} from '../../../functions/http_functions/http-requests'
 import { useTranslation } from 'react-i18next'
-import '../language_select/i18n'
+import '../../../utils/i18n'
+import { getGroupsUserList } from '../../../functions/http_functions/get-calls'
+import { changeGroupAdmin } from '../../../functions/http_functions/put-calls'
+import { removeUserFromGroup } from '../../../functions/http_functions/delete-calls'
 
 export default function Menu({
 	id,
@@ -28,7 +26,7 @@ export default function Menu({
 	refreshGroups,
 	userId,
 	admin,
-	getCreator,
+	setAdmin,
 }) {
 	const { t } = useTranslation()
 	const navigation = useNavigation()
@@ -36,47 +34,41 @@ export default function Menu({
 	const [users, setUsers] = useState([])
 	const [refreshUsers, setRefreshUsers] = useState(false)
 
-	const leaveGroup = async () => {
+	const leaveGroup = async (groupId) => {
 		const userId = await getUserId()
-		await deleteData(`/groups/userconnection/${id}/${userId}`, {
-			onSuccess: async (response) => {
-				showStatusMessage(response.data, 'success', 600)
-				setRefreshGroups(!refreshGroups)
-				navigation.navigate('Group Hub')
-			},
-			onError: (error) => {
-				showStatusMessage(error.data, 'failure')
-			},
-		})
+		const response = await removeUserFromGroup(groupId, userId)
+		if (response.status === 200) {
+			showStatusMessage(response.data, 'success', 600)
+			setRefreshGroups(!refreshGroups)
+			navigation.navigate('Group Hub')
+		} else {
+			showStatusMessage(error.data, 'failure')
+		}
 	}
 
-	const removeFromGroup = async (userId) => {
-		await deleteData(`/groups/userconnection/${id}/${userId}`, {
-			onSuccess: async (response) => {
-				showStatusMessage('Removed user', 'success')
-				setRefreshUsers(!refreshUsers)
-			},
-			onError: (error) => {
-				showStatusMessage(error.data, 'failure')
-			},
-		})
+	const removeFromGroup = async (groupId, userId) => {
+		const response = await removeUserFromGroup(groupId, userId)
+		console.log(response)
+		if (response.status === 200) {
+			showStatusMessage('Removed user', 'success')
+			setRefreshUsers(!refreshUsers)
+		} else {
+			showStatusMessage(error.data, 'failure')
+		}
 	}
 
-	const giveAdmin = async (newAdminid) => {
+	const giveAdmin = async (newAdminId) => {
 		Alert.alert(t('removeAdminTitle'), t('removeAdminDescription'), [
 			{
 				text: 'Yes',
 				onPress: async () => {
-					const data = { groupId: id, userId: newAdminid }
-					await putData(data, `/groups/creator`, {
-						onSuccess: async (response) => {
-							showStatusMessage(response.data, 'success')
-							getCreator(userId, id)
-						},
-						onError: (error) => {
-							showStatusMessage(error.data, 'failure')
-						},
-					})
+					const response = await changeGroupAdmin(id, newAdminId)
+					if (response.status === 200) {
+						showStatusMessage(response.data, 'success')
+						setAdmin(false)
+					} else {
+						showStatusMessage(error.data, 'failure')
+					}
 				},
 			},
 			{
@@ -86,21 +78,17 @@ export default function Menu({
 	}
 
 	useEffect(() => {
-		async function getUsers() {
-			await getData(`/groups/userlist/${id}`, {
-				onSuccess: async (response) => {
-					setUsers(
-						response.data.map((user) => {
-							return { username: user.username, id: user.id }
-						})
-					)
-				},
-				onError: (error) => {
-					showStatusMessage(error.data, 'failure')
-				},
-			})
-		}
-		getUsers()
+		;(async () => {
+			const response = await getGroupsUserList(id)
+			if (response.status === 200) {
+				const users = response.data
+				setUsers(
+					users.map((user) => {
+						return { username: user.username, id: user.id }
+					})
+				)
+			}
+		})()
 	}, [refreshUsers])
 
 	return (
@@ -113,7 +101,7 @@ export default function Menu({
 					<TouchableOpacity
 						onPress={() => {
 							if (!admin) {
-								leaveGroup()
+								leaveGroup(id)
 							} else {
 								showStatusMessage(
 									'Remove your admin rights before leaving',
@@ -146,7 +134,7 @@ export default function Menu({
 								<View style={styles.rowLayout}>
 									<TouchableOpacity
 										onPress={() => {
-											removeFromGroup(item.id)
+											removeFromGroup(id, item.id)
 										}}
 									>
 										<ImageBackground

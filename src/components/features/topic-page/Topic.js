@@ -2,12 +2,19 @@ import { Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import styles from '../../../utils/styles'
 import localStyles from './topic.style'
 import React, { useState, useEffect } from 'react'
-import AddNoteForm from '../topic_page/AddNoteForm'
-import EditNoteForm from '../topic_page/EditNoteForm'
-import EditTopicForm from '../topic_page/EditTopicForm'
-import { getData } from '../../../functions/http_functions/http-requests'
+import AddNoteForm from './AddNoteForm'
+import EditNoteForm from './EditNoteForm'
+import EditTopicForm from './EditTopicForm'
 import BackButton from '../../general_components/BackButton'
 import NoteCard from './NoteCard'
+import { getTopicsNotes } from '../../../functions/http_functions/get-calls'
+import {
+	editTopicInfo,
+	editNote,
+} from '../../../functions/http_functions/put-calls'
+import { addNote } from '../../../functions/http_functions/post-calls'
+import { deleteNote } from '../../../functions/http_functions/delete-calls'
+import { doOnce, showStatusMessage } from '../../../functions/general-functions'
 
 export default function Topic({
 	topic,
@@ -25,8 +32,16 @@ export default function Topic({
 	const [refreshBlocks, setRefreshBlocks] = useState(false)
 	const [editTopic, setEditTopic] = useState(false)
 
+	const submitEditTopicFormOnce = doOnce(submitEditTopicForm)
+	const submitEditNoteFormOnce = doOnce(submitEditNoteForm)
+
 	useEffect(() => {
-		getNotes()
+		;(async () => {
+			const response = await getTopicsNotes(id)
+			if (response.status === 200) {
+				setNotes(response.data)
+			}
+		})()
 	}, [refreshNotes])
 
 	useEffect(() => {
@@ -44,17 +59,6 @@ export default function Topic({
 			setNoteBlocks(notes.map(noteBlock))
 		})
 	}, [notes, refreshBlocks])
-
-	const getNotes = async () => {
-		await getData(`/notes/notelist/${id}`, {
-			onSuccess: async (response) => {
-				setNotes(response.data)
-			},
-			onError: (error) => {
-				console.log(error)
-			},
-		})
-	}
 
 	const closeNoteForms = () => {
 		for (let i = 0; i < notesStatus.length; i++) {
@@ -85,7 +89,7 @@ export default function Topic({
 				<View key={note.id}>
 					{notesStatus[index] ? (
 						<EditNoteForm
-							id={note.id}
+							noteId={note.id}
 							title={note.title}
 							content={note.content}
 							refreshNotes={refreshNotes}
@@ -93,6 +97,7 @@ export default function Topic({
 							notesStatus={notesStatus}
 							setNotesStatus={setNotesStatus}
 							orderCount={index}
+							action={submitEditNoteFormOnce}
 						/>
 					) : (
 						<NoteCard
@@ -101,23 +106,65 @@ export default function Topic({
 							addToUseStateSlot={addToUseStateSlot}
 							setRefreshNotes={setRefreshNotes}
 							refreshNotes={refreshNotes}
+							action={submitNoteDeletion}
 						/>
 					)}
 				</View>
 			)
 		}
 
+	async function submitEditTopicForm(values) {
+		const response = await editTopicInfo(values, id)
+		if (response.status === 201) {
+			showStatusMessage(response.data, 'success')
+			setRefreshTopics(!refreshTopics)
+			setEditTopic(false)
+			setActiveTopic(values)
+		} else {
+			showStatusMessage(response.data, 'failure')
+		}
+	}
+
+	async function submitNoteForm(values) {
+		const response = await addNote(values, id)
+		if (response.status === 201) {
+			showStatusMessage(response.data, 'success')
+			setRefreshNotes(!refreshNotes)
+			closeNoteForms()
+		} else {
+			showStatusMessage(response.data.message, 'failure')
+		}
+	}
+
+	async function submitEditNoteForm(values, noteId, orderCount) {
+		const response = await editNote(values, noteId)
+		if (response.status === 201) {
+			showStatusMessage(response.data, 'success')
+			setRefreshNotes(!refreshNotes)
+			const tempArray = notesStatus
+			tempArray[orderCount] = false
+			setNotesStatus(tempArray)
+		} else {
+			showStatusMessage(error.data, 'failure')
+		}
+	}
+
+	const submitNoteDeletion = async (id) => {
+		const response = await deleteNote(id)
+		if (response.status === 200) {
+			showStatusMessage(response.data, 'success')
+			setRefreshNotes(!refreshNotes)
+		}
+	}
+
 	return (
 		<ScrollView>
 			{editTopic ? (
 				<EditTopicForm
 					setEditTopic={setEditTopic}
-					setRefreshTopics={setRefreshTopics}
-					refreshTopics={refreshTopics}
-					topicId={id}
 					topic={topic}
 					description={description}
-					setActiveTopic={setActiveTopic}
+					action={submitEditTopicFormOnce}
 				/>
 			) : (
 				<View style={styles.rowLayout}>
@@ -134,12 +181,7 @@ export default function Topic({
 				</View>
 			)}
 
-			<AddNoteForm
-				id={id}
-				refreshNotes={refreshNotes}
-				setRefreshNotes={setRefreshNotes}
-				closeNoteForms={closeNoteForms}
-			/>
+			<AddNoteForm action={submitNoteForm} />
 			{noteBlocks}
 		</ScrollView>
 	)

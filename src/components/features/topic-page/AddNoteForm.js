@@ -3,44 +3,14 @@ import styles from '../../../utils/styles'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { NoteValidationSchema } from '../../../utils/validation-schemas'
-import { postData } from '../../../functions/http_functions/http-requests'
-import { showStatusMessage, doOnce } from '../../../functions/general-functions'
 import { useTranslation } from 'react-i18next'
-import '../language_select/i18n'
-import { filterObject } from '../../../functions/object-functions'
+import '../../../utils/i18n'
 import React from 'react'
 import FormField from '../../general_components/FormField'
 
-export default function AddNoteForm({
-	id,
-	refreshNotes,
-	setRefreshNotes,
-	closeNoteForms,
-}) {
+export default function AddNoteForm({ action }) {
 	const { t } = useTranslation()
-	let sendDataOnce = doOnce(sendData)
 
-	async function sendData(values) {
-		const noteData = filterObject(
-			{
-				...values,
-				topicId: id,
-			},
-			(value) => value !== ''
-		)
-		await postData(noteData, '/notes/note/', {
-			onSuccess: async (response) => {
-				showStatusMessage(response.data, 'success')
-				setRefreshNotes(!refreshNotes)
-				closeNoteForms()
-				sendDataOnce = doOnce(sendData)
-			},
-			onError: (error) => {
-				sendDataOnce = doOnce(sendData)
-				showStatusMessage(error.data.message, 'failure')
-			},
-		})
-	}
 	const emptyValues = { title: '', content: '' }
 	return (
 		<View style={styles.noteCard}>
@@ -49,7 +19,7 @@ export default function AddNoteForm({
 				validationSchema={NoteValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values, actions) => {
-					sendDataOnce(values)
+					action(values)
 					actions.setValues(emptyValues)
 				}}
 			>
