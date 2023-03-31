@@ -19,6 +19,23 @@ const doOnce = (fn) => {
 }
 
 /**
+ * Returns a function that executes the given function but doesn't allow re execution right away
+ * @param {*} fn The function to be executed
+ * @param {*} delay The amount of time in milliseconds until re execution is allowed
+ * @returns {*} A function that executes the given function but doesn't allow re execution right away
+ */
+const delaySecondExecution = (fn, delay) => {
+	let timedOut = false
+	return (...args) => {
+		if (!timedOut) {
+			timedOut = true
+			fn(...args)
+			setTimeout(() => (timedOut = false), delay)
+		}
+	}
+}
+
+/**
  * Adds an item to the end of a usestate array.
  * @param {*} item the item to be added to the array.
  * @param {*} itemArray The contents of the current state array.
@@ -106,4 +123,5 @@ export {
 	getUserId as getUserId,
 	CheckForShallowObjectEquality as CheckForShallowObjectEquality,
 	doOnce as doOnce,
+	delaySecondExecution as delaySecondExecution,
 }
