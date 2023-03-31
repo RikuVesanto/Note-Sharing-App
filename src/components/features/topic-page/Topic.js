@@ -5,15 +5,15 @@ import React, { useState, useEffect } from 'react'
 import AddNoteForm from './UI-components/AddNoteForm'
 import EditNoteForm from './UI-components/EditNoteForm'
 import EditTopicForm from './UI-components/EditTopicForm'
-import BackButton from '../../general_components/BackButton'
+import BackButton from '../../general-components/BackButton'
 import NoteCard from './UI-components/NoteCard'
-import { getTopicsNotes } from '../../../functions/http_functions/get-calls'
+import { getTopicsNotes } from '../../../functions/http-functions/get-calls'
 import {
 	editTopicInfo,
 	editNote,
-} from '../../../functions/http_functions/put-calls'
-import { addNote } from '../../../functions/http_functions/post-calls'
-import { deleteNote } from '../../../functions/http_functions/delete-calls'
+} from '../../../functions/http-functions/put-calls'
+import { addNote } from '../../../functions/http-functions/post-calls'
+import { deleteNote } from '../../../functions/http-functions/delete-calls'
 import {
 	delaySecondExecution,
 	showStatusMessage,

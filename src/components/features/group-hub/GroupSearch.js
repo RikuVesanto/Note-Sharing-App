@@ -11,10 +11,10 @@ import {
 } from '../../../functions/general-functions'
 import SearchResultCard from './UI-components/SearchResultCard'
 import GroupSearchForm from './UI-components/GroupSearchForm'
-import BackButton from '../../general_components/BackButton'
+import BackButton from '../../general-components/BackButton'
 import { useNavigation } from '@react-navigation/native'
-import { getGroupsBySearchWord } from '../../../functions/http_functions/get-calls'
-import { addUserToGroup } from '../../../functions/http_functions/post-calls'
+import { getGroupsBySearchWord } from '../../../functions/http-functions/get-calls'
+import { addUserToGroup } from '../../../functions/http-functions/post-calls'
 
 export default function GroupSearch({
 	setJoinGroup,

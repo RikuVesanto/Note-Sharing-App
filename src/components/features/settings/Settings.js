@@ -21,8 +21,8 @@ import ChangeLanguage from '../../general-components/ChangeLanguage'
 import {
 	changeUsersPassword,
 	changeUserInfo,
-} from '../../../functions/http_functions/put-calls'
-import { getUserInfo } from '../../../functions/http_functions/get-calls'
+} from '../../../functions/http-functions/put-calls'
+import { getUserInfo } from '../../../functions/http-functions/get-calls'
 
 export default function Settings({ setLogin }) {
 	const { t } = useTranslation()

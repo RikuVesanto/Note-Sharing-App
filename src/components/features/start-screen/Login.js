@@ -6,7 +6,7 @@ import styles from '../../../utils/styles'
 import AppStorage from '../../../utils/secure-store'
 import { showStatusMessage } from '../../../functions/general-functions'
 import { delaySecondExecution } from '../../../functions/general-functions'
-import { checkLoginDetails } from '../../../functions/http_functions/get-calls'
+import { checkLoginDetails } from '../../../functions/http-functions/get-calls'
 
 export default function Login({ setLoginPage, setLogin }) {
 	const { t } = useTranslation()

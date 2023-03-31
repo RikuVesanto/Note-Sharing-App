@@ -10,8 +10,8 @@ import {
 	CheckForShallowObjectEquality,
 } from '../../../../functions/general-functions'
 import React from 'react'
-import FormField from '../../../general_components/FormField'
-import CloseButton from '../../../general_components/CloseButton'
+import FormField from '../../../general-components/FormField'
+import CloseButton from '../../../general-components/CloseButton'
 
 export default function EditNoteForm({
 	noteId,

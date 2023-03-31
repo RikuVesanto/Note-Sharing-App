@@ -6,8 +6,8 @@ import localStyles from './addTopicForm.style'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
 import { CreateTopicValidationSchema } from '../../../../utils/validation-schemas'
-import BackButton from '../../../general_components/BackButton'
-import FormField from '../../../general_components/FormField'
+import BackButton from '../../../general-components/BackButton'
+import FormField from '../../../general-components/FormField'
 import React from 'react'
 
 export default function AddTopicForm({ showForm, goBack, action }) {

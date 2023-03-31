@@ -12,7 +12,7 @@ import {
 	showStatusMessage,
 	delaySecondExecution,
 } from '../../../functions/general-functions'
-import { addGroup } from '../../../functions/http_functions/post-calls'
+import { addGroup } from '../../../functions/http-functions/post-calls'
 
 export default function GroupHub({
 	setNeedToNavigate,

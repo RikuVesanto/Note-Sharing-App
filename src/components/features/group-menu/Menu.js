@@ -17,9 +17,9 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import '../../../utils/i18n'
-import { getGroupsUserList } from '../../../functions/http_functions/get-calls'
-import { changeGroupAdmin } from '../../../functions/http_functions/put-calls'
-import { removeUserFromGroup } from '../../../functions/http_functions/delete-calls'
+import { getGroupsUserList } from '../../../functions/http-functions/get-calls'
+import { changeGroupAdmin } from '../../../functions/http-functions/put-calls'
+import { removeUserFromGroup } from '../../../functions/http-functions/delete-calls'
 
 export default function Menu({
 	id,

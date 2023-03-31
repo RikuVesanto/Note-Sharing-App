@@ -19,9 +19,9 @@ import { getUserId } from '../../../functions/general-functions'
 import {
 	getTopics,
 	getGroupsCreator,
-} from '../../../functions/http_functions/get-calls'
-import { addTopic } from '../../../functions/http_functions/post-calls'
-import { changeGroupInfo } from '../../../functions/http_functions/put-calls'
+} from '../../../functions/http-functions/get-calls'
+import { addTopic } from '../../../functions/http-functions/post-calls'
+import { changeGroupInfo } from '../../../functions/http-functions/put-calls'
 import {
 	showStatusMessage,
 	delaySecondExecution,

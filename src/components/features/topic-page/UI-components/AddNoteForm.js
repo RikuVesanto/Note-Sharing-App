@@ -6,7 +6,7 @@ import { NoteValidationSchema } from '../../../../utils/validation-schemas'
 import { useTranslation } from 'react-i18next'
 import '../../../../utils/i18n'
 import React from 'react'
-import FormField from '../../../general_components/FormField'
+import FormField from '../../../general-components/FormField'
 
 export default function AddNoteForm({ action }) {
 	const { t } = useTranslation()

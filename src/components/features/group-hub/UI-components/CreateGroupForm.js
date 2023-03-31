@@ -6,8 +6,8 @@ import { CreateGroupValidationSchema } from '../../../../utils/validation-schema
 import '../../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../../../utils/styles'
-import FormField from '../../../general_components/FormField'
-import BackButton from '../../../general_components/BackButton'
+import FormField from '../../../general-components/FormField'
+import BackButton from '../../../general-components/BackButton'
 
 export default function CreateGroupForm({ setCreateGroup, action }) {
 	const { t } = useTranslation()

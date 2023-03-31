@@ -7,7 +7,7 @@ import {
 	showStatusMessage,
 	delaySecondExecution,
 } from '../../../functions/general-functions'
-import { addUser } from '../../../functions/http_functions/post-calls'
+import { addUser } from '../../../functions/http-functions/post-calls'
 
 export default function Register({ setLoginPage }) {
 	const { t } = useTranslation()

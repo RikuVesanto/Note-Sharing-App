@@ -5,7 +5,7 @@ import { LoginValidationSchema } from '../../../../utils/validation-schemas'
 import '../../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../../../utils/styles'
-import FormField from '../../../general_components/FormField'
+import FormField from '../../../general-components/FormField'
 
 import React from 'react'
 
