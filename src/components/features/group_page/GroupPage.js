@@ -22,7 +22,10 @@ import {
 } from '../../../functions/http_functions/get-calls'
 import { addTopic } from '../../../functions/http_functions/post-calls'
 import { changeGroupInfo } from '../../../functions/http_functions/put-calls'
-import { showStatusMessage, doOnce } from '../../../functions/general-functions'
+import {
+	showStatusMessage,
+	delaySecondExecution,
+} from '../../../functions/general-functions'
 import { useNavigation } from '@react-navigation/native'
 
 export default function GroupPage({
@@ -47,8 +50,10 @@ export default function GroupPage({
 	const [userId, setUserId] = useState(false)
 
 	const navigation = useNavigation()
-	let submitEditGroupInfoFormOnce = doOnce(submitEditGroupInfoForm)
-	let submitTopicFormOnce = doOnce(submitTopicForm)
+	const submitEditGroupInfoFormWithBreak = delaySecondExecution(
+		submitEditGroupInfoForm
+	)
+	const submitTopicFormWithBreak = delaySecondExecution(submitTopicForm)
 
 	useEffect(() => {
 		;(async () => {
@@ -150,7 +155,7 @@ export default function GroupPage({
 							name={name}
 							description={description}
 							setEditGroupInfo={setEditGroupInfo}
-							action={submitEditGroupInfoFormOnce}
+							action={submitEditGroupInfoFormWithBreak}
 						/>
 					) : (
 						<TouchableOpacity
@@ -187,7 +192,7 @@ export default function GroupPage({
 			<AddTopicForm
 				newTopicFormVisible={newTopicFormVisible}
 				setNewTopicFormVisible={setNewTopicFormVisible}
-				action={submitTopicFormOnce}
+				action={submitTopicFormWithBreak}
 			/>
 		</View>
 	)

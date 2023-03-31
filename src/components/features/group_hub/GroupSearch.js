@@ -5,12 +5,9 @@ import localStyles from './groupSearch.style'
 import { useTranslation } from 'react-i18next'
 import '../../../utils/i18n'
 import {
-	getData,
-	postData,
-} from '../../../functions/http_functions/http-requests'
-import {
 	showStatusMessage,
 	getUserId,
+	delaySecondExecution,
 } from '../../../functions/general-functions'
 import SearchResultCard from './SearchResultCard'
 import GroupSearchForm from './GroupSearchForm'
@@ -32,11 +29,14 @@ export default function GroupSearch({
 	const [groups, setGroups] = useState('')
 	const [searchResultCards, setSearchResultCards] = useState([])
 
+	const submitJoinRequestWithBreak = delaySecondExecution(submitJoinRequest)
+	const submitSearchWithBreak = delaySecondExecution(submitSearch)
+
 	useEffect(() => {
 		if (groups) {
 			const resultCount = groups.length
 			const resultCards = groups.map((group) =>
-				createSearchResultCard(group, submitJoinRequest)
+				createSearchResultCard(group, submitJoinRequestWithBreak)
 			)
 			const resultCountAndCards = [
 				<Text key="results" style={localStyles.resultsText}>
@@ -93,7 +93,7 @@ export default function GroupSearch({
 					{t('group_search')}
 				</Text>
 			</View>
-			<GroupSearchForm action={submitSearch} />
+			<GroupSearchForm action={submitSearchWithBreak} />
 			{searchResultCards}
 		</ScrollView>
 	)

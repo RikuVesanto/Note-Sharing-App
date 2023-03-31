@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import {
 	getUserId,
 	showStatusMessage,
-	doOnce,
+	delaySecondExecution,
 } from '../../../functions/general-functions'
 import { addGroup } from '../../../functions/http_functions/post-calls'
 
@@ -25,7 +25,7 @@ export default function GroupHub({
 	const [createGroup, setCreateGroup] = useState(false)
 	const [joinGroup, setJoinGroup] = useState(false)
 	const navigation = useNavigation()
-	let sendDataOnce = doOnce(submitGroupForm)
+	const submitGroupFormWithBreak = delaySecondExecution(submitGroupForm)
 
 	async function submitGroupForm(values) {
 		const userId = await getUserId()
@@ -60,7 +60,7 @@ export default function GroupHub({
 			{createGroup && (
 				<CreateGroupForm
 					setCreateGroup={setCreateGroup}
-					action={sendDataOnce}
+					action={submitGroupFormWithBreak}
 				/>
 			)}
 			{joinGroup && (

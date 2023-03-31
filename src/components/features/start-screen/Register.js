@@ -3,14 +3,17 @@ import RegisterForm from './RegisterForm'
 import '../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../../utils/styles'
-import { showStatusMessage, doOnce } from '../../../functions/general-functions'
+import {
+	showStatusMessage,
+	delaySecondExecution,
+} from '../../../functions/general-functions'
 import { addUser } from '../../../functions/http_functions/post-calls'
 
 export default function Register({ setLoginPage }) {
 	const { t } = useTranslation()
-	let sendDataOnce = doOnce(submitForm)
+	const submitSignupFormWithBreak = delaySecondExecution(submitSignupForm)
 
-	function submitForm(values) {
+	function submitSignupForm(values) {
 		addUser(values).then((response) => {
 			if (response.status === 201) {
 				showStatusMessage(response.data, 'success')
@@ -24,7 +27,10 @@ export default function Register({ setLoginPage }) {
 	return (
 		<ScrollView contentContainerStyle={styles.mainContainer}>
 			<Text style={styles.largeHeader}>{t('register')}</Text>
-			<RegisterForm setLoginPage={setLoginPage} action={sendDataOnce} />
+			<RegisterForm
+				setLoginPage={setLoginPage}
+				action={submitSignupFormWithBreak}
+			/>
 			<TouchableOpacity onPress={() => setLoginPage(true)}>
 				<Text style={styles.hyperlink}>{t('gotologin')}</Text>
 			</TouchableOpacity>

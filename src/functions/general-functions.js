@@ -24,7 +24,7 @@ const doOnce = (fn) => {
  * @param {*} delay The amount of time in milliseconds until re execution is allowed
  * @returns {*} A function that executes the given function but doesn't allow re execution right away
  */
-const delaySecondExecution = (fn, delay) => {
+const delaySecondExecution = (fn, delay = 5000) => {
 	let timedOut = false
 	return (...args) => {
 		if (!timedOut) {

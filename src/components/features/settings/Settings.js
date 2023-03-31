@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import {
 	getUserId,
-	doOnce,
+	delaySecondExecution,
 	showStatusMessage,
 } from '../../../functions/general-functions'
 import React, { useState, useEffect } from 'react'
@@ -26,8 +26,9 @@ import { getUserInfo } from '../../../functions/http_functions/get-calls'
 
 export default function Settings({ setLogin }) {
 	const { t } = useTranslation()
-	let postPasswordOnce = doOnce(postPasswordForm)
-	let postUserInfoOnce = doOnce(postUserInfoForm)
+	const postPasswordWithBreak = delaySecondExecution(postPasswordForm)
+	const postUserInfoWithBreak = delaySecondExecution(postUserInfoForm)
+
 	const [changePassword, setChangePassword] = useState(false)
 	const [currentValues, setCurrentValues] = useState([])
 	const [refreshUserData, setRefreshUserData] = useState(false)
@@ -69,7 +70,7 @@ export default function Settings({ setLogin }) {
 			{changePassword ? (
 				<ChangePasswordForm
 					setChangePassword={setChangePassword}
-					action={postPasswordOnce}
+					action={postPasswordWithBreak}
 				/>
 			) : (
 				<View>
@@ -96,7 +97,7 @@ export default function Settings({ setLogin }) {
 					</TouchableOpacity>
 					<EditUserInfoForm
 						currentValues={currentValues}
-						action={postUserInfoOnce}
+						action={postUserInfoWithBreak}
 					/>
 					<TouchableOpacity onPress={() => setChangePassword(true)}>
 						<Text style={styles.hyperlink}>{t('change_password')}</Text>

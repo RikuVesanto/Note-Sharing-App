@@ -14,7 +14,10 @@ import {
 } from '../../../functions/http_functions/put-calls'
 import { addNote } from '../../../functions/http_functions/post-calls'
 import { deleteNote } from '../../../functions/http_functions/delete-calls'
-import { doOnce, showStatusMessage } from '../../../functions/general-functions'
+import {
+	delaySecondExecution,
+	showStatusMessage,
+} from '../../../functions/general-functions'
 
 export default function Topic({
 	topic,
@@ -32,8 +35,9 @@ export default function Topic({
 	const [refreshBlocks, setRefreshBlocks] = useState(false)
 	const [editTopic, setEditTopic] = useState(false)
 
-	const submitEditTopicFormOnce = doOnce(submitEditTopicForm)
-	const submitEditNoteFormOnce = doOnce(submitEditNoteForm)
+	const submitEditTopicFormWithBreak = delaySecondExecution(submitEditTopicForm)
+	const submitEditNoteFormWithBreak = delaySecondExecution(submitEditNoteForm)
+	const submitNoteDeletionWithBreak = delaySecondExecution(submitNoteDeletion)
 
 	useEffect(() => {
 		;(async () => {
@@ -97,7 +101,7 @@ export default function Topic({
 							notesStatus={notesStatus}
 							setNotesStatus={setNotesStatus}
 							orderCount={index}
-							action={submitEditNoteFormOnce}
+							action={submitEditNoteFormWithBreak}
 						/>
 					) : (
 						<NoteCard
@@ -106,7 +110,7 @@ export default function Topic({
 							addToUseStateSlot={addToUseStateSlot}
 							setRefreshNotes={setRefreshNotes}
 							refreshNotes={refreshNotes}
-							action={submitNoteDeletion}
+							action={submitNoteDeletionWithBreak}
 						/>
 					)}
 				</View>
@@ -149,7 +153,7 @@ export default function Topic({
 		}
 	}
 
-	const submitNoteDeletion = async (id) => {
+	async function submitNoteDeletion(id) {
 		const response = await deleteNote(id)
 		if (response.status === 200) {
 			showStatusMessage(response.data, 'success')
@@ -164,7 +168,7 @@ export default function Topic({
 					setEditTopic={setEditTopic}
 					topic={topic}
 					description={description}
-					action={submitEditTopicFormOnce}
+					action={submitEditTopicFormWithBreak}
 				/>
 			) : (
 				<View style={styles.rowLayout}>

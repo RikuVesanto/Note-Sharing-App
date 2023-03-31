@@ -31,10 +31,14 @@ export default function Menu({
 	const { t } = useTranslation()
 	const navigation = useNavigation()
 
+	const leaveGroupWithBreak = delaySecondExecution(leaveGroup)
+	const removeFromGroupWithBreak = delaySecondExecution(removeFromGroup)
+	const giveAdminWithBreak = delaySecondExecution(giveAdmin)
+
 	const [users, setUsers] = useState([])
 	const [refreshUsers, setRefreshUsers] = useState(false)
 
-	const leaveGroup = async (groupId) => {
+	async function leaveGroup(groupId) {
 		const userId = await getUserId()
 		const response = await removeUserFromGroup(groupId, userId)
 		if (response.status === 200) {
@@ -46,7 +50,7 @@ export default function Menu({
 		}
 	}
 
-	const removeFromGroup = async (groupId, userId) => {
+	async function removeFromGroup(groupId, userId) {
 		const response = await removeUserFromGroup(groupId, userId)
 		console.log(response)
 		if (response.status === 200) {
@@ -57,7 +61,7 @@ export default function Menu({
 		}
 	}
 
-	const giveAdmin = async (newAdminId) => {
+	async function giveAdmin(newAdminId) {
 		Alert.alert(t('removeAdminTitle'), t('removeAdminDescription'), [
 			{
 				text: 'Yes',
@@ -101,7 +105,7 @@ export default function Menu({
 					<TouchableOpacity
 						onPress={() => {
 							if (!admin) {
-								leaveGroup(id)
+								leaveGroupWithBreak(id)
 							} else {
 								showStatusMessage(
 									'Remove your admin rights before leaving',
@@ -134,7 +138,7 @@ export default function Menu({
 								<View style={styles.rowLayout}>
 									<TouchableOpacity
 										onPress={() => {
-											removeFromGroup(id, item.id)
+											removeFromGroupWithBreak(id, item.id)
 										}}
 									>
 										<ImageBackground
@@ -145,7 +149,7 @@ export default function Menu({
 									</TouchableOpacity>
 									<TouchableOpacity
 										onPress={() => {
-											giveAdmin(item.id)
+											giveAdminWithBreak(item.id)
 										}}
 									>
 										<ImageBackground
