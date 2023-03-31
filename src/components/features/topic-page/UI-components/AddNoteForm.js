@@ -1,12 +1,12 @@
 import { View } from 'react-native'
-import styles from '../../../utils/styles'
+import styles from '../../../../utils/styles'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
-import { NoteValidationSchema } from '../../../utils/validation-schemas'
+import { NoteValidationSchema } from '../../../../utils/validation-schemas'
 import { useTranslation } from 'react-i18next'
-import '../../../utils/i18n'
+import '../../../../utils/i18n'
 import React from 'react'
-import FormField from '../../general_components/FormField'
+import FormField from '../../../general_components/FormField'
 
 export default function AddNoteForm({ action }) {
 	const { t } = useTranslation()

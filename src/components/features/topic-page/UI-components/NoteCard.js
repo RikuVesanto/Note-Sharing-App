@@ -1,5 +1,5 @@
 import { TouchableOpacity, ImageBackground, Text, View } from 'react-native'
-import styles from '../../../utils/styles'
+import styles from '../../../../utils/styles'
 import localStyles from './noteCard.style'
 
 export default function SearchResultCard({
@@ -18,7 +18,7 @@ export default function SearchResultCard({
 				<TouchableOpacity title="delete" onPress={() => action(id)}>
 					<ImageBackground
 						style={localStyles.deleteButton}
-						source={require('../../../../assets/delete.png')}
+						source={require('../../../../../assets/delete.png')}
 						resizeMode="center"
 					></ImageBackground>
 				</TouchableOpacity>
@@ -31,7 +31,7 @@ export default function SearchResultCard({
 				>
 					<ImageBackground
 						style={localStyles.editButton}
-						source={require('../../../../assets/edit.png')}
+						source={require('../../../../../assets/edit.png')}
 						resizeMode="center"
 					></ImageBackground>
 				</TouchableOpacity>

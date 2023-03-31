@@ -9,8 +9,8 @@ import {
 	getUserId,
 	delaySecondExecution,
 } from '../../../functions/general-functions'
-import SearchResultCard from './SearchResultCard'
-import GroupSearchForm from './GroupSearchForm'
+import SearchResultCard from './UI-components/SearchResultCard'
+import GroupSearchForm from './UI-components/GroupSearchForm'
 import BackButton from '../../general_components/BackButton'
 import { useNavigation } from '@react-navigation/native'
 import { getGroupsBySearchWord } from '../../../functions/http_functions/get-calls'

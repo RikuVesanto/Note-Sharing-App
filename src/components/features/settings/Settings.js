@@ -15,9 +15,9 @@ import {
 import React, { useState, useEffect } from 'react'
 import styles from '../../../utils/styles'
 import AppStorage from '../../../utils/secure-store'
-import EditUserInfoForm from './EditUserInfoForm'
-import ChangePasswordForm from './ChangePasswordForm'
-import ChangeLanguage from '../../general_components/ChangeLanguage'
+import EditUserInfoForm from './UI-components/EditUserInfoForm'
+import ChangePasswordForm from './UI-components/ChangePasswordForm'
+import ChangeLanguage from '../../general-components/ChangeLanguage'
 import {
 	changeUsersPassword,
 	changeUserInfo,

@@ -1,7 +1,7 @@
 import '../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import { Text, TouchableOpacity, ScrollView } from 'react-native'
-import LoginForm from './LoginForm'
+import LoginForm from './UI-components/LoginForm'
 import styles from '../../../utils/styles'
 import AppStorage from '../../../utils/secure-store'
 import { showStatusMessage } from '../../../functions/general-functions'

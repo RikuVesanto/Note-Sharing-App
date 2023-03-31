@@ -2,11 +2,11 @@ import React from 'react'
 import { View } from 'react-native'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
-import { SearchValidationSchema } from '../../../utils/validation-schemas'
-import '../../../utils/i18n'
+import { SearchValidationSchema } from '../../../../utils/validation-schemas'
+import '../../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
-import styles from '../../../utils/styles'
-import FormField from '../../general_components/FormField'
+import styles from '../../../../utils/styles'
+import FormField from '../../../general_components/FormField'
 
 export default function GroupSearchForm({ action }) {
 	const { t } = useTranslation()

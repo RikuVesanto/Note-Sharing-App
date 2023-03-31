@@ -1,33 +1,35 @@
 import { View } from 'react-native'
-import styles from '../../../utils/styles'
+import styles from '../../../../utils/styles'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
-import { CreateTopicValidationSchema } from '../../../utils/validation-schemas'
+import { CreateGroupValidationSchema } from '../../../../utils/validation-schemas'
 import { useTranslation } from 'react-i18next'
-import '../../../utils/i18n'
+import '../../../../utils/i18n'
 import {
-	CheckForShallowObjectEquality,
 	checkForFalse,
-} from '../../../functions/general-functions'
+	CheckForShallowObjectEquality,
+} from '../../../../functions/general-functions'
 import React from 'react'
-import FormField from '../../general_components/FormField'
-import CloseButton from '../../general_components/CloseButton'
+import FormField from '../../../general_components/FormField'
+import CloseButton from '../../../general_components/CloseButton'
 
-export default function EditNoteForm({
-	topic,
+export default function EditGroupInfoForm({
+	name,
 	description,
-	setEditTopic,
+	setEditGroupInfo,
 	action,
 }) {
 	const { t } = useTranslation()
 
-	const initialValues = { topic: topic, description: description }
+	const initialValues = { name: name, description: description }
+
 	return (
-		<View style={[styles.headerForm, styles.marginBottom]}>
-			<CloseButton action={() => setEditTopic(false)} />
+		<View style={styles.headerForm}>
+			<CloseButton action={() => setEditGroupInfo(false)} />
+
 			<Formik
 				initialValues={initialValues}
-				validationSchema={CreateTopicValidationSchema}
+				validationSchema={CreateGroupValidationSchema}
 				validateOnMount={true}
 				onSubmit={(values) => {
 					action(values)
@@ -47,15 +49,14 @@ export default function EditNoteForm({
 							hideText={false}
 							required={false}
 							largeField={false}
-							placeholder={t('topic')}
-							handleChange={() => handleChange('topic')}
-							handleBlur={handleBlur('topic')}
-							errors={errors.topic}
-							touched={touched.topic}
-							value={values.topic}
+							placeholder={t('name')}
+							handleChange={() => handleChange('name')}
+							handleBlur={handleBlur('name')}
+							errors={errors.name}
+							touched={touched.name}
+							value={values.name}
 							minimalStyle={true}
 							errorPosition={45}
-							slimInputs={true}
 						/>
 						<FormField
 							hideText={false}
@@ -69,16 +70,14 @@ export default function EditNoteForm({
 							value={values.description}
 							minimalStyle={true}
 							errorPosition={85}
-							slimInputs={true}
 						/>
-
 						<Button
 							buttonStyle={[
 								styles.button,
-								styles.largeMarginTop,
 								styles.marginBottom,
+								styles.largeMarginTop,
 							]}
-							title={t('edit_topic')}
+							title={t('edit_group_name')}
 							onPress={handleSubmit}
 							disabled={checkForFalse(
 								!isValid,

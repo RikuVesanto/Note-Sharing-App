@@ -1,25 +1,24 @@
 import { View } from 'react-native'
-import React from 'react'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
-import { RegisterValidationSchema } from '../../../utils/validation-schemas'
-import '../../../utils/i18n'
+import { LoginValidationSchema } from '../../../../utils/validation-schemas'
+import '../../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
-import styles from '../../../utils/styles'
-import FormField from '../../general_components/FormField'
+import styles from '../../../../utils/styles'
+import FormField from '../../../general_components/FormField'
 
-export default function RegisterForm({ action }) {
+import React from 'react'
+
+export default function LoginForm({ action }) {
 	const { t } = useTranslation()
 
 	return (
 		<Formik
 			initialValues={{
-				email: '',
 				username: '',
 				password: '',
-				name: '',
 			}}
-			validationSchema={RegisterValidationSchema}
+			validationSchema={LoginValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
 				action(values)
@@ -37,18 +36,7 @@ export default function RegisterForm({ action }) {
 				<View>
 					<FormField
 						hideText={false}
-						required={true}
-						largeField={false}
-						placeholder={t('email')}
-						handleChange={() => handleChange('email')}
-						handleBlur={handleBlur('email')}
-						errors={errors.email}
-						touched={touched.email}
-						value={values.email}
-					/>
-					<FormField
-						hideText={false}
-						required={true}
+						required={false}
 						largeField={false}
 						placeholder={t('username')}
 						handleChange={() => handleChange('username')}
@@ -59,7 +47,7 @@ export default function RegisterForm({ action }) {
 					/>
 					<FormField
 						hideText={true}
-						required={true}
+						required={false}
 						largeField={false}
 						placeholder={t('password')}
 						handleChange={() => handleChange('password')}
@@ -68,22 +56,10 @@ export default function RegisterForm({ action }) {
 						touched={touched.password}
 						value={values.password}
 					/>
-					<FormField
-						hideText={false}
-						required={false}
-						largeField={false}
-						placeholder={t('name')}
-						handleChange={() => handleChange('name')}
-						handleBlur={handleBlur('name')}
-						errors={errors.name}
-						touched={touched.name}
-						value={values.name}
-					/>
 					<View style={styles.buttonStyle}>
 						<Button
 							buttonStyle={styles.button}
-							name="button"
-							title={t('register')}
+							title={t('login')}
 							onPress={handleSubmit}
 							disabled={!isValid}
 						/>

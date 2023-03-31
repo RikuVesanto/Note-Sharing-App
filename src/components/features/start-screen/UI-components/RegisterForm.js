@@ -2,30 +2,24 @@ import { View } from 'react-native'
 import React from 'react'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
-import { EditUserInfoValidationSchema } from '../../../utils/validation-schemas'
-import {
-	CheckForShallowObjectEquality,
-	checkForFalse,
-} from '../../../functions/general-functions'
-import '../../../utils/i18n'
+import { RegisterValidationSchema } from '../../../../utils/validation-schemas'
+import '../../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
-import styles from '../../../utils/styles'
-import FormField from '../../general_components/FormField'
+import styles from '../../../../utils/styles'
+import FormField from '../../../general_components/FormField'
 
-export default function EditUserInfoForm({ currentValues, action }) {
+export default function RegisterForm({ action }) {
 	const { t } = useTranslation()
-
-	const initialValues = {
-		email: currentValues.email,
-		username: currentValues.username,
-		name: currentValues.name,
-	}
 
 	return (
 		<Formik
-			initialValues={initialValues}
-			enableReinitialize={true}
-			validationSchema={EditUserInfoValidationSchema}
+			initialValues={{
+				email: '',
+				username: '',
+				password: '',
+				name: '',
+			}}
+			validationSchema={RegisterValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
 				action(values)
@@ -64,6 +58,17 @@ export default function EditUserInfoForm({ currentValues, action }) {
 						value={values.username}
 					/>
 					<FormField
+						hideText={true}
+						required={true}
+						largeField={false}
+						placeholder={t('password')}
+						handleChange={() => handleChange('password')}
+						handleBlur={handleBlur('password')}
+						errors={errors.password}
+						touched={touched.password}
+						value={values.password}
+					/>
+					<FormField
 						hideText={false}
 						required={false}
 						largeField={false}
@@ -78,12 +83,9 @@ export default function EditUserInfoForm({ currentValues, action }) {
 						<Button
 							buttonStyle={styles.button}
 							name="button"
-							title={t('edit')}
+							title={t('register')}
 							onPress={handleSubmit}
-							disabled={checkForFalse(
-								!isValid,
-								CheckForShallowObjectEquality(values, initialValues)
-							)}
+							disabled={!isValid}
 						/>
 					</View>
 				</View>

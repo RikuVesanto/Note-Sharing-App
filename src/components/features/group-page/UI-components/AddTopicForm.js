@@ -1,36 +1,32 @@
 import { View, Text, Modal } from 'react-native'
-import '../../../utils/i18n'
+import '../../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
-import styles from '../../../utils/styles'
+import styles from '../../../../utils/styles'
 import localStyles from './addTopicForm.style'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
-import { CreateTopicValidationSchema } from '../../../utils/validation-schemas'
-import BackButton from '../../general_components/BackButton'
-import FormField from '../../general_components/FormField'
+import { CreateTopicValidationSchema } from '../../../../utils/validation-schemas'
+import BackButton from '../../../general_components/BackButton'
+import FormField from '../../../general_components/FormField'
 import React from 'react'
 
-export default function NewTopicForm({
-	newTopicFormVisible,
-	setNewTopicFormVisible,
-	action,
-}) {
+export default function AddTopicForm({ showForm, goBack, action }) {
 	const { t } = useTranslation()
 
 	return (
 		<Modal
 			animationType="fade"
-			visible={newTopicFormVisible}
-			onBackButtonPress={() => setNewTopicFormVisible(false)}
+			visible={showForm}
+			onBackButtonPress={() => goBack(false)}
 			onRequestClose={() => {
-				setNewTopicFormVisible(false)
+				goBack(false)
 			}}
 			transparent={true}
 			hasBackdrop={false}
 		>
 			<View style={localStyles.modal}>
 				<View style={styles.rowLayout}>
-					<BackButton action={setNewTopicFormVisible} />
+					<BackButton action={goBack} />
 					<Text style={localStyles.formTitle}>{t('new_topic')}</Text>
 				</View>
 				<Formik

@@ -2,12 +2,12 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { Button } from '@rneui/themed'
 import { Formik } from 'formik'
-import { CreateGroupValidationSchema } from '../../../utils/validation-schemas'
-import '../../../utils/i18n'
+import { CreateGroupValidationSchema } from '../../../../utils/validation-schemas'
+import '../../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
-import styles from '../../../utils/styles'
-import FormField from '../../general_components/FormField'
-import BackButton from '../../general_components/BackButton'
+import styles from '../../../../utils/styles'
+import FormField from '../../../general_components/FormField'
+import BackButton from '../../../general_components/BackButton'
 
 export default function CreateGroupForm({ setCreateGroup, action }) {
 	const { t } = useTranslation()

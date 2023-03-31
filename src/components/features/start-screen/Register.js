@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity, ScrollView } from 'react-native'
-import RegisterForm from './RegisterForm'
+import RegisterForm from './UI-components/RegisterForm'
 import '../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../../utils/styles'

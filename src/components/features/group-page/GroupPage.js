@@ -10,10 +10,10 @@ import '../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import styles from '../../../utils/styles'
 import localStyles from './groupPage.style'
-import AddTopicForm from './AddTopicForm'
-import EditGroupInfoForm from './EditGroupInfoForm'
+import AddTopicForm from './UI-components/AddTopicForm'
+import EditGroupInfoForm from './UI-components/EditGroupInfoForm'
 import Topic from '../topic-page/Topic'
-import TopicCard from './TopicCard'
+import TopicCard from './UI-components/TopicCard'
 import Menu from '../group-menu/Menu'
 import { getUserId } from '../../../functions/general-functions'
 import {
@@ -190,8 +190,8 @@ export default function GroupPage({
 				</View>
 			)}
 			<AddTopicForm
-				newTopicFormVisible={newTopicFormVisible}
-				setNewTopicFormVisible={setNewTopicFormVisible}
+				showForm={newTopicFormVisible}
+				goBack={setNewTopicFormVisible}
 				action={submitTopicFormWithBreak}
 			/>
 		</View>

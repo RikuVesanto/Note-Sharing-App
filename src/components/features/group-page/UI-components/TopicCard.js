@@ -1,5 +1,5 @@
 import { TouchableOpacity, Text } from 'react-native'
-import styles from '../../../utils/styles'
+import styles from '../../../../utils/styles'
 import localStyles from './topicCard.style'
 
 export default function TopicCard({ title, description, action }) {

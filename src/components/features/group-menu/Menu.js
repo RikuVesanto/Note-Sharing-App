@@ -12,6 +12,7 @@ import localStyles from './menu.style'
 import {
 	showStatusMessage,
 	getUserId,
+	delaySecondExecution,
 } from '../../../functions/general-functions'
 import { useNavigation } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
