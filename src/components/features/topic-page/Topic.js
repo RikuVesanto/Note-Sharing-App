@@ -53,13 +53,16 @@ export default function Topic({
 			if (notesStatus[index] != true && notesStatus[index] != false) {
 				addToUseStateSlot(false, index)
 			}
-			const noteBlock = createNoteBlock(
-				refreshNotes,
-				setRefreshNotes,
-				notesStatus,
-				setNotesStatus,
-				addToUseStateSlot
-			)
+			const noteBlock = (a, b) =>
+				createNoteBlock(
+					refreshNotes,
+					setRefreshNotes,
+					notesStatus,
+					setNotesStatus,
+					addToUseStateSlot,
+					a,
+					b
+				)
 			setNoteBlocks(notes.map(noteBlock))
 		})
 	}, [notes, refreshBlocks])
@@ -80,42 +83,42 @@ export default function Topic({
 		}
 	}
 
-	const createNoteBlock =
-		(
-			refreshNotes,
-			setRefreshNotes,
-			notesStatus,
-			setNotesStatus,
-			addToUseStateSlot
-		) =>
-		(note, index) => {
-			return (
-				<View key={note.id}>
-					{notesStatus[index] ? (
-						<EditNoteForm
-							noteId={note.id}
-							title={note.title}
-							content={note.content}
-							refreshNotes={refreshNotes}
-							setRefreshNotes={setRefreshNotes}
-							notesStatus={notesStatus}
-							setNotesStatus={setNotesStatus}
-							orderCount={index}
-							action={submitEditNoteFormWithBreak}
-						/>
-					) : (
-						<NoteCard
-							{...note}
-							count={index}
-							addToUseStateSlot={addToUseStateSlot}
-							setRefreshNotes={setRefreshNotes}
-							refreshNotes={refreshNotes}
-							action={submitNoteDeletionWithBreak}
-						/>
-					)}
-				</View>
-			)
-		}
+	const createNoteBlock = (
+		refreshNotes,
+		setRefreshNotes,
+		notesStatus,
+		setNotesStatus,
+		addToUseStateSlot,
+		note,
+		index
+	) => {
+		return (
+			<View key={note.id}>
+				{notesStatus[index] ? (
+					<EditNoteForm
+						noteId={note.id}
+						title={note.title}
+						content={note.content}
+						refreshNotes={refreshNotes}
+						setRefreshNotes={setRefreshNotes}
+						notesStatus={notesStatus}
+						setNotesStatus={setNotesStatus}
+						orderCount={index}
+						action={submitEditNoteFormWithBreak}
+					/>
+				) : (
+					<NoteCard
+						{...note}
+						count={index}
+						addToUseStateSlot={addToUseStateSlot}
+						setRefreshNotes={setRefreshNotes}
+						refreshNotes={refreshNotes}
+						action={submitNoteDeletionWithBreak}
+					/>
+				)}
+			</View>
+		)
+	}
 
 	async function submitEditTopicForm(values) {
 		const response = await editTopicInfo(values, id)
