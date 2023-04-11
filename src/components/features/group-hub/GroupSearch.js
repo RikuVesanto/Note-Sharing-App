@@ -35,9 +35,10 @@ export default function GroupSearch({
 	useEffect(() => {
 		if (groups) {
 			const resultCount = groups.length
-			const resultCards = groups.map((group) =>
+			const searchResultCard = (group) =>
 				createSearchResultCard(group, submitJoinRequestWithBreak)
-			)
+			const resultCards = groups.map((group) => searchResultCard(group))
+
 			const resultCountAndCards = [
 				<Text key="results" style={localStyles.resultsText}>
 					{resultCount + ' ' + t('results_found')}

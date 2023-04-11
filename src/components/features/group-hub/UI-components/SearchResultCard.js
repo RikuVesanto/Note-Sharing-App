@@ -2,6 +2,10 @@ import { TouchableOpacity, Text, View } from 'react-native'
 import localStyles from './searchResultCard.style'
 import '../../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
+import {
+	testEquality,
+	getProperty,
+} from '../../../../functions/general-functions'
 
 export default function SearchResultCard({
 	name,
@@ -11,7 +15,11 @@ export default function SearchResultCard({
 	usersGroups,
 }) {
 	const { t } = useTranslation()
-	const alreadyJoined = usersGroups.filter((g) => g.name === name).length > 0
+
+	const getGroupName = (group) => getProperty(group, 'name')
+	const groupNames = usersGroups.map(getGroupName)
+	const compareToGroup = (value) => testEquality(name, value)
+	const alreadyJoined = groupNames.filter(compareToGroup).length > 0
 
 	return (
 		<View style={localStyles.groupCard}>

@@ -116,6 +116,22 @@ const CheckForShallowObjectEquality = (object1, object2) => {
 	return keys1.every(hasSameKeys)
 }
 
+/**
+ * Checks if each value of the object matches each other, doesn't work for nested objects
+ * @param {*} value the first value being compared
+ * @param {*} secondValue the second value being compared
+ * @returns {*} true if the values are equal
+ */
+const testEquality = (value, secondValue) => value === secondValue
+
+/**
+ * Gets the wanted propertys value from an object
+ * @param {*} object the object which property is being taken
+ * @param {*} key the key used to access the wanted property
+ * @returns {*} the propertys value
+ */
+const getProperty = (object, key) => object[key]
+
 export {
 	addToUseState as addToUseState,
 	showStatusMessage as showStatusMessage,
@@ -124,4 +140,6 @@ export {
 	CheckForShallowObjectEquality as CheckForShallowObjectEquality,
 	doOnce as doOnce,
 	delaySecondExecution as delaySecondExecution,
+	testEquality as testEquality,
+	getProperty as getProperty,
 }
