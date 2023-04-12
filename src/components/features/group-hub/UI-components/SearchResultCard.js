@@ -3,8 +3,8 @@ import localStyles from './searchResultCard.style'
 import '../../../../utils/i18n'
 import { useTranslation } from 'react-i18next'
 import {
-	testEquality,
-	getProperty,
+	objectArrayToPropertyArray,
+	valueInArray,
 } from '../../../../functions/general-functions'
 
 export default function SearchResultCard({
@@ -16,10 +16,11 @@ export default function SearchResultCard({
 }) {
 	const { t } = useTranslation()
 
-	const getGroupName = (group) => getProperty(group, 'name')
-	const groupNames = usersGroups.map(getGroupName)
-	const compareToGroup = (value) => testEquality(name, value)
-	const alreadyJoined = groupNames.filter(compareToGroup).length > 0
+	const inGroup = valueInArray(
+		objectArrayToPropertyArray(usersGroups, 'name'),
+		name,
+		1
+	)
 
 	return (
 		<View style={localStyles.groupCard}>
@@ -31,14 +32,14 @@ export default function SearchResultCard({
 				<TouchableOpacity
 					style={[
 						localStyles.joinGroupButton,
-						alreadyJoined && localStyles.alreadyJoinedColor,
+						inGroup && localStyles.alreadyJoinedColor,
 					]}
 					onPress={() => {
-						if (!alreadyJoined) action(groupId, name)
+						if (!inGroup) action(groupId, name)
 					}}
 				>
 					<Text style={localStyles.joinGroupButtonTitle}>
-						{alreadyJoined ? t('already_joined') : t('join_group')}
+						{inGroup ? t('already_joined') : t('join_group')}
 					</Text>
 				</TouchableOpacity>
 			</View>

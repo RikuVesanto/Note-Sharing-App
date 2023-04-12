@@ -132,6 +132,29 @@ const testEquality = (value, secondValue) => value === secondValue
  */
 const getProperty = (object, key) => object[key]
 
+/**
+ * Checks if a specific value is in the given array
+ * @param {*} array the array which is being checked
+ * @param {*} value the value that's being searched for
+ * @param {*} amount the amount of times the value should show in the array
+ * @returns {*} true if array had enough of the value otherwise false
+ */
+const valueInArray = (array, searchValue, amount) => {
+	const compareToGroup = (value) => testEquality(value, searchValue)
+	return array.filter(compareToGroup).length >= amount
+}
+
+/**
+ * Creates an array of property values based on an array of objects
+ * @param {*} objectArray an array of objects
+ * @param {*} property the property the array is filled with
+ * @returns {*} an array of property values
+ */
+const objectArrayToPropertyArray = (objectArray, property) => {
+	const getObjectProperty = (object) => getProperty(object, property)
+	return objectArray.map(getObjectProperty)
+}
+
 export {
 	addToUseState as addToUseState,
 	showStatusMessage as showStatusMessage,
@@ -142,4 +165,6 @@ export {
 	delaySecondExecution as delaySecondExecution,
 	testEquality as testEquality,
 	getProperty as getProperty,
+	valueInArray as valueInArray,
+	objectArrayToPropertyArray as objectArrayToPropertyArray,
 }
