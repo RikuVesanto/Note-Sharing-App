@@ -9,15 +9,15 @@ import React, { useState } from 'react'
 import localStyles from './formField.style'
 
 export default function FormField({
-	hideText,
 	required,
-	largeField,
 	placeholder,
 	handleChange,
 	handleBlur,
 	errors,
 	touched,
 	value = '',
+	hideText,
+	largeField,
 	minimalStyle = false,
 	errorPosition = null,
 	whiteText = false,

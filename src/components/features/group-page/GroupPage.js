@@ -73,22 +73,27 @@ export default function GroupPage({
 				const topics = response.data
 				setTopicCards(
 					topics.map((topic) =>
-						topicCard(topic, () => {
-							setActiveTopic(topic)
-							setTopicsNotesVisible(true)
-						})
+						topicCard(
+							topic.topic,
+							topic.description,
+							() => {
+								setActiveTopic(topic)
+								setTopicsNotesVisible(true)
+							},
+							topic.id
+						)
 					)
 				)
 			}
 		})()
 	}, [refreshTopics])
 
-	const topicCard = (topic, action) => {
+	const topicCard = (title, description, action, key) => {
 		return (
 			<TopicCard
-				key={topic.id}
-				title={topic.topic}
-				description={topic.description}
+				key={key}
+				title={title}
+				description={description}
 				action={action}
 			/>
 		)

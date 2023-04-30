@@ -39,15 +39,22 @@ export default function Menu({
 	const [users, setUsers] = useState([])
 	const [refreshUsers, setRefreshUsers] = useState(false)
 
-	async function leaveGroup(groupId) {
-		const userId = await getUserId()
-		const response = await removeUserFromGroup(groupId, userId)
+	async function leaveGroup(
+		groupId,
+		userId,
+		executeApiCall,
+		setState,
+		state,
+		displayStatus,
+		navigate
+	) {
+		const response = await executeApiCall(groupId, userId)
 		if (response.status === 200) {
-			showStatusMessage(response.data, 'success', 600)
-			setRefreshGroups(!refreshGroups)
-			navigation.navigate('Group Hub')
+			displayStatus(response.data, 'success', 600)
+			setState(!state)
+			navigate('Group Hub')
 		} else {
-			showStatusMessage(error.data, 'failure')
+			displayStatus(error.data, 'failure')
 		}
 	}
 
@@ -104,9 +111,18 @@ export default function Menu({
 				</View>
 				<View style={localStyles.headerViewRight}>
 					<TouchableOpacity
-						onPress={() => {
+						onPress={async () => {
 							if (!admin) {
-								leaveGroupWithBreak(id)
+								const userId = await getUserId()
+								leaveGroupWithBreak(
+									id,
+									userId,
+									removeUserFromGroup,
+									setRefreshGroups,
+									refreshGroups,
+									showStatusMessage,
+									navigation.navigate
+								)
 							} else {
 								showStatusMessage(
 									'Remove your admin rights before leaving',

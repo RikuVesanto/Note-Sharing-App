@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { View, Text, ScrollView } from 'react-native'
 import styles from '../../../utils/styles'
 import localStyles from './groupSearch.style'
@@ -8,6 +8,8 @@ import {
 	showStatusMessage,
 	getUserId,
 	delaySecondExecution,
+	cacheResults,
+	logOperation,
 } from '../../../functions/general-functions'
 import SearchResultCard from './UI-components/SearchResultCard'
 import GroupSearchForm from './UI-components/GroupSearchForm'
@@ -29,15 +31,13 @@ export default function GroupSearch({
 	const [groups, setGroups] = useState('')
 	const [searchResultCards, setSearchResultCards] = useState([])
 
-	const submitJoinRequestWithBreak = delaySecondExecution(submitJoinRequest)
-	const submitSearchWithBreak = delaySecondExecution(submitSearch)
-
 	useEffect(() => {
 		if (groups) {
 			const resultCount = groups.length
 			const searchResultCard = (group) =>
 				createSearchResultCard(group, submitJoinRequestWithBreak)
-			const resultCards = groups.map((group) => searchResultCard(group))
+
+			const resultCards = groups.map(searchResultCard)
 
 			const resultCountAndCards = [
 				<Text key="results" style={localStyles.resultsText}>
@@ -45,6 +45,7 @@ export default function GroupSearch({
 				</Text>,
 				...resultCards,
 			]
+
 			setSearchResultCards(resultCountAndCards)
 		}
 	}, [groups])
@@ -81,10 +82,22 @@ export default function GroupSearch({
 		}
 	}
 
-	async function submitSearch(values) {
-		const groups = (await getGroupsBySearchWord(values)).data
+	const getSearchResult = async (search) => {
+		const result = (await getGroupsBySearchWord(search)).data
+		return result
+	}
+
+	const cachedGetSearchResult = useRef(
+		cacheResults(logOperation(getSearchResult))
+	)
+
+	const submitSearch = async (search) => {
+		const groups = await cachedGetSearchResult.current(search)
 		setGroups(groups)
 	}
+
+	const submitJoinRequestWithBreak = delaySecondExecution(submitJoinRequest)
+	const submitSearchWithBreak = delaySecondExecution(submitSearch)
 
 	return (
 		<ScrollView>

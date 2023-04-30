@@ -12,8 +12,8 @@ async function getUserInfo(userId) {
 	return await getData(`/users/user/${userId}`)
 }
 
-async function getGroupsBySearchWord(values) {
-	return await getData(`/groups/searchlist/${values.search}`)
+async function getGroupsBySearchWord(search) {
+	return await getData(`/groups/searchlist/${search}`)
 }
 
 async function getGroupsUserList(userId) {

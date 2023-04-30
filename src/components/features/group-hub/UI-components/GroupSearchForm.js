@@ -19,7 +19,7 @@ export default function GroupSearchForm({ action }) {
 			validationSchema={SearchValidationSchema}
 			validateOnMount={true}
 			onSubmit={(values) => {
-				action(values)
+				action(values.search)
 			}}
 		>
 			{({

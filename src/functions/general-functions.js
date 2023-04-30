@@ -117,12 +117,21 @@ const CheckForShallowObjectEquality = (object1, object2) => {
 }
 
 /**
- * Checks if each value of the object matches each other, doesn't work for nested objects
+ * Checks if the values are equal
  * @param {*} value the first value being compared
  * @param {*} secondValue the second value being compared
  * @returns {*} true if the values are equal
  */
 const testEquality = (value, secondValue) => value === secondValue
+
+/**
+ * Returns a function that calls testEquality
+ * @param {*} value the first value being compared
+ * @param {*} secondValue the second value being compared
+ * @returns {*} A partially applied function that will call testEquality
+ */
+const fixTestEquality = (value) => (secondValue) =>
+	testEquality(value, secondValue)
 
 /**
  * Gets the wanted propertys value from an object
@@ -140,8 +149,8 @@ const getProperty = (object, key) => object[key]
  * @returns {*} true if array had enough of the value otherwise false
  */
 const valueInArray = (array, searchValue, amount) => {
-	const compareToGroup = (value) => testEquality(value, searchValue)
-	return array.filter(compareToGroup).length >= amount
+	const compareToValue = fixTestEquality(searchValue)
+	return array.filter(compareToValue).length >= amount
 }
 
 /**
@@ -151,8 +160,32 @@ const valueInArray = (array, searchValue, amount) => {
  * @returns {*} an array of property values
  */
 const objectArrayToPropertyArray = (objectArray, property) => {
-	const getObjectProperty = (object) => getProperty(object, property)
-	return objectArray.map(getObjectProperty)
+	const getObjectsProperty = (property) => (object) =>
+		getProperty(object, property)
+	const getPropertyFromObject = getObjectsProperty(property)
+	return objectArray.map(getPropertyFromObject)
+}
+
+/**
+ * Logs
+ * @param {*} objectArray an array of objects
+ * @param {*} property the property the array is filled with
+ * @returns {*} an array of property values
+ */
+
+const logOperation =
+	(fn) =>
+	(...args) => {
+		console.log(`Received function ${fn.name} with arguments: ${args}`)
+		const result = fn(...args)
+		console.log(`${fn.name} executed with result: ${result}`)
+		return result
+	}
+
+const cacheResults = (fn) => {
+	let cache = {}
+	return async (value) =>
+		value in cache ? cache[value] : (cache[value] = await fn(value))
 }
 
 export {
@@ -167,4 +200,7 @@ export {
 	getProperty as getProperty,
 	valueInArray as valueInArray,
 	objectArrayToPropertyArray as objectArrayToPropertyArray,
+	logOperation as logOperation,
+	fixTestEquality as fixTestEquality,
+	cacheResults as cacheResults,
 }

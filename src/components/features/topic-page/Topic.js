@@ -49,76 +49,62 @@ export default function Topic({
 	}, [refreshNotes])
 
 	useEffect(() => {
-		notes.forEach((element, index) => {
-			if (notesStatus[index] != true && notesStatus[index] != false) {
-				addToUseStateSlot(false, index)
-			}
-			const noteBlock = (a, b) =>
-				createNoteBlock(
-					refreshNotes,
-					setRefreshNotes,
-					notesStatus,
-					setNotesStatus,
-					addToUseStateSlot,
-					a,
-					b
-				)
-			setNoteBlocks(notes.map(noteBlock))
-		})
+		const noteBlock = createNoteBlock(
+			refreshNotes,
+			setRefreshNotes,
+			notesStatus,
+			setNotesStatus,
+			addToUseStateSlot
+		)
+		setNoteBlocks(notes.map(noteBlock))
 	}, [notes, refreshBlocks])
 
-	const closeNoteForms = () => {
-		for (let i = 0; i < notesStatus.length; i++) {
-			notesStatus[i] = false
-		}
-	}
-
 	const addToUseStateSlot = (item, slot) => {
-		closeNoteForms()
-		const tempArray = notesStatus
-		tempArray[slot] = item
+		const tempArray = notesStatus.map((element, index) =>
+			index === slot ? item : false
+		)
 		setNotesStatus(tempArray)
 		if (item === true) {
 			setRefreshBlocks(!refreshBlocks)
 		}
 	}
 
-	const createNoteBlock = (
-		refreshNotes,
-		setRefreshNotes,
-		notesStatus,
-		setNotesStatus,
-		addToUseStateSlot,
-		note,
-		index
-	) => {
-		return (
-			<View key={note.id}>
-				{notesStatus[index] ? (
-					<EditNoteForm
-						noteId={note.id}
-						title={note.title}
-						content={note.content}
-						refreshNotes={refreshNotes}
-						setRefreshNotes={setRefreshNotes}
-						notesStatus={notesStatus}
-						setNotesStatus={setNotesStatus}
-						orderCount={index}
-						action={submitEditNoteFormWithBreak}
-					/>
-				) : (
-					<NoteCard
-						{...note}
-						count={index}
-						addToUseStateSlot={addToUseStateSlot}
-						setRefreshNotes={setRefreshNotes}
-						refreshNotes={refreshNotes}
-						action={submitNoteDeletionWithBreak}
-					/>
-				)}
-			</View>
-		)
-	}
+	const createNoteBlock =
+		(
+			refreshNotes,
+			setRefreshNotes,
+			notesStatus,
+			setNotesStatus,
+			addToUseStateSlot
+		) =>
+		(note, index) => {
+			return (
+				<View key={note.id}>
+					{notesStatus[index] ? (
+						<EditNoteForm
+							noteId={note.id}
+							title={note.title}
+							content={note.content}
+							refreshNotes={refreshNotes}
+							setRefreshNotes={setRefreshNotes}
+							notesStatus={notesStatus}
+							setNotesStatus={setNotesStatus}
+							orderCount={index}
+							action={submitEditNoteFormWithBreak}
+						/>
+					) : (
+						<NoteCard
+							{...note}
+							count={index}
+							addToUseStateSlot={addToUseStateSlot}
+							setRefreshNotes={setRefreshNotes}
+							refreshNotes={refreshNotes}
+							action={submitNoteDeletionWithBreak}
+						/>
+					)}
+				</View>
+			)
+		}
 
 	async function submitEditTopicForm(values) {
 		const response = await editTopicInfo(values, id)
@@ -137,7 +123,6 @@ export default function Topic({
 		if (response.status === 201) {
 			showStatusMessage(response.data, 'success')
 			setRefreshNotes(!refreshNotes)
-			closeNoteForms()
 		} else {
 			showStatusMessage(response.data.message, 'failure')
 		}
